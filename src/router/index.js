@@ -1,0 +1,43 @@
+import { createBrowserRouter } from "react-router-dom";
+import AppLayout from "../layout";
+import Login from "../pages/Login";
+import Register from "../pages/Register";
+import ForgotPassword from "../pages/ForgotPassword";
+import Home from "../pages/Home";
+import AccountBook from "../pages/AccountBook";
+import Transaction from "../pages/Transaction";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <AppLayout />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: "account-book",
+        element: <AccountBook />,
+      },
+      {
+        path: "transactions",
+        element: <Transaction />,
+      },
+    ],
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path: "forgot-password",
+    element: <ForgotPassword />,
+  },
+]);
+
+export default router;
