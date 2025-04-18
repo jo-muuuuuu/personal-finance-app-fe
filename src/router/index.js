@@ -3,7 +3,7 @@ import AppLayout from "../layout";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import ForgotPassword from "../pages/ForgotPassword";
-import Home from "../pages/Home";
+import Dashboard from "../pages/Dashboard";
 import AccountBook from "../pages/AccountBook";
 import Transaction from "../pages/Transaction";
 
@@ -14,7 +14,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />,
+        element: <Dashboard />,
       },
       {
         path: "account-book",
