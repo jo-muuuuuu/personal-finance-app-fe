@@ -1,21 +1,53 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Card, Button, Checkbox, Form, Input, Flex } from "antd";
+import { Card, Button, Checkbox, Form, Input, Flex, message } from "antd";
+
+import axios from "axios";
+
+import { antdSuccess, antdError } from "../../utils/antdMessage";
 
 const Login = () => {
-  const naviage = useNavigate();
+  const navigate = useNavigate();
 
   const forgotPasswordNavigate = () => {
-    naviage("/forgot-password");
+    navigate("/forgot-password");
   };
 
   const registerNavigate = () => {
-    naviage("/register");
+    navigate("/register");
   };
 
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
+
+    axios
+      .post("http://localhost:6789/api/login", values)
+      .then((response) => {
+        // console.log("Success!", response.data);
+
+        // const { id, nickname, email, token } = response.data;
+        // setId(id);
+        // setNickname(nickname);
+        // setEmail(email);
+        // setToken(token);
+
+        antdSuccess("Login successful!");
+        navigate("/");
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.error("Error response:", error.response.data);
+
+          if (error.response.status === 401) {
+            antdError("Invalid email or password");
+          } else if (error.response.status === 500) {
+            antdError("Server error, please try again later");
+          }
+        } else {
+          antdError("An error occurred: " + error.message);
+        }
+      });
   };
 
   return (

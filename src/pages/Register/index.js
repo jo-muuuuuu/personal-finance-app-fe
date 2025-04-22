@@ -4,6 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { LeftOutlined } from "@ant-design/icons";
 import { Modal, Card, Button, Checkbox, Form, Input } from "antd";
 
+import axios from "axios";
+
+import { antdSuccess, antdError } from "../../utils/antdMessage";
+
 const formItemLayout = {
   labelCol: {
     xs: { span: 24 },
@@ -30,10 +34,10 @@ const tailFormItemLayout = {
 
 const Register = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const naviage = useNavigate();
+  const navigate = useNavigate();
 
   const loginNavigate = () => {
-    naviage("/login");
+    navigate("/login");
   };
 
   const showModal = () => {
@@ -51,7 +55,30 @@ const Register = () => {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+    // console.log("Received values of form: ", values);
+
+    axios
+      .post("http://localhost:6789/api/register", values)
+      .then((response) => {
+        // console.log("Success!", response.data);
+        antdSuccess("Success!");
+        navigate("/login");
+      })
+      .catch((error) => {
+        // console.error("Error!", error);
+
+        if (error.response) {
+          if (error.response.status === 409) {
+            antdError("Email already exists!");
+          } else if (error.response.status === 500) {
+            antdError("Server error, please try again later");
+          }
+        } else {
+          antdError("Failed to register!");
+        }
+
+        // console.error("Error!");
+      });
   };
 
   return (

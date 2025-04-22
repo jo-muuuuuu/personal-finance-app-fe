@@ -6,6 +6,7 @@ import ForgotPassword from "../pages/ForgotPassword";
 import Dashboard from "../pages/Dashboard";
 import AccountBook from "../pages/AccountBook";
 import Transaction from "../pages/Transaction";
+import ResetPassword from "../pages/ResetPassword";
 
 const router = createBrowserRouter([
   {
@@ -35,8 +36,12 @@ const router = createBrowserRouter([
     element: <Register />,
   },
   {
-    path: "forgot-password",
+    path: "/forgot-password",
     element: <ForgotPassword />,
+  },
+  {
+    path: "/reset-password/:token",
+    element: <ResetPassword />,
   },
 ]);
 

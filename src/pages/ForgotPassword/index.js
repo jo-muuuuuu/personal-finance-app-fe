@@ -5,6 +5,8 @@ import { LeftOutlined } from "@ant-design/icons";
 import { Card, Button, Form, Input } from "antd";
 
 import "./index.css";
+import axios from "axios";
+import { antdSuccess, antdError } from "../../utils/antdMessage";
 
 const ForgotPassword = () => {
   const naviage = useNavigate();
@@ -14,7 +16,26 @@ const ForgotPassword = () => {
   };
 
   const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+    // console.log("Received values of form: ", values);
+
+    axios
+      .post("http://localhost:6789/api/forgot-password", values)
+      .then((response) => {
+        antdSuccess("Please check your email for password reset link!");
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.error("Error response:", error.response.data);
+
+          if (error.response.status === 401) {
+            antdError("Invalid email or password");
+          } else if (error.response.status === 500) {
+            antdError("Server error, please try again later");
+          }
+        } else {
+          antdError("An error occurred: " + error.message);
+        }
+      });
   };
 
   return (
