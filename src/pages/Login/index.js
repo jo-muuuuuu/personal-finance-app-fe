@@ -5,10 +5,15 @@ import { Card, Button, Checkbox, Form, Input, Flex, message } from "antd";
 
 import axios from "axios";
 
+import { useDispatch } from "react-redux";
+import { setUserNickname } from "../../store/reducers/userInfo";
+
 import { antdSuccess, antdError } from "../../utils/antdMessage";
+import { setToken } from "../../utils/index";
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const forgotPasswordNavigate = () => {
     navigate("/forgot-password");
@@ -26,11 +31,12 @@ const Login = () => {
       .then((response) => {
         // console.log("Success!", response.data);
 
-        // const { id, nickname, email, token } = response.data;
+        const { id, nickname, email, token } = response.data;
         // setId(id);
         // setNickname(nickname);
         // setEmail(email);
-        // setToken(token);
+        setToken(token, 60);
+        dispatch(setUserNickname(nickname));
 
         antdSuccess("Login successful!");
         navigate("/");

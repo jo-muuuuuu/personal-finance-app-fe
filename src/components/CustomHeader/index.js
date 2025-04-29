@@ -3,6 +3,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Layout, Dropdown, Breadcrumb, theme } from "antd";
 import { LogoutOutlined, DownOutlined } from "@ant-design/icons";
 
+import { useSelector } from "react-redux";
+
 import "./index.css";
 
 const { Header } = Layout;
@@ -14,6 +16,8 @@ const CustomHeader = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  const nickname = useSelector((state) => state.userInfo.userNickname);
 
   const breadcrumbNameMap = {
     "/dashboard": "Dashboard",
@@ -98,8 +102,8 @@ const CustomHeader = () => {
 
       <Dropdown menu={{ items: headerItems }} trigger={["click"]}>
         <p className="nickname">
-          Jonathan &nbsp;
-          {/* {nickname ? nickname.toUpperCase() : ""} &nbsp; */}
+          {/* {nickname} &nbsp; */}
+          {nickname ? nickname.toUpperCase() : ""} &nbsp;
           <DownOutlined />
         </p>
       </Dropdown>
