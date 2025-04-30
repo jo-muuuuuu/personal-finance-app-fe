@@ -1,12 +1,13 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import App from "../layout";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import ForgotPassword from "../pages/ForgotPassword";
 import Dashboard from "../pages/Dashboard";
-import AccountBook from "../pages/AccountBook";
+import AccountBookOverview from "../pages/AccountBook/AccountBookOverview";
 import Transaction from "../pages/Transaction";
 import ResetPassword from "../pages/ResetPassword";
+import NewAccountBook from "../pages/AccountBook/NewAccountBook";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +20,11 @@ const router = createBrowserRouter([
       },
       {
         path: "account-book",
-        element: <AccountBook />,
+        children: [
+          { index: true, element: <Navigate to="overview" replace /> },
+          { path: "overview", element: <AccountBookOverview /> },
+          { path: "new", element: <NewAccountBook /> },
+        ],
       },
       {
         path: "transactions",

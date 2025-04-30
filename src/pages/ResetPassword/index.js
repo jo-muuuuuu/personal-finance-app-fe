@@ -37,9 +37,12 @@ const ResetPassword = () => {
   useEffect(() => {
     const validateToken = async () => {
       try {
-        const res = await axios.get("http://localhost:6789/api/validate-token", {
-          params: { token },
-        });
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_URL}/api/validate-token`,
+          {
+            params: { token },
+          }
+        );
 
         setValidToken(true);
       } catch (error) {
@@ -62,7 +65,7 @@ const ResetPassword = () => {
     // console.log("Received values of form: ", values);
 
     axios
-      .post("http://localhost:6789/api/reset-password", {
+      .post(`${process.env.REACT_APP_API_URL}/api/reset-password`, {
         newPassword: values.password,
         token,
       })

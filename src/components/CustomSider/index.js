@@ -19,7 +19,7 @@ const siderItems = [
     label: "Dashboard",
   },
   {
-    key: "/account-book",
+    key: "/account-book/overview",
     icon: React.createElement(AccountBookOutlined),
     label: "Account Books",
   },

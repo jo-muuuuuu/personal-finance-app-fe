@@ -58,7 +58,7 @@ const Register = () => {
     // console.log("Received values of form: ", values);
 
     axios
-      .post("http://localhost:6789/api/register", values)
+      .post(`${process.env.REACT_APP_API_URL}/api/register`, values)
       .then((response) => {
         // console.log("Success!", response.data);
         antdSuccess("Success!");

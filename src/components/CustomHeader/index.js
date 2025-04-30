@@ -21,10 +21,10 @@ const CustomHeader = () => {
 
   const breadcrumbNameMap = {
     "/dashboard": "Dashboard",
-    "/account-book": "Account Books",
+    "/account-book/overview": "Account Books",
     // "/account-book/view_account": "View a Account Book",
     // "/account-book/edit_account": "Edit a Account Book",
-    // "/account-book/new_account": "Add a New Account Book",
+    "/account-book/new": " New Account Book",
     "/transactions": "Transactions",
     // "/transactions/new_transaction": "Add a new Transaction",
     // "/transactions/view_transaction": "View a transaction",

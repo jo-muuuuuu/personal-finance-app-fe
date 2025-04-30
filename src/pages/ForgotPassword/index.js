@@ -19,7 +19,7 @@ const ForgotPassword = () => {
     // console.log("Received values of form: ", values);
 
     axios
-      .post("http://localhost:6789/api/forgot-password", values)
+      .post(`${process.env.REACT_APP_API_URL}/api/forgot-password`, values)
       .then((response) => {
         antdSuccess("Please check your email for password reset link!");
       })

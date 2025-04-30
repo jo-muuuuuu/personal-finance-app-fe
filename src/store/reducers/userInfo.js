@@ -10,9 +10,15 @@ const userInfoSlice = createSlice({
     userNickname: null,
   },
   reducers: {
-    setUserNickname: (state, action) => {
-      state.userNickname = action.payload;
+    setUserInfo: (state, action) => {
+      console.log("action.payload", action.payload);
+      state.userId = action.payload.id;
+      state.userEmail = action.payload.email;
+      state.userNickname = action.payload.nickname;
     },
+    // setUserNickname: (state, action) => {
+    //   state.userNickname = action.payload;
+    // },
   },
 });
 
@@ -23,6 +29,6 @@ const persistConfig = {
 
 const persistedUserInfoReducer = persistReducer(persistConfig, userInfoSlice.reducer);
 
-export const { setUserNickname } = userInfoSlice.actions;
+export const { setUserInfo } = userInfoSlice.actions;
 
 export default persistedUserInfoReducer;

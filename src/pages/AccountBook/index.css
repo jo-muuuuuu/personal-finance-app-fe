@@ -1,0 +1,30 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.new-title {
+  text-align: center;
+  color: #1677ff;
+}
+
+.new-form {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.cancel-button {
+  margin-right: 2rem;
+}
+
+.table-actions {
+  text-align: right;
+}
+
+.green-button {
+  background-color: #00b96b;
+}
+
+.yellow-button {
+  background-color: #f2bd27;
+}
