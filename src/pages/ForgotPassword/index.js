@@ -21,7 +21,9 @@ const ForgotPassword = () => {
     axios
       .post(`${process.env.REACT_APP_API_URL}/api/forgot-password`, values)
       .then((response) => {
-        antdSuccess("Please check your email for password reset link!");
+        if (response.status === 200) {
+          antdSuccess("Please check your email for password reset link!");
+        }
       })
       .catch((error) => {
         if (error.response) {

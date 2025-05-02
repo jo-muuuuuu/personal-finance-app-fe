@@ -60,9 +60,11 @@ const Register = () => {
     axios
       .post(`${process.env.REACT_APP_API_URL}/api/register`, values)
       .then((response) => {
-        // console.log("Success!", response.data);
-        antdSuccess("Success!");
-        navigate("/login");
+        if (response.status === 200) {
+          // console.log("Success!", response.data);
+          antdSuccess("Success!");
+          navigate("/login");
+        }
       })
       .catch((error) => {
         // console.error("Error!", error);

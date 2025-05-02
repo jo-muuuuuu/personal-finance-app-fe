@@ -70,7 +70,9 @@ const ResetPassword = () => {
         token,
       })
       .then((response) => {
-        antdSuccess("Password reset successful!");
+        if (response.status === 200) {
+          antdSuccess("Password reset successful!");
+        }
       })
       .catch((error) => {
         if (error.response) {

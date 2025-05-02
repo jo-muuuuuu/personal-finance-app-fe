@@ -17,14 +17,22 @@
   margin-right: 2rem;
 }
 
-.table-actions {
-  text-align: right;
+.ant-table-cell {
+  text-align: center !important;
 }
 
 .green-button {
   background-color: #00b96b;
 }
 
+.green-button:hover {
+  background-color: #008000 !important;
+}
+
 .yellow-button {
   background-color: #f2bd27;
+}
+
+.yellow-button:hover {
+  background-color: #c29720 !important;
 }

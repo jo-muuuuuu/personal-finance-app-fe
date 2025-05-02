@@ -2,10 +2,12 @@ import { configureStore } from "@reduxjs/toolkit";
 import { persistStore } from "redux-persist";
 
 import persistedUserInfoReducer from "./reducers/userInfo";
+import persistedAccountBookReducer from "./reducers/accountBook";
 
 export const store = configureStore({
   reducer: {
     userInfo: persistedUserInfoReducer,
+    accountBook: persistedAccountBookReducer,
   },
 
   middleware: (getDefaultMiddleware) =>

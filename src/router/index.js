@@ -3,11 +3,12 @@ import App from "../layout";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import ForgotPassword from "../pages/ForgotPassword";
+import ResetPassword from "../pages/ResetPassword";
 import Dashboard from "../pages/Dashboard";
 import AccountBookOverview from "../pages/AccountBook/AccountBookOverview";
-import Transaction from "../pages/Transaction";
-import ResetPassword from "../pages/ResetPassword";
 import NewAccountBook from "../pages/AccountBook/NewAccountBook";
+import EditAccountBook from "../pages/AccountBook/EditAccountBook";
+import TransactionOverview from "../pages/Transaction/TransactionOverview";
 
 const router = createBrowserRouter([
   {
@@ -24,11 +25,21 @@ const router = createBrowserRouter([
           { index: true, element: <Navigate to="overview" replace /> },
           { path: "overview", element: <AccountBookOverview /> },
           { path: "new", element: <NewAccountBook /> },
+          { path: "edit/:name", element: <EditAccountBook /> },
         ],
       },
       {
         path: "transactions",
-        element: <Transaction />,
+        children: [
+          {
+            index: true,
+            element: <Navigate to="overview" replace />,
+          },
+          {
+            path: "overview",
+            element: <TransactionOverview />,
+          },
+        ],
       },
     ],
   },

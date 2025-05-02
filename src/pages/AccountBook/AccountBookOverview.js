@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setAccountBookSelected } from "../../store/reducers/accountBook";
 
-import { Button, Divider, List, Space, Table } from "antd";
+import { Button, Divider, Space, Table } from "antd";
 import {
   PlusCircleOutlined,
   EyeOutlined,
@@ -13,18 +14,28 @@ import {
 import axios from "axios";
 
 import "./index.css";
+import { antdSuccess, antdError } from "../../utils/antdMessage";
 import { getToken } from "../../utils";
 
 const { Column } = Table;
 
 const AccountBookOverview = () => {
   const [accountBookList, setAccountBookList] = useState([]);
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const id = useSelector((state) => state.userInfo.userId);
 
   const newAccBookNav = () => {
     navigate("/account-book/new");
+  };
+
+  const editAccBookNav = (item) => {
+    return () => {
+      dispatch(setAccountBookSelected(item));
+      navigate(`/account-book/edit/${item.name}`);
+    };
   };
 
   const fetchAccountBooks = () => {
@@ -36,10 +47,13 @@ const AccountBookOverview = () => {
         },
       })
       .then((response) => {
-        // console.log(response.data.accountBookList);
-        setAccountBookList(response.data.accountBookList);
+        if (response.status === 200) {
+          // console.log(response.data.accountBookList);
+          setAccountBookList(response.data.accountBookList);
+        }
       })
       .catch((error) => {
+        antdError("Failed to fetch account books. Please try again later.");
         console.error("Error fetching account books:", error);
       });
   };
@@ -47,6 +61,33 @@ const AccountBookOverview = () => {
   useEffect(() => {
     fetchAccountBooks();
   }, []);
+
+  const deleteAccountBook = (accountBookId, accountBookName) => {
+    return () => {
+      // console.log("Delete Account Book", accountBookId, accountBookName);
+
+      axios
+        .delete(`${process.env.REACT_APP_API_URL}/api/account-books`, {
+          headers: {
+            accountBookId,
+            token: getToken(),
+          },
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            setAccountBookList((prevList) =>
+              prevList.filter((item) => item.id !== accountBookId)
+            );
+
+            antdSuccess(`Successfully deleted "${accountBookName}"!`);
+          }
+        })
+        .catch((error) => {
+          antdError("Failed to delete account book. Please try again later.");
+          console.error("Error deleting account book:", error);
+        });
+    };
+  };
 
   return (
     <div>
@@ -96,7 +137,7 @@ const AccountBookOverview = () => {
               <Button
                 type="primary"
                 className="yellow-button"
-                // onClick={editAccBookNav(item)}
+                onClick={editAccBookNav(item)}
               >
                 <EditOutlined />
                 Edit
@@ -105,7 +146,7 @@ const AccountBookOverview = () => {
                 // className="list-btn-danger"
                 danger
                 type="primary"
-                // onClick={deleteAccountBook(item.id, item.name)}
+                onClick={deleteAccountBook(item.id, item.name)}
               >
                 <DeleteOutlined />
                 Delete

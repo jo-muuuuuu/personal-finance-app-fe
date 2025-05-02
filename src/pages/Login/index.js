@@ -29,17 +29,19 @@ const Login = () => {
     axios
       .post(`${process.env.REACT_APP_API_URL}/api/login`, values)
       .then((response) => {
-        // console.log("Success!", response.data);
+        if (response.status === 200) {
+          // console.log("Success!", response.data);
 
-        const { id, nickname, email, token } = response.data;
-        // setId(id);
-        // setNickname(nickname);
-        // setEmail(email);
-        setToken(token, 60);
-        dispatch(setUserInfo({ id, email, nickname }));
+          const { id, nickname, email, token } = response.data;
+          // setId(id);
+          // setNickname(nickname);
+          // setEmail(email);
+          setToken(token, 60);
+          dispatch(setUserInfo({ id, email, nickname }));
 
-        antdSuccess("Login successful!");
-        navigate("/");
+          antdSuccess("Login successful!");
+          navigate("/");
+        }
       })
       .catch((error) => {
         if (error.response) {

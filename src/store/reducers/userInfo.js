@@ -11,7 +11,7 @@ const userInfoSlice = createSlice({
   },
   reducers: {
     setUserInfo: (state, action) => {
-      console.log("action.payload", action.payload);
+      // console.log("action.payload", action.payload);
       state.userId = action.payload.id;
       state.userEmail = action.payload.email;
       state.userNickname = action.payload.nickname;
