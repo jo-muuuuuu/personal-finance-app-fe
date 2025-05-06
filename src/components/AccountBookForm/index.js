@@ -3,7 +3,7 @@ import React from "react";
 import { Button, Form, Input, Divider } from "antd";
 import "./index.css";
 
-const AccountBookForm = ({ title, onSubmit, onCancel, initialValues = {} }) => {
+const AccountBookForm = ({ title, onFinish, onCancel, initialValues = {} }) => {
   return (
     <>
       <h2 className="new-title">{title}</h2>
@@ -17,8 +17,8 @@ const AccountBookForm = ({ title, onSubmit, onCancel, initialValues = {} }) => {
           span: 20,
         }}
         className="new-form"
-        name="new-account-book"
-        onFinish={onSubmit}
+        name="account-book-form"
+        onFinish={onFinish}
         initialValues={initialValues}
       >
         <Form.Item

@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setAccountBookSelected } from "../../store/reducers/accountBook";
+import {
+  setAccountBookList,
+  setAccountBookSelected,
+} from "../../store/reducers/accountBook";
 
 import { Button, Divider, Space, Table } from "antd";
 import {
@@ -20,12 +23,13 @@ import { getToken } from "../../utils";
 const { Column } = Table;
 
 const AccountBookOverview = () => {
-  const [accountBookList, setAccountBookList] = useState([]);
+  // const [accountBookList, setAccountBookList] = useState([]);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const id = useSelector((state) => state.userInfo.userId);
+  const accountBookList = useSelector((state) => state.accountBook.accountBookList);
 
   const newAccBookNav = () => {
     navigate("/account-book/new");
@@ -49,7 +53,7 @@ const AccountBookOverview = () => {
       .then((response) => {
         if (response.status === 200) {
           // console.log(response.data.accountBookList);
-          setAccountBookList(response.data.accountBookList);
+          dispatch(setAccountBookList(response.data.accountBookList));
         }
       })
       .catch((error) => {
@@ -75,9 +79,7 @@ const AccountBookOverview = () => {
         })
         .then((response) => {
           if (response.status === 200) {
-            setAccountBookList((prevList) =>
-              prevList.filter((item) => item.id !== accountBookId)
-            );
+            fetchAccountBooks();
 
             antdSuccess(`Successfully deleted "${accountBookName}"!`);
           }

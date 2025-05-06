@@ -5,9 +5,15 @@ import storage from "redux-persist/lib/storage";
 const accountBookSlice = createSlice({
   name: "accountBook",
   initialState: {
+    accountBookList: [],
     accountBookSelected: null,
   },
   reducers: {
+    setAccountBookList: (state, action) => {
+      // console.log("action.payload", action.payload);
+      state.accountBookList = action.payload;
+    },
+
     setAccountBookSelected: (state, action) => {
       // console.log("action.payload", action.payload);
       state.accountBookSelected = action.payload;
@@ -25,6 +31,6 @@ const persistedAccountBookReducer = persistReducer(
   accountBookSlice.reducer
 );
 
-export const { setAccountBookSelected } = accountBookSlice.actions;
+export const { setAccountBookList, setAccountBookSelected } = accountBookSlice.actions;
 
 export default persistedAccountBookReducer;

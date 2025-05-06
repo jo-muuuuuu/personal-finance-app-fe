@@ -6,8 +6,7 @@ import axios from "axios";
 
 import { getToken } from "../../utils";
 import { antdSuccess, antdError } from "../../utils/antdMessage";
-import "./index.css";
-import AccountBookForm from "./AccountBookForm";
+import AccountBookForm from "../../components/AccountBookForm";
 
 const EditAccountBook = () => {
   const navigate = useNavigate();
@@ -17,7 +16,7 @@ const EditAccountBook = () => {
     (state) => state.accountBook.accountBookSelected
   );
 
-  console.log("accountBookSelected", accountBookSelected);
+  // console.log("accountBookSelected", accountBookSelected);
 
   const onCancel = () => {
     navigate("/account-book/overview");
@@ -49,7 +48,7 @@ const EditAccountBook = () => {
   return (
     <AccountBookForm
       title={`Editing account book: [${accountBookSelected.name.toUpperCase()}]`}
-      onSubmit={onFinish}
+      onFinish={onFinish}
       onCancel={onCancel}
       initialValues={accountBookSelected}
     />

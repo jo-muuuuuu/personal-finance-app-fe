@@ -1,0 +1,14 @@
+.form-header-middle {
+  color: #1677ff;
+  text-align: center;
+}
+
+.category-grid-svg svg {
+  height: 48px;
+  width: 48px;
+}
+
+.category-grid-item {
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+}

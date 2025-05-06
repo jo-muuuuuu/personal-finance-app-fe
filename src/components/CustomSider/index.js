@@ -24,7 +24,7 @@ const siderItems = [
     label: "Account Books",
   },
   {
-    key: "/transactions",
+    key: "/transactions/overview",
     icon: React.createElement(TransactionOutlined),
     label: "Transactions",
   },
@@ -44,6 +44,19 @@ const CustomSider = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const getSelectedKey = () => {
+    const currentPath = location.pathname;
+
+    if (currentPath.startsWith("/account-book")) {
+      return "/account-book/overview";
+    }
+    if (currentPath.startsWith("/transactions")) {
+      return "/transactions/overview";
+    }
+
+    return "/";
+  };
+
   const handleMenuClick = (route) => {
     navigate(route.key);
   };
@@ -59,7 +72,7 @@ const CustomSider = () => {
         theme="dark"
         mode="inline"
         defaultSelectedKeys={["/"]}
-        selectedKeys={[location.pathname]}
+        selectedKeys={[getSelectedKey()]}
         items={siderItems}
         onClick={handleMenuClick}
       />

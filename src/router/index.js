@@ -9,6 +9,7 @@ import AccountBookOverview from "../pages/AccountBook/AccountBookOverview";
 import NewAccountBook from "../pages/AccountBook/NewAccountBook";
 import EditAccountBook from "../pages/AccountBook/EditAccountBook";
 import TransactionOverview from "../pages/Transaction/TransactionOverview";
+import NewTransaction from "../pages/Transaction/NewTransaction";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
           {
             path: "overview",
             element: <TransactionOverview />,
+          },
+          {
+            path: "new",
+            element: <NewTransaction />,
           },
         ],
       },

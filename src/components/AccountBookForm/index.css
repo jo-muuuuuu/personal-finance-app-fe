@@ -1,0 +1,13 @@
+.new-title {
+  text-align: center;
+  color: #1677ff;
+}
+
+.new-form {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.ant-table-cell {
+  text-align: center !important;
+}

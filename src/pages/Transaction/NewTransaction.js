@@ -6,23 +6,19 @@ import axios from "axios";
 import { getToken } from "../../utils";
 import { antdSuccess, antdError } from "../../utils/antdMessage";
 
-import AccountBookForm from "../../components/AccountBookForm";
+import TransactionForm from "../../components/TransactionForm";
 
-const NewAccountBook = () => {
+const NewTransaction = () => {
   const navigate = useNavigate();
 
   const id = useSelector((state) => state.userInfo.userId);
 
-  const onCancel = () => {
-    navigate("/account-book/overview");
-  };
-
   const onFinish = (values) => {
+    // console.log("Form values:", values);
     values = { ...values, id };
-    // console.log("Received values of form: ", formValues);
 
     axios
-      .post(`${process.env.REACT_APP_API_URL}/api/account-books`, values, {
+      .post(`${process.env.REACT_APP_API_URL}/api/transactions`, values, {
         headers: {
           token: getToken(),
         },
@@ -31,22 +27,26 @@ const NewAccountBook = () => {
         if (response.status === 200) {
           // console.log("Success!", response.data);
           antdSuccess("Success!");
-          navigate("/account-book/overview");
+          navigate("/transactions/overview");
         }
       })
       .catch((error) => {
-        // console.error("Error!");
-        antdError("Failed to add new account book!");
+        // console.error("Error!", error);
+        antdError("Failed to add new transaction!");
       });
   };
 
+  const onCancel = () => {
+    navigate("/transactions/overview");
+  };
+
   return (
-    <AccountBookForm
-      title="Create a new account book"
+    <TransactionForm
+      title="Create a New Transaction"
       onFinish={onFinish}
       onCancel={onCancel}
     />
   );
 };
 
-export default NewAccountBook;
+export default NewTransaction;

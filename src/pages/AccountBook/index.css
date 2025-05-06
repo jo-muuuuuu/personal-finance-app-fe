@@ -2,37 +2,3 @@
   display: flex;
   justify-content: space-between;
 }
-
-.new-title {
-  text-align: center;
-  color: #1677ff;
-}
-
-.new-form {
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.cancel-button {
-  margin-right: 2rem;
-}
-
-.ant-table-cell {
-  text-align: center !important;
-}
-
-.green-button {
-  background-color: #00b96b;
-}
-
-.green-button:hover {
-  background-color: #008000 !important;
-}
-
-.yellow-button {
-  background-color: #f2bd27;
-}
-
-.yellow-button:hover {
-  background-color: #c29720 !important;
-}

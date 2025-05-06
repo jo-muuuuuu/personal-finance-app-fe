@@ -21,14 +21,16 @@ const CustomHeader = () => {
 
   const breadcrumbNameMap = {
     "/dashboard": "Dashboard",
-    "/account-book/overview": "Account Books",
-    // "/account-book/view": "View a Account Book",
+    "/account-book": "Account Books",
+    "/account-book/overview": "Overview",
+    "/account-book/view": "View a Account Book",
     "/account-book/edit": "Edit a Account Book",
     "/account-book/new": " New Account Book",
-    "/transactions/overview": "Transactions",
-    // "/transactions/new": "Add a new Transaction",
-    // "/transactions/view_transaction": "View a transaction",
-    // "/transactions/edit_transaction": "Edit a transaction",
+    "/transactions": "Transactions",
+    "/transactions/overview": "Overview",
+    "/transactions/new": "Add a new Transaction",
+    "/transactions/view": "View a transaction",
+    "/transactions/edit": "Edit a transaction",
   };
 
   //   console.log("pathname", location.pathname);
