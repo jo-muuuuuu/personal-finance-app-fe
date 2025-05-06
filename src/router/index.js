@@ -10,6 +10,7 @@ import NewAccountBook from "../pages/AccountBook/NewAccountBook";
 import EditAccountBook from "../pages/AccountBook/EditAccountBook";
 import TransactionOverview from "../pages/Transaction/TransactionOverview";
 import NewTransaction from "../pages/Transaction/NewTransaction";
+import EditTransaction from "../pages/Transaction/EditTransaction";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
           {
             path: "new",
             element: <NewTransaction />,
+          },
+          {
+            path: "edit/:id",
+            element: <EditTransaction />,
           },
         ],
       },

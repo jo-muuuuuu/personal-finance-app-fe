@@ -71,9 +71,8 @@ const AccountBookOverview = () => {
       // console.log("Delete Account Book", accountBookId, accountBookName);
 
       axios
-        .delete(`${process.env.REACT_APP_API_URL}/api/account-books`, {
+        .delete(`${process.env.REACT_APP_API_URL}/api/account-books/${accountBookId}`, {
           headers: {
-            accountBookId,
             token: getToken(),
           },
         })

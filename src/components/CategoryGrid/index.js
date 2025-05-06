@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Divider } from "antd";
 import "./index.css";
 
 const CategoryGrid = ({ expenses, incomes, onSelect, type, selected }) => {
   const [selectedCategory, setSelectedCategory] = useState(selected);
   // console.log(select);
+
+  useEffect(() => {
+    onSelect(selected);
+  }, []);
+
   const handleSelect = (name) => {
     setSelectedCategory(name);
     onSelect(name);

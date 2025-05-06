@@ -7,6 +7,7 @@ const accountBookSlice = createSlice({
   initialState: {
     accountBookList: [],
     accountBookSelected: null,
+    transactionSelected: null,
   },
   reducers: {
     setAccountBookList: (state, action) => {
@@ -17,6 +18,11 @@ const accountBookSlice = createSlice({
     setAccountBookSelected: (state, action) => {
       // console.log("action.payload", action.payload);
       state.accountBookSelected = action.payload;
+    },
+
+    setTransactionSelected: (state, action) => {
+      // console.log("action.payload", action.payload);
+      state.transactionSelected = action.payload;
     },
   },
 });
@@ -31,6 +37,7 @@ const persistedAccountBookReducer = persistReducer(
   accountBookSlice.reducer
 );
 
-export const { setAccountBookList, setAccountBookSelected } = accountBookSlice.actions;
+export const { setAccountBookList, setAccountBookSelected, setTransactionSelected } =
+  accountBookSlice.actions;
 
 export default persistedAccountBookReducer;

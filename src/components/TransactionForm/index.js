@@ -38,11 +38,18 @@ const incomes = [
   { id: 24, name: "Financial Management Income", icon: <Icons.Financial /> },
 ];
 
-const TransactionForm = ({ title, onFinish, onCancel, initialValues = {} }) => {
+const TransactionForm = ({
+  title,
+  onFinish,
+  onCancel,
+  initialValues = { type: "expense" },
+}) => {
   const [type, setType] = useState("");
   const [categorySelected, setCategorySelected] = useState(null);
 
   const accountBookList = useSelector((state) => state.accountBook.accountBookList);
+
+  // console.log(initialValues);
 
   const handleTypeChange = (e) => {
     setType(e.target.value);
@@ -84,10 +91,7 @@ const TransactionForm = ({ title, onFinish, onCancel, initialValues = {} }) => {
             },
           ]}
         >
-          <Select
-            labelInValue
-            // defaultValue={id && name ? { value: id, label: name } : undefined}
-          >
+          <Select labelInValue>
             {accountBookList?.map((accountBook) => (
               <Select.Option key={accountBook.id} value={accountBook.id}>
                 {accountBook.name}
@@ -136,7 +140,7 @@ const TransactionForm = ({ title, onFinish, onCancel, initialValues = {} }) => {
             },
           ]}
         >
-          <Radio.Group onChange={handleTypeChange} defaultValue={"expense"}>
+          <Radio.Group onChange={handleTypeChange}>
             <Radio value="income"> Income </Radio>
             <Radio value="expense"> Expense </Radio>
           </Radio.Group>
@@ -147,6 +151,7 @@ const TransactionForm = ({ title, onFinish, onCancel, initialValues = {} }) => {
           incomes={incomes}
           onSelect={handleCategorySelect}
           type={type}
+          selected={initialValues.category}
         />
 
         <Form.Item

@@ -3,32 +3,34 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import axios from "axios";
+import dayjs from "dayjs";
 
 import { getToken } from "../../utils";
 import { antdSuccess, antdError } from "../../utils/antdMessage";
-import AccountBookForm from "../../components/AccountBookForm";
+import TransactionForm from "../../components/TransactionForm";
 
-const EditAccountBook = () => {
+const EditTransaction = () => {
   const navigate = useNavigate();
 
   const id = useSelector((state) => state.userInfo.userId);
-  const accountBookSelected = useSelector(
-    (state) => state.accountBook.accountBookSelected
+  const transactionSelected = useSelector(
+    (state) => state.accountBook.transactionSelected
   );
 
   // console.log("accountBookSelected", accountBookSelected);
 
   const onCancel = () => {
-    navigate("/account-book/overview");
+    navigate("/transactions/overview");
   };
 
   const onFinish = (values) => {
+    // values = { ...values, userId: id, accountBookId: accountBookSelected.id };
     values = { ...values, userId: id };
     // console.log("Received values of form: ", values);
 
     axios
       .put(
-        `${process.env.REACT_APP_API_URL}/api/account-books/${accountBookSelected.id}`,
+        `${process.env.REACT_APP_API_URL}/api/transactions/${transactionSelected.id}`,
         values,
         {
           headers: {
@@ -40,23 +42,30 @@ const EditAccountBook = () => {
         if (response.status === 200) {
           // console.log("Success!", response.data);
           antdSuccess("Success!");
-          navigate("/account-book/overview");
+          navigate("/transactions/overview");
         }
       })
       .catch((error) => {
         // console.error("Error!");
-        antdError("Failed to edit account book!");
+        antdError("Failed to edit transaction!");
       });
   };
 
   return (
-    <AccountBookForm
-      title={`Editing account book: [${accountBookSelected.name.toUpperCase()}]`}
+    <TransactionForm
+      title={`Editing Transaction - [ID: ${transactionSelected.id}]`}
       onFinish={onFinish}
       onCancel={onCancel}
-      initialValues={accountBookSelected}
+      initialValues={{
+        ...transactionSelected,
+        select: {
+          value: transactionSelected.account_book_id,
+          label: transactionSelected.account_book_name,
+        },
+        date: dayjs(transactionSelected.date),
+      }}
     />
   );
 };
 
-export default EditAccountBook;
+export default EditTransaction;
