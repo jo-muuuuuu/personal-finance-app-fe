@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Button, Form, Input, Divider, DatePicker, Radio, Select } from "antd";
 // import "./index.css";
@@ -47,9 +47,14 @@ const TransactionForm = ({
   const [type, setType] = useState("");
   const [categorySelected, setCategorySelected] = useState(null);
 
-  const accountBookList = useSelector((state) => state.accountBook.accountBookList);
+  const [form] = Form.useForm();
 
-  // console.log(initialValues);
+  const accountBookList = useSelector((state) => state.accountBook.accountBookList);
+  const accountBookSelected = useSelector(
+    (state) => state.accountBook.accountBookSelected
+  );
+
+  // console.log(accountBookSelected);
 
   const handleTypeChange = (e) => {
     setType(e.target.value);
@@ -64,12 +69,24 @@ const TransactionForm = ({
     onFinish({ ...values, category: categorySelected });
   };
 
+  useEffect(() => {
+    if (accountBookSelected) {
+      form.setFieldsValue({
+        select: {
+          key: accountBookSelected.id,
+          value: accountBookSelected.name,
+          // label: accountBookSelected.name,
+        },
+      });
+    }
+  }, [accountBookSelected, form]);
   return (
     <>
       <h2 className="new-title">{title}</h2>
       <Divider />
 
       <Form
+        form={form}
         labelCol={{
           span: 4,
         }}

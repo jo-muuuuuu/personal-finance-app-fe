@@ -1,22 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
-import axios from "axios";
-
-import { getToken } from "../../utils";
-import { antdSuccess, antdError } from "../../utils/antdMessage";
 import AccountBookForm from "../../components/AccountBookForm";
+import { setAccountBookSelected } from "../../store/reducers/accountBookSlice";
+import { editAccountBook } from "../../store/reducers/accountBookThunk";
 
 const EditAccountBook = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const id = useSelector((state) => state.userInfo.userId);
   const accountBookSelected = useSelector(
     (state) => state.accountBook.accountBookSelected
   );
-
-  // console.log("accountBookSelected", accountBookSelected);
 
   const onCancel = () => {
     navigate("/account-book/overview");
@@ -24,30 +21,16 @@ const EditAccountBook = () => {
 
   const onFinish = (values) => {
     values = { ...values, userId: id };
-    // console.log("Received values of form: ", values);
 
-    axios
-      .put(
-        `${process.env.REACT_APP_API_URL}/api/account-books/${accountBookSelected.id}`,
-        values,
-        {
-          headers: {
-            token: getToken(),
-          },
-        }
-      )
-      .then((response) => {
-        if (response.status === 200) {
-          // console.log("Success!", response.data);
-          antdSuccess("Success!");
-          navigate("/account-book/overview");
-        }
-      })
-      .catch((error) => {
-        // console.error("Error!");
-        antdError("Failed to edit account book!");
-      });
+    dispatch(editAccountBook(values, accountBookSelected.id));
+    navigate("/account-book/overview");
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch(setAccountBookSelected(null));
+    };
+  }, [dispatch]);
 
   return (
     <AccountBookForm

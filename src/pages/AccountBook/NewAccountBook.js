@@ -1,43 +1,24 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-
-import axios from "axios";
-import { getToken } from "../../utils";
-import { antdSuccess, antdError } from "../../utils/antdMessage";
+import { useSelector, useDispatch } from "react-redux";
 
 import AccountBookForm from "../../components/AccountBookForm";
+import { newAccountBook } from "../../store/reducers/accountBookThunk";
 
 const NewAccountBook = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const id = useSelector((state) => state.userInfo.userId);
+  const userId = useSelector((state) => state.userInfo.userId);
 
   const onCancel = () => {
     navigate("/account-book/overview");
   };
 
   const onFinish = (values) => {
-    values = { ...values, id };
-    // console.log("Received values of form: ", formValues);
-
-    axios
-      .post(`${process.env.REACT_APP_API_URL}/api/account-books`, values, {
-        headers: {
-          token: getToken(),
-        },
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          // console.log("Success!", response.data);
-          antdSuccess("Success!");
-          navigate("/account-book/overview");
-        }
-      })
-      .catch((error) => {
-        // console.error("Error!");
-        antdError("Failed to add new account book!");
-      });
+    values = { ...values, userId };
+    dispatch(newAccountBook(values));
+    navigate("/account-book/overview");
   };
 
   return (

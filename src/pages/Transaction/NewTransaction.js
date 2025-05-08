@@ -1,39 +1,21 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-
-import axios from "axios";
-import { getToken } from "../../utils";
-import { antdSuccess, antdError } from "../../utils/antdMessage";
+import { useSelector, useDispatch } from "react-redux";
 
 import TransactionForm from "../../components/TransactionForm";
-
+import { newTransaction } from "../../store/reducers/transactionThunk";
 const NewTransaction = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const id = useSelector((state) => state.userInfo.userId);
+  const userId = useSelector((state) => state.userInfo.userId);
 
   const onFinish = (values) => {
     // console.log("Form values:", values);
-    values = { ...values, id };
+    values = { ...values, userId };
 
-    axios
-      .post(`${process.env.REACT_APP_API_URL}/api/transactions`, values, {
-        headers: {
-          token: getToken(),
-        },
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          // console.log("Success!", response.data);
-          antdSuccess("Success!");
-          navigate("/transactions/overview");
-        }
-      })
-      .catch((error) => {
-        // console.error("Error!", error);
-        antdError("Failed to add new transaction!");
-      });
+    dispatch(newTransaction(values));
+    navigate("/transactions/overview");
   };
 
   const onCancel = () => {

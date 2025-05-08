@@ -1,10 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { useSelector, useDispatch } from "react-redux";
-
-import axios from "axios";
-import { getToken } from "../../utils";
 
 import { Button, Divider, Space, Table } from "antd";
 import {
@@ -13,17 +9,20 @@ import {
   EditOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
-import { antdError, antdSuccess } from "../../utils/antdMessage";
-import { setTransactionSelected } from "../../store/reducers/accountBook";
+import { setTransactionSelected } from "../../store/reducers/transactionSlice";
+import {
+  fetchTransactions,
+  deleteTransaction,
+} from "../../store/reducers/transactionThunk";
 
 const { Column } = Table;
 
 const TransactionOverview = () => {
-  const [transactions, setTransactions] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const id = useSelector((state) => state.userInfo.userId);
+  const userId = useSelector((state) => state.userInfo.userId);
+  const transactionList = useSelector((state) => state.transaction.transactionList);
 
   const newTransactionNav = () => {
     navigate("/transactions/new");
@@ -36,53 +35,9 @@ const TransactionOverview = () => {
     };
   };
 
-  const fetchTransactions = () => {
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/transactions`, {
-        headers: {
-          id,
-          token: getToken(),
-        },
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          // console.log("Success!", response.data.transactionList);
-
-          setTransactions(response.data.transactionList);
-          // antdSuccess("Success!");
-        }
-      })
-      .catch((error) => {
-        // console.error("Error!", error);
-        antdError("Failed to fetch transactions!");
-      });
-  };
-
   useEffect(() => {
-    fetchTransactions();
-  }, []);
-
-  const deleteTransaction = (id) => {
-    return () => {
-      axios
-        .delete(`${process.env.REACT_APP_API_URL}/api/transactions/${id}`, {
-          headers: {
-            token: getToken(),
-          },
-        })
-        .then((response) => {
-          if (response.status === 200) {
-            console.log("Success!", response.data);
-            antdSuccess(`Transaction deleted successfully!`);
-            fetchTransactions();
-          }
-        })
-        .catch((error) => {
-          console.error("Error!", error);
-          antdError("Failed to delete transaction!");
-        });
-    };
-  };
+    dispatch(fetchTransactions(userId));
+  }, [dispatch, userId]);
 
   return (
     <div>
@@ -92,9 +47,8 @@ const TransactionOverview = () => {
           <PlusCircleOutlined /> New Transaction
         </Button>
       </div>
-      <Divider />
 
-      <Table dataSource={transactions}>
+      <Table dataSource={transactionList}>
         <Column
           title="Account Book"
           dataIndex="account_book_name"
@@ -126,7 +80,6 @@ const TransactionOverview = () => {
           render={(item) => (
             <Space>
               <Button
-                className="yellow-button"
                 type="primary"
                 // onClick={viewTransactionNav(item)}
               >
@@ -134,14 +87,20 @@ const TransactionOverview = () => {
                 View
               </Button>
               <Button
-                className="list-btn"
+                className="yellow-button"
                 type="primary"
                 onClick={editTransactionNav(item)}
               >
                 <EditOutlined />
                 Edit
               </Button>
-              <Button danger type="primary" onClick={deleteTransaction(item.id)}>
+              <Button
+                danger
+                type="primary"
+                onClick={() => {
+                  dispatch(deleteTransaction(item.id, userId));
+                }}
+              >
                 <DeleteOutlined />
                 Delete
               </Button>

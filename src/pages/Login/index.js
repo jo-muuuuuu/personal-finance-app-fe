@@ -6,7 +6,7 @@ import { Card, Button, Checkbox, Form, Input, Flex, message } from "antd";
 import axios from "axios";
 
 import { useDispatch } from "react-redux";
-import { setUserInfo } from "../../store/reducers/userInfo";
+import { setUserInfo } from "../../store/reducers/userInfoSlice";
 
 import { antdSuccess, antdError } from "../../utils/antdMessage";
 import { setToken } from "../../utils/index";
@@ -24,7 +24,7 @@ const Login = () => {
   };
 
   const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+    // console.log("Received values of form: ", values);
 
     axios
       .post(`${process.env.REACT_APP_API_URL}/api/login`, values)

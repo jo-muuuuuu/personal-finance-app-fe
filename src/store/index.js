@@ -1,13 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { persistStore } from "redux-persist";
 
-import persistedUserInfoReducer from "./reducers/userInfo";
-import persistedAccountBookReducer from "./reducers/accountBook";
+import persistedUserInfoReducer from "./reducers/userInfoSlice";
+import persistedAccountBookReducer from "./reducers/accountBookSlice";
+import persistedTransactionReducer from "./reducers/transactionSlice";
 
 export const store = configureStore({
   reducer: {
     userInfo: persistedUserInfoReducer,
     accountBook: persistedAccountBookReducer,
+    transaction: persistedTransactionReducer,
   },
 
   middleware: (getDefaultMiddleware) =>

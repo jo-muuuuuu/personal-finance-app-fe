@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { setAccountBookSelected } from "../../store/reducers/accountBookSlice";
+
 import {
-  setAccountBookList,
-  setAccountBookSelected,
-} from "../../store/reducers/accountBook";
+  fetchAccountBooks,
+  deleteAccountBook,
+} from "../../store/reducers/accountBookThunk";
 
 import { Button, Divider, Space, Table } from "antd";
 import {
@@ -14,21 +16,15 @@ import {
   DeleteOutlined,
 } from "@ant-design/icons";
 
-import axios from "axios";
-
 import "./index.css";
-import { antdSuccess, antdError } from "../../utils/antdMessage";
-import { getToken } from "../../utils";
 
 const { Column } = Table;
 
 const AccountBookOverview = () => {
-  // const [accountBookList, setAccountBookList] = useState([]);
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const id = useSelector((state) => state.userInfo.userId);
+  const userId = useSelector((state) => state.userInfo.userId);
   const accountBookList = useSelector((state) => state.accountBook.accountBookList);
 
   const newAccBookNav = () => {
@@ -42,51 +38,14 @@ const AccountBookOverview = () => {
     };
   };
 
-  const fetchAccountBooks = () => {
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/account-books`, {
-        headers: {
-          id,
-          token: getToken(),
-        },
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          // console.log(response.data.accountBookList);
-          dispatch(setAccountBookList(response.data.accountBookList));
-        }
-      })
-      .catch((error) => {
-        antdError("Failed to fetch account books. Please try again later.");
-        console.error("Error fetching account books:", error);
-      });
-  };
-
   useEffect(() => {
-    fetchAccountBooks();
-  }, []);
+    dispatch(fetchAccountBooks(userId));
+  }, [dispatch, userId]);
 
-  const deleteAccountBook = (accountBookId, accountBookName) => {
+  const newTransactionNav = (item) => {
     return () => {
-      // console.log("Delete Account Book", accountBookId, accountBookName);
-
-      axios
-        .delete(`${process.env.REACT_APP_API_URL}/api/account-books/${accountBookId}`, {
-          headers: {
-            token: getToken(),
-          },
-        })
-        .then((response) => {
-          if (response.status === 200) {
-            fetchAccountBooks();
-
-            antdSuccess(`Successfully deleted "${accountBookName}"!`);
-          }
-        })
-        .catch((error) => {
-          antdError("Failed to delete account book. Please try again later.");
-          console.error("Error deleting account book:", error);
-        });
+      dispatch(setAccountBookSelected(item));
+      navigate("/transactions/new");
     };
   };
 
@@ -123,7 +82,7 @@ const AccountBookOverview = () => {
               <Button
                 type="primary"
                 className="green-button"
-                // onClick={newTransactionNav(item.id, item.name)}
+                onClick={newTransactionNav(item)}
               >
                 <PlusCircleOutlined />
                 New Transaction
@@ -144,10 +103,11 @@ const AccountBookOverview = () => {
                 Edit
               </Button>
               <Button
-                // className="list-btn-danger"
                 danger
                 type="primary"
-                onClick={deleteAccountBook(item.id, item.name)}
+                onClick={() => {
+                  dispatch(deleteAccountBook(item.id, item.name, userId));
+                }}
               >
                 <DeleteOutlined />
                 Delete
