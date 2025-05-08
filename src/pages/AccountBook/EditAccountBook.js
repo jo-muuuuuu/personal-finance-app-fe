@@ -4,13 +4,16 @@ import { useSelector, useDispatch } from "react-redux";
 
 import AccountBookForm from "../../components/AccountBookForm";
 import { setAccountBookSelected } from "../../store/reducers/accountBookSlice";
-import { editAccountBook } from "../../store/reducers/accountBookThunk";
+import {
+  editAccountBook,
+  deleteAccountBook,
+} from "../../store/reducers/accountBookThunk";
 
 const EditAccountBook = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const id = useSelector((state) => state.userInfo.userId);
+  const userId = useSelector((state) => state.userInfo.userId);
   const accountBookSelected = useSelector(
     (state) => state.accountBook.accountBookSelected
   );
@@ -19,8 +22,14 @@ const EditAccountBook = () => {
     navigate("/account-book/overview");
   };
 
+  const onDelete = () => {
+    dispatch(deleteAccountBook(accountBookSelected.id, accountBookSelected.name, userId));
+
+    navigate("/account-book/overview");
+  };
+
   const onFinish = (values) => {
-    values = { ...values, userId: id };
+    values = { ...values, userId };
 
     dispatch(editAccountBook(values, accountBookSelected.id));
     navigate("/account-book/overview");
@@ -37,6 +46,7 @@ const EditAccountBook = () => {
       title={`Editing account book: [${accountBookSelected.name.toUpperCase()}]`}
       onFinish={onFinish}
       onCancel={onCancel}
+      onDelete={onDelete}
       initialValues={accountBookSelected}
     />
   );

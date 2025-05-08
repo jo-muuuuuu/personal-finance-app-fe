@@ -17,22 +17,23 @@ import {
 
 const { Column } = Table;
 
-const TransactionOverview = () => {
+const ViewAccountBook = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const userId = useSelector((state) => state.userInfo.userId);
-  const transactionList = useSelector((state) => state.transaction.transactionList);
+  const accountBookSelected = useSelector(
+    (state) => state.accountBook.accountBookSelected
+  );
+  const transactionList = useSelector(
+    (state) => state.transaction.transactionList
+  ).filter((transaction) => {
+    return transaction.account_book_id === accountBookSelected.id;
+    // console.log(transaction);
+  });
 
   const newTransactionNav = () => {
     navigate("/transactions/new");
-  };
-
-  const viewTransactionNav = (item) => {
-    return () => {
-      dispatch(setTransactionSelected(item));
-      navigate(`/transactions/view/${item.id}`);
-    };
   };
 
   const editTransactionNav = (item) => {
@@ -86,7 +87,10 @@ const TransactionOverview = () => {
           className="table-actions"
           render={(item) => (
             <Space>
-              <Button type="primary" onClick={viewTransactionNav(item)}>
+              <Button
+                type="primary"
+                // onClick={viewTransactionNav(item)}
+              >
                 <EyeOutlined />
                 View
               </Button>
@@ -116,4 +120,4 @@ const TransactionOverview = () => {
   );
 };
 
-export default TransactionOverview;
+export default ViewAccountBook;

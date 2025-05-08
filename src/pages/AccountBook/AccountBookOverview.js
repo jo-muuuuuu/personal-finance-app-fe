@@ -26,9 +26,20 @@ const AccountBookOverview = () => {
 
   const userId = useSelector((state) => state.userInfo.userId);
   const accountBookList = useSelector((state) => state.accountBook.accountBookList);
+  // const accountBookSelected = useSelector(
+  //   (state) => state.accountBook.accountBookSelected
+  // );
 
   const newAccBookNav = () => {
     navigate("/account-book/new");
+  };
+
+  const viewAccBookNav = (item) => {
+    return () => {
+      dispatch(setAccountBookSelected(item));
+
+      navigate(`/account-book/view/${item.id}`);
+    };
   };
 
   const editAccBookNav = (item) => {
@@ -87,10 +98,7 @@ const AccountBookOverview = () => {
                 <PlusCircleOutlined />
                 New Transaction
               </Button>
-              <Button
-                type="primary"
-                // onClick={viewAccBookNav(item.id, item.name)}
-              >
+              <Button type="primary" onClick={viewAccBookNav(item)}>
                 <EyeOutlined />
                 View
               </Button>

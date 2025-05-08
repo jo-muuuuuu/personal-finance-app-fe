@@ -11,6 +11,8 @@ import EditAccountBook from "../pages/AccountBook/EditAccountBook";
 import TransactionOverview from "../pages/Transaction/TransactionOverview";
 import NewTransaction from "../pages/Transaction/NewTransaction";
 import EditTransaction from "../pages/Transaction/EditTransaction";
+import ViewTransaction from "../pages/Transaction/ViewTransaction";
+import ViewAccountBook from "../pages/AccountBook/ViewAccountBook";
 
 const router = createBrowserRouter([
   {
@@ -28,47 +30,25 @@ const router = createBrowserRouter([
           { path: "overview", element: <AccountBookOverview /> },
           { path: "new", element: <NewAccountBook /> },
           { path: "edit/:name", element: <EditAccountBook /> },
+          { path: "view/:id", element: <ViewAccountBook /> },
         ],
       },
       {
         path: "transactions",
         children: [
-          {
-            index: true,
-            element: <Navigate to="overview" replace />,
-          },
-          {
-            path: "overview",
-            element: <TransactionOverview />,
-          },
-          {
-            path: "new",
-            element: <NewTransaction />,
-          },
-          {
-            path: "edit/:id",
-            element: <EditTransaction />,
-          },
+          { index: true, element: <Navigate to="overview" replace /> },
+          { path: "overview", element: <TransactionOverview /> },
+          { path: "new", element: <NewTransaction /> },
+          { path: "edit/:id", element: <EditTransaction /> },
+          { path: "view/:id", element: <ViewTransaction /> },
         ],
       },
     ],
   },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/register",
-    element: <Register />,
-  },
-  {
-    path: "/forgot-password",
-    element: <ForgotPassword />,
-  },
-  {
-    path: "/reset-password/:token",
-    element: <ResetPassword />,
-  },
+  { path: "/login", element: <Login /> },
+  { path: "/register", element: <Register /> },
+  { path: "/forgot-password", element: <ForgotPassword /> },
+  { path: "/reset-password/:token", element: <ResetPassword /> },
 ]);
 
 export default router;

@@ -1,12 +1,30 @@
 import React from "react";
 
-import { Button, Form, Input, Divider } from "antd";
+import { Button, Form, Input, Row, Col, Divider } from "antd";
 import "./index.css";
 
-const AccountBookForm = ({ title, onFinish, onCancel, initialValues = {} }) => {
+const AccountBookForm = ({ title, onFinish, onCancel, onDelete, initialValues = {} }) => {
   return (
     <>
-      <h2 className="new-title">{title}</h2>
+      <Row className="view-transaction-header">
+        <Col span={8}>
+          <Button type="primary" onClick={onCancel}>
+            Cancel
+          </Button>
+        </Col>
+        <Col span={8}>
+          <h2>{title}</h2>
+        </Col>
+
+        <Col span={8}>
+          {onDelete && (
+            <Button type="primary" danger onClick={onDelete}>
+              Delete
+            </Button>
+          )}
+        </Col>
+      </Row>
+
       <Divider />
 
       <Form
@@ -48,9 +66,6 @@ const AccountBookForm = ({ title, onFinish, onCancel, initialValues = {} }) => {
           }}
           style={{ textAlign: "center" }}
         >
-          <Button className="cancel-button" type="primary" danger onClick={onCancel}>
-            Cancel
-          </Button>
           <Button type="primary" htmlType="submit">
             Submit
           </Button>
