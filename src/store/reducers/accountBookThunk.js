@@ -1,16 +1,14 @@
-import axios from "axios";
-import { getToken } from "../../utils";
+import axiosInstance from "../../api/index";
 import { antdSuccess, antdError } from "../../utils/antdMessage";
 import { setAccountBookList } from "./accountBookSlice";
 
 export const fetchAccountBooks = (userId) => async (dispatch) => {
   try {
-    const response = await axios.get(
+    const response = await axiosInstance.get(
       `${process.env.REACT_APP_API_URL}/api/account-books`,
       {
         headers: {
           id: userId,
-          token: getToken(),
         },
       }
     );
@@ -26,14 +24,9 @@ export const fetchAccountBooks = (userId) => async (dispatch) => {
 
 export const newAccountBook = (values) => async (dispatch) => {
   try {
-    const response = await axios.post(
+    const response = await axiosInstance.post(
       `${process.env.REACT_APP_API_URL}/api/account-books`,
-      values,
-      {
-        headers: {
-          token: getToken(),
-        },
-      }
+      values
     );
 
     if (response.status === 200) {
@@ -47,14 +40,9 @@ export const newAccountBook = (values) => async (dispatch) => {
 
 export const editAccountBook = (values, accountBookId) => async (dispatch) => {
   try {
-    const response = await axios.put(
+    const response = await axiosInstance.put(
       `${process.env.REACT_APP_API_URL}/api/account-books/${accountBookId}`,
-      values,
-      {
-        headers: {
-          token: getToken(),
-        },
-      }
+      values
     );
 
     if (response.status === 200) {
@@ -72,13 +60,8 @@ export const editAccountBook = (values, accountBookId) => async (dispatch) => {
 export const deleteAccountBook =
   (accountBookId, accountBookName, userId) => async (dispatch) => {
     try {
-      const response = await axios.delete(
-        `${process.env.REACT_APP_API_URL}/api/account-books/${accountBookId}`,
-        {
-          headers: {
-            token: getToken(),
-          },
-        }
+      const response = await axiosInstance.delete(
+        `${process.env.REACT_APP_API_URL}/api/account-books/${accountBookId}`
       );
 
       if (response.status === 200) {

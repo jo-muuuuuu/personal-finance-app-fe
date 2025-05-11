@@ -1,16 +1,14 @@
-import axios from "axios";
-import { getToken } from "../../utils";
+import axiosInstance from "../../api/index";
 import { antdSuccess, antdError } from "../../utils/antdMessage";
 import { setTransactionList } from "./transactionSlice";
 
 export const fetchTransactions = (userId) => async (dispatch) => {
   try {
-    const response = await axios.get(
+    const response = await axiosInstance.get(
       `${process.env.REACT_APP_API_URL}/api/transactions`,
       {
         headers: {
           id: userId,
-          token: getToken(),
         },
       }
     );
@@ -29,14 +27,9 @@ export const fetchTransactions = (userId) => async (dispatch) => {
 
 export const newTransaction = (values) => async (dispatch) => {
   try {
-    const response = await axios.post(
+    const response = await axiosInstance.post(
       `${process.env.REACT_APP_API_URL}/api/transactions`,
-      values,
-      {
-        headers: {
-          token: getToken(),
-        },
-      }
+      values
     );
 
     if (response.status === 200) {
@@ -51,14 +44,9 @@ export const newTransaction = (values) => async (dispatch) => {
 
 export const editTransaction = (values, transactionId) => async (dispatch) => {
   try {
-    const response = await axios.put(
+    const response = await axiosInstance.put(
       `${process.env.REACT_APP_API_URL}/api/transactions/${transactionId}`,
-      values,
-      {
-        headers: {
-          token: getToken(),
-        },
-      }
+      values
     );
 
     if (response.status === 200) {
@@ -73,13 +61,8 @@ export const editTransaction = (values, transactionId) => async (dispatch) => {
 
 export const deleteTransaction = (transactionId, userId) => async (dispatch) => {
   try {
-    const response = await axios.delete(
-      `${process.env.REACT_APP_API_URL}/api/transactions/${transactionId}`,
-      {
-        headers: {
-          token: getToken(),
-        },
-      }
+    const response = await axiosInstance.delete(
+      `${process.env.REACT_APP_API_URL}/api/transactions/${transactionId}`
     );
 
     if (response.status === 200) {
