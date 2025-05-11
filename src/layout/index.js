@@ -22,11 +22,11 @@ const App = () => {
           {/* <Header style={{ padding: 0, background: colorBgContainer }} /> */}
           <CustomHeader />
 
-          <Content style={{ margin: "24px 16px 0" }}>
+          <Content style={{ margin: "24px 16px 0", height: "100%" }}>
             <div
               style={{
                 padding: 24,
-                minHeight: "80vh",
+                minHeight: "100%",
                 background: colorBgContainer,
                 borderRadius: borderRadiusLG,
               }}

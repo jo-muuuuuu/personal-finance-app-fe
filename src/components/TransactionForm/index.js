@@ -82,6 +82,8 @@ const TransactionForm = ({
         },
       });
     }
+
+    setType(initialValues.type);
   }, [accountBookSelected, form]);
 
   return (
@@ -159,7 +161,7 @@ const TransactionForm = ({
             },
           ]}
         >
-          <DatePicker />
+          <DatePicker format="YYYY-MM-DD" />
         </Form.Item>
 
         <Form.Item label="Description" name="description">

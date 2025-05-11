@@ -15,6 +15,9 @@ import { setTransactionSelected } from "../../store/reducers/transactionSlice";
 import { deleteTransaction } from "../../store/reducers/transactionThunk";
 
 import DeleteButton from "../DeleteButton";
+import dayjs from "dayjs";
+// import utc from "dayjs/plugin/utc";
+// dayjs.extend(utc);
 
 const { Column } = Table;
 
@@ -112,7 +115,7 @@ const TransactionTable = ({ title, onCancel, onDelete, transactionList }) => {
           title="Date"
           dataIndex="date"
           key="date"
-          render={(date) => new Date(date).toLocaleDateString() || "N/A"}
+          render={(date) => dayjs(date).format("YYYY-MM-DD") || "N/A"}
         />
         <Column
           title="Actions"

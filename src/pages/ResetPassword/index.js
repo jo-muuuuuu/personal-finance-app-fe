@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router";
 import { Card, Button, Form, Input } from "antd";
 
 import axios from "axios";
@@ -31,6 +31,8 @@ const tailFormItemLayout = {
 };
 
 const ResetPassword = () => {
+  const navigate = useNavigate();
+
   const [validToken, setValidToken] = useState(false);
   const { token } = useParams();
 
@@ -72,6 +74,8 @@ const ResetPassword = () => {
       .then((response) => {
         if (response.status === 200) {
           antdSuccess("Password reset successful!");
+
+          navigate("/login");
         }
       })
       .catch((error) => {

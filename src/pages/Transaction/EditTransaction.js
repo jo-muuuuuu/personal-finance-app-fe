@@ -28,7 +28,7 @@ const EditTransaction = () => {
   };
 
   const onFinish = (values) => {
-    values = { ...values, userId };
+    values = { ...values, date: dayjs(values.date).format("YYYY-MM-DD"), userId };
     // console.log("Received values of form: ", values);
 
     dispatch(editTransaction(values, transactionSelected.id));
@@ -57,7 +57,8 @@ const EditTransaction = () => {
       initialValues={{
         ...transactionSelected,
         select: {
-          value: transactionSelected.account_book_id,
+          key: transactionSelected.account_book_id,
+          value: transactionSelected.account_book_name,
           label: transactionSelected.account_book_name,
         },
         date: dayjs(transactionSelected.date),
