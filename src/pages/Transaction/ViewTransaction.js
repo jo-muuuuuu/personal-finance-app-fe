@@ -3,9 +3,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { deleteTransaction } from "../../store/reducers/transactionThunk";
 import { useNavigate } from "react-router";
 
-import { Col, Row, Button } from "antd";
+import { Col, Row, Button, Divider } from "antd";
+import { CheckOutlined, LeftOutlined } from "@ant-design/icons";
 
 import "./index.css";
+import DeleteButton from "../../components/DeleteButton";
 
 const ViewTransaction = () => {
   const navigate = useNavigate();
@@ -31,6 +33,7 @@ const ViewTransaction = () => {
       <Row className="view-transaction-header">
         <Col span={8}>
           <Button type="primary" onClick={onCancel}>
+            <LeftOutlined />
             Cancel
           </Button>
         </Col>
@@ -39,11 +42,18 @@ const ViewTransaction = () => {
         </Col>
 
         <Col span={8}>
-          <Button type="primary" danger onClick={onDelete}>
+          <DeleteButton
+            type={"Transaction"}
+            name={transactionSelected.id}
+            onClick={onDelete}
+          />
+          {/* <Button type="primary" danger onClick={onDelete}>
             Delete
-          </Button>
+          </Button> */}
         </Col>
       </Row>
+
+      <Divider />
 
       <div className="transaction-detail-container">
         <Row className="transaction-detail-row" gutter={16}>

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 
-import { Button, Form, Input, Divider, DatePicker, Radio, Select } from "antd";
+import { Button, Form, Input, Divider, DatePicker, Radio, Select, Row, Col } from "antd";
+import { CheckOutlined, LeftOutlined } from "@ant-design/icons";
 // import "./index.css";
 
 import { useSelector } from "react-redux";
 
 import * as Icons from "../../assets";
 import CategoryGrid from "../CategoryGrid";
+import DeleteButton from "../DeleteButton";
 
 const expenses = [
   { id: 1, name: "Grocery", icon: <Icons.Grocery /> },
@@ -42,6 +44,7 @@ const TransactionForm = ({
   title,
   onFinish,
   onCancel,
+  onDelete,
   initialValues = { type: "expense" },
 }) => {
   const [type, setType] = useState("");
@@ -54,7 +57,7 @@ const TransactionForm = ({
     (state) => state.accountBook.accountBookSelected
   );
 
-  // console.log(accountBookSelected);
+  // console.log(initialValues);
 
   const handleTypeChange = (e) => {
     setType(e.target.value);
@@ -75,14 +78,30 @@ const TransactionForm = ({
         select: {
           key: accountBookSelected.id,
           value: accountBookSelected.name,
-          // label: accountBookSelected.name,
+          label: accountBookSelected.name,
         },
       });
     }
   }, [accountBookSelected, form]);
+
   return (
     <>
-      <h2 className="new-title">{title}</h2>
+      <Row className="view-transaction-header">
+        <Col span={8}>
+          <Button type="primary" onClick={onCancel}>
+            <LeftOutlined />
+            Cancel
+          </Button>
+        </Col>
+        <Col span={8}>
+          <h2>{title}</h2>
+        </Col>
+
+        <Col span={8}>
+          {onDelete && <DeleteButton type={"Transaction"} onDelete={onDelete} />}
+        </Col>
+      </Row>
+
       <Divider />
 
       <Form
@@ -177,10 +196,8 @@ const TransactionForm = ({
           }}
           style={{ textAlign: "center", marginTop: "1rem" }}
         >
-          <Button className="cancel-button" type="primary" danger onClick={onCancel}>
-            Cancel
-          </Button>
-          <Button type="primary" htmlType="submit">
+          <Button className="green-button" type="primary" htmlType="submit">
+            <CheckOutlined />
             Submit
           </Button>
         </Form.Item>

@@ -31,11 +31,6 @@ const persistedAccountBookReducer = persistReducer(
   accountBookSlice.reducer
 );
 
-export const {
-  setAccountBookList,
-  setAccountBookSelected,
-  fetchAccountBooks,
-  deleteAccountBook,
-} = accountBookSlice.actions;
+export const { setAccountBookList, setAccountBookSelected } = accountBookSlice.actions;
 
 export default persistedAccountBookReducer;

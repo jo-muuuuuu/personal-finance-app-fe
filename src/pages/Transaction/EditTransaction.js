@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import dayjs from "dayjs";
 
 import TransactionForm from "../../components/TransactionForm";
-import { editTransaction } from "../../store/reducers/transactionThunk";
+import {
+  deleteTransaction,
+  editTransaction,
+} from "../../store/reducers/transactionThunk";
+import { setTransactionSelected } from "../../store/reducers/transactionSlice";
+import { setAccountBookSelected } from "../../store/reducers/accountBookSlice";
 
 const EditTransaction = () => {
   const navigate = useNavigate();
@@ -30,11 +35,25 @@ const EditTransaction = () => {
     navigate("/transactions/overview");
   };
 
+  const onDelete = () => {
+    dispatch(deleteTransaction(transactionSelected.id, userId));
+
+    navigate("/transactions/overview");
+  };
+
+  useEffect(() => {
+    return () => {
+      dispatch(setTransactionSelected(null));
+      dispatch(setAccountBookSelected(null));
+    };
+  }, [dispatch]);
+
   return (
     <TransactionForm
       title={`Editing Transaction - [ID: ${transactionSelected.id}]`}
       onFinish={onFinish}
       onCancel={onCancel}
+      onDelete={onDelete}
       initialValues={{
         ...transactionSelected,
         select: {

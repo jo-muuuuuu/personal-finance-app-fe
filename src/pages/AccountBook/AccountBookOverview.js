@@ -17,6 +17,7 @@ import {
 } from "@ant-design/icons";
 
 import "./index.css";
+import DeleteButton from "../../components/DeleteButton";
 
 const { Column } = Table;
 
@@ -110,16 +111,13 @@ const AccountBookOverview = () => {
                 <EditOutlined />
                 Edit
               </Button>
-              <Button
-                danger
-                type="primary"
-                onClick={() => {
+              <DeleteButton
+                type={"Account Book"}
+                name={item.name}
+                onDelete={() => {
                   dispatch(deleteAccountBook(item.id, item.name, userId));
                 }}
-              >
-                <DeleteOutlined />
-                Delete
-              </Button>
+              />
             </Space>
           )}
         />

@@ -1,25 +1,15 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
+
 import { useSelector, useDispatch } from "react-redux";
+import { fetchTransactions } from "../../store/reducers/transactionThunk";
+import { deleteAccountBook } from "../../store/reducers/accountBookThunk";
 
-import { Button, Space, Table } from "antd";
-import {
-  PlusCircleOutlined,
-  EyeOutlined,
-  EditOutlined,
-  DeleteOutlined,
-} from "@ant-design/icons";
-import { setTransactionSelected } from "../../store/reducers/transactionSlice";
-import {
-  fetchTransactions,
-  deleteTransaction,
-} from "../../store/reducers/transactionThunk";
-
-const { Column } = Table;
+import TransactionTable from "../../components/TransactionTable";
 
 const ViewAccountBook = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const userId = useSelector((state) => state.userInfo.userId);
   const accountBookSelected = useSelector(
@@ -32,91 +22,25 @@ const ViewAccountBook = () => {
     // console.log(transaction);
   });
 
-  const newTransactionNav = () => {
-    navigate("/transactions/new");
-  };
-
-  const editTransactionNav = (item) => {
-    return () => {
-      dispatch(setTransactionSelected(item));
-      navigate(`/transactions/edit/${item.id}`);
-    };
-  };
-
   useEffect(() => {
     dispatch(fetchTransactions(userId));
   }, [dispatch, userId]);
 
-  return (
-    <div>
-      <div className="header">
-        <h2>Latest Transactions</h2>
-        <Button className="green-button" type="primary" onClick={newTransactionNav}>
-          <PlusCircleOutlined /> New Transaction
-        </Button>
-      </div>
+  const onCancel = () => {
+    navigate("/account-book/overview");
+  };
 
-      <Table dataSource={transactionList}>
-        <Column
-          title="Account Book"
-          dataIndex="account_book_name"
-          key="account_book_name"
-          render={(text) => (text ? text.toUpperCase() : "N/A")}
-        />
-        <Column
-          title="Category"
-          dataIndex="category"
-          key="category"
-          render={(text) => (text ? text.toUpperCase() : "N/A")}
-        />
-        <Column
-          title="Amount"
-          dataIndex="amount"
-          key="amount"
-          render={(text) => text || "N/A"}
-        />
-        <Column
-          title="Date"
-          dataIndex="date"
-          key="date"
-          render={(date) => new Date(date).toLocaleDateString() || "N/A"}
-        />
-        <Column
-          title="Actions"
-          key="action"
-          className="table-actions"
-          render={(item) => (
-            <Space>
-              <Button
-                type="primary"
-                // onClick={viewTransactionNav(item)}
-              >
-                <EyeOutlined />
-                View
-              </Button>
-              <Button
-                className="yellow-button"
-                type="primary"
-                onClick={editTransactionNav(item)}
-              >
-                <EditOutlined />
-                Edit
-              </Button>
-              <Button
-                danger
-                type="primary"
-                onClick={() => {
-                  dispatch(deleteTransaction(item.id, userId));
-                }}
-              >
-                <DeleteOutlined />
-                Delete
-              </Button>
-            </Space>
-          )}
-        />
-      </Table>
-    </div>
+  const onDelete = () => {
+    dispatch(deleteAccountBook(accountBookSelected.id, accountBookSelected.name, userId));
+  };
+
+  return (
+    <TransactionTable
+      title={`Transactions in [${accountBookSelected.name}]`}
+      onCancel={onCancel}
+      onDelete={onDelete}
+      transactionList={transactionList}
+    />
   );
 };
 

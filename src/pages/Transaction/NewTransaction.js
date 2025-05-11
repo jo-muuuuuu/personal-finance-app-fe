@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import TransactionForm from "../../components/TransactionForm";
+import { setAccountBookSelected } from "../../store/reducers/accountBookSlice";
 import { newTransaction } from "../../store/reducers/transactionThunk";
+
 const NewTransaction = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -21,6 +23,12 @@ const NewTransaction = () => {
   const onCancel = () => {
     navigate("/transactions/overview");
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch(setAccountBookSelected(null));
+    };
+  }, [dispatch]);
 
   return (
     <TransactionForm

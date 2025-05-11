@@ -1,14 +1,20 @@
 import React from "react";
 
 import { Button, Form, Input, Row, Col, Divider } from "antd";
+import { CheckOutlined, LeftOutlined } from "@ant-design/icons";
+
 import "./index.css";
+import DeleteButton from "../DeleteButton";
 
 const AccountBookForm = ({ title, onFinish, onCancel, onDelete, initialValues = {} }) => {
+  // console.log(initialValues);
+
   return (
     <>
       <Row className="view-transaction-header">
         <Col span={8}>
           <Button type="primary" onClick={onCancel}>
+            <LeftOutlined />
             Cancel
           </Button>
         </Col>
@@ -18,9 +24,11 @@ const AccountBookForm = ({ title, onFinish, onCancel, onDelete, initialValues = 
 
         <Col span={8}>
           {onDelete && (
-            <Button type="primary" danger onClick={onDelete}>
-              Delete
-            </Button>
+            <DeleteButton
+              type={"Account Book"}
+              name={initialValues.id}
+              onDelete={onDelete}
+            />
           )}
         </Col>
       </Row>
@@ -66,7 +74,8 @@ const AccountBookForm = ({ title, onFinish, onCancel, onDelete, initialValues = 
           }}
           style={{ textAlign: "center" }}
         >
-          <Button type="primary" htmlType="submit">
+          <Button className="green-button" type="primary" htmlType="submit">
+            <CheckOutlined />
             Submit
           </Button>
         </Form.Item>
