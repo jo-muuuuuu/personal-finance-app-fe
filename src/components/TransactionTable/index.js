@@ -100,6 +100,18 @@ const TransactionTable = ({ title, onCancel, onDelete, transactionList }) => {
           render={(text) => (text ? text.toUpperCase() : "N/A")}
         />
         <Column
+          title="Type"
+          dataIndex="type"
+          key="type"
+          render={(text) =>
+            text === "expense" ? (
+              <p style={{ margin: 0, color: "red" }}>{text.toUpperCase()}</p>
+            ) : (
+              <p style={{ margin: 0, color: "green" }}>{text.toUpperCase()}</p>
+            )
+          }
+        />
+        <Column
           title="Category"
           dataIndex="category"
           key="category"

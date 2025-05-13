@@ -9,9 +9,15 @@ const DeleteButton = ({ type, name, onDelete }) => {
       placement="bottom"
       title={`Delete the ${type}`}
       description={
-        type === "Account Book"
-          ? `Are you sure to delete Account Book: [${name}]?`
-          : `Are you sure to delete this Transaction?`
+        type === "Account Book" ? (
+          <p>
+            Are you sure to delete Account Book: [{name}]?
+            <br />
+            All transactions in this account book will also be deleted.
+          </p>
+        ) : (
+          `Are you sure to delete this Transaction?`
+        )
       }
       okText="Yes"
       cancelText="No"
