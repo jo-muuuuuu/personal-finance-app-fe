@@ -4,14 +4,11 @@ import { setAccountBookList } from "./accountBookSlice";
 
 export const fetchAccountBooks = (userId) => async (dispatch) => {
   try {
-    const response = await axiosInstance.get(
-      `${process.env.REACT_APP_API_URL}/api/account-books`,
-      {
-        headers: {
-          id: userId,
-        },
-      }
-    );
+    const response = await axiosInstance.get(`/account-books`, {
+      headers: {
+        id: userId,
+      },
+    });
 
     if (response.status === 200) {
       dispatch(setAccountBookList(response.data.accountBookList));
@@ -24,10 +21,7 @@ export const fetchAccountBooks = (userId) => async (dispatch) => {
 
 export const newAccountBook = (values) => async (dispatch) => {
   try {
-    const response = await axiosInstance.post(
-      `${process.env.REACT_APP_API_URL}/api/account-books`,
-      values
-    );
+    const response = await axiosInstance.post(`/account-books`, values);
 
     if (response.status === 200) {
       antdSuccess("Success!");
@@ -40,10 +34,7 @@ export const newAccountBook = (values) => async (dispatch) => {
 
 export const editAccountBook = (values, accountBookId) => async (dispatch) => {
   try {
-    const response = await axiosInstance.put(
-      `${process.env.REACT_APP_API_URL}/api/account-books/${accountBookId}`,
-      values
-    );
+    const response = await axiosInstance.put(`/account-books/${accountBookId}`, values);
 
     if (response.status === 200) {
       // console.log("Success!", response.data);
@@ -60,9 +51,7 @@ export const editAccountBook = (values, accountBookId) => async (dispatch) => {
 export const deleteAccountBook =
   (accountBookId, accountBookName, userId) => async (dispatch) => {
     try {
-      const response = await axiosInstance.delete(
-        `${process.env.REACT_APP_API_URL}/api/account-books/${accountBookId}`
-      );
+      const response = await axiosInstance.delete(`/account-books/${accountBookId}`);
 
       if (response.status === 200) {
         antdSuccess(`Successfully deleted "${accountBookName}"!`);

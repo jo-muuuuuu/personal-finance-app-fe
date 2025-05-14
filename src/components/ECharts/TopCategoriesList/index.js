@@ -9,7 +9,7 @@ const TopCategoriesList = () => {
 
   useEffect(() => {
     axiosInstance
-      .get(`/api/top-categories/${userId}`)
+      .get(`/top-categories/${userId}`)
       .then((res) => setData(res.data))
       .catch((err) => console.error(err));
   }, [userId]);

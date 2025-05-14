@@ -12,7 +12,7 @@ const BarChart = () => {
 
   useEffect(() => {
     axiosInstance
-      .get(`/api/account-books-summary/${userId}`)
+      .get(`/account-books-summary/${userId}`)
       .then((res) => setData(res.data))
       .catch((err) => console.error(err));
   }, [userId]);

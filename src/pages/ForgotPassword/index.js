@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { LeftOutlined } from "@ant-design/icons";
 import { Card, Button, Form, Input } from "antd";
 
+import axiosInstance from "../../api";
 import "./index.css";
-import axios from "axios";
 import { antdSuccess, antdError } from "../../utils/antdMessage";
 
 const ForgotPassword = () => {
@@ -18,8 +18,8 @@ const ForgotPassword = () => {
   const onFinish = (values) => {
     // console.log("Received values of form: ", values);
 
-    axios
-      .post(`${process.env.REACT_APP_API_URL}/api/forgot-password`, values)
+    axiosInstance
+      .post(`/forgot-password`, values)
       .then((response) => {
         if (response.status === 200) {
           antdSuccess("Please check your email for password reset link!");

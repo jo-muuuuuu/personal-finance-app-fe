@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Card, Button, Checkbox, Form, Input, Flex } from "antd";
 
-import axios from "axios";
+import axiosInstance from "../../api";
 
 import { useDispatch } from "react-redux";
 import { setUserInfo } from "../../store/reducers/userInfoSlice";
@@ -26,8 +26,8 @@ const Login = () => {
   const onFinish = (values) => {
     // console.log("Received values of form: ", values);
 
-    axios
-      .post(`${process.env.REACT_APP_API_URL}/api/login`, values)
+    axiosInstance
+      .post(`/login`, values)
       .then((response) => {
         if (response.status === 200) {
           // console.log("Success!", response.data);

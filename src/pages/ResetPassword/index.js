@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import { Card, Button, Form, Input } from "antd";
 
-import axios from "axios";
+import axiosInstance from "../../api";
 
 import { antdSuccess, antdError } from "../../utils/antdMessage";
 
@@ -39,12 +39,9 @@ const ResetPassword = () => {
   useEffect(() => {
     const validateToken = async () => {
       try {
-        const res = await axios.get(
-          `${process.env.REACT_APP_API_URL}/api/validate-token`,
-          {
-            params: { token },
-          }
-        );
+        const res = await axiosInstance.get(`/validate-token`, {
+          params: { token },
+        });
 
         setValidToken(true);
       } catch (error) {
@@ -66,8 +63,8 @@ const ResetPassword = () => {
   const onFinish = (values) => {
     // console.log("Received values of form: ", values);
 
-    axios
-      .post(`${process.env.REACT_APP_API_URL}/api/reset-password`, {
+    axiosInstance
+      .post(`/reset-password`, {
         newPassword: values.password,
         token,
       })

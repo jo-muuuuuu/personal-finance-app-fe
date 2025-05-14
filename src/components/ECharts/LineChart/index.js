@@ -11,7 +11,7 @@ const LineChart = () => {
 
   useEffect(() => {
     axiosInstance
-      .get(`/api/monthly-summary/${userId}`)
+      .get(`/monthly-summary/${userId}`)
       .then((res) => setData(res.data))
       .catch((err) => console.error(err));
   }, [userId]);

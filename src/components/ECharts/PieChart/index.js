@@ -11,7 +11,7 @@ const PieChart = () => {
 
   useEffect(() => {
     axiosInstance
-      .get(`/api/category-ratio/${userId}`)
+      .get(`/category-ratio/${userId}`)
       .then((res) => setData(res.data))
       .catch((err) => console.error(err));
   }, [userId]);

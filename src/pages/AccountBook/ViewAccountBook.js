@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchTransactions } from "../../store/reducers/transactionThunk";
 import { deleteAccountBook } from "../../store/reducers/accountBookThunk";
+import { setAccountBookSelected } from "../../store/reducers/accountBookSlice";
 
 import TransactionTable from "../../components/TransactionTable";
 
@@ -32,7 +33,14 @@ const ViewAccountBook = () => {
 
   const onDelete = () => {
     dispatch(deleteAccountBook(accountBookSelected.id, accountBookSelected.name, userId));
+    navigate("/account-book/overview");
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch(setAccountBookSelected(null));
+    };
+  }, [dispatch]);
 
   return (
     <TransactionTable

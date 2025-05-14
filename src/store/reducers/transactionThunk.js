@@ -4,14 +4,11 @@ import { setTransactionList } from "./transactionSlice";
 
 export const fetchTransactions = (userId) => async (dispatch) => {
   try {
-    const response = await axiosInstance.get(
-      `${process.env.REACT_APP_API_URL}/api/transactions`,
-      {
-        headers: {
-          id: userId,
-        },
-      }
-    );
+    const response = await axiosInstance.get(`/transactions`, {
+      headers: {
+        id: userId,
+      },
+    });
 
     if (response.status === 200) {
       //   console.log("Success!", response.data.transactionList);
@@ -27,10 +24,7 @@ export const fetchTransactions = (userId) => async (dispatch) => {
 
 export const newTransaction = (values) => async (dispatch) => {
   try {
-    const response = await axiosInstance.post(
-      `${process.env.REACT_APP_API_URL}/api/transactions`,
-      values
-    );
+    const response = await axiosInstance.post(`/transactions`, values);
 
     if (response.status === 200) {
       // console.log("Success!", response.data);
@@ -44,10 +38,7 @@ export const newTransaction = (values) => async (dispatch) => {
 
 export const editTransaction = (values, transactionId) => async (dispatch) => {
   try {
-    const response = await axiosInstance.put(
-      `${process.env.REACT_APP_API_URL}/api/transactions/${transactionId}`,
-      values
-    );
+    const response = await axiosInstance.put(`/transactions/${transactionId}`, values);
 
     if (response.status === 200) {
       // console.log("Success!", response.data);
@@ -61,9 +52,7 @@ export const editTransaction = (values, transactionId) => async (dispatch) => {
 
 export const deleteTransaction = (transactionId, userId) => async (dispatch) => {
   try {
-    const response = await axiosInstance.delete(
-      `${process.env.REACT_APP_API_URL}/api/transactions/${transactionId}`
-    );
+    const response = await axiosInstance.delete(`/transactions/${transactionId}`);
 
     if (response.status === 200) {
       // console.log("Success!", response.data);

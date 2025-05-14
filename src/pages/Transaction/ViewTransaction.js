@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { setTransactionSelected } from "../../store/reducers/transactionSlice";
 import { deleteTransaction } from "../../store/reducers/transactionThunk";
 import { useNavigate } from "react-router";
 
 import { Col, Row, Button, Divider } from "antd";
-import { CheckOutlined, LeftOutlined } from "@ant-design/icons";
+import { LeftOutlined } from "@ant-design/icons";
 
 import "./index.css";
 import DeleteButton from "../../components/DeleteButton";
@@ -28,6 +29,12 @@ const ViewTransaction = () => {
     navigate("/transactions/overview");
   };
 
+  useEffect(() => {
+    return () => {
+      dispatch(setTransactionSelected(null));
+    };
+  }, [dispatch]);
+
   return (
     <>
       <Row className="view-transaction-header">
@@ -45,11 +52,8 @@ const ViewTransaction = () => {
           <DeleteButton
             type={"Transaction"}
             name={transactionSelected.id}
-            onClick={onDelete}
+            onDelete={onDelete}
           />
-          {/* <Button type="primary" danger onClick={onDelete}>
-            Delete
-          </Button> */}
         </Col>
       </Row>
 

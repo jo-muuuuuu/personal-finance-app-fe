@@ -4,9 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { LeftOutlined } from "@ant-design/icons";
 import { Modal, Card, Button, Checkbox, Form, Input } from "antd";
 
-import axios from "axios";
-
 import { antdSuccess, antdError } from "../../utils/antdMessage";
+import axiosInstance from "../../api";
 
 const formItemLayout = {
   labelCol: {
@@ -57,8 +56,8 @@ const Register = () => {
   const onFinish = (values) => {
     // console.log("Received values of form: ", values);
 
-    axios
-      .post(`${process.env.REACT_APP_API_URL}/api/register`, values)
+    axiosInstance
+      .post(`/register`, values)
       .then((response) => {
         if (response.status === 200) {
           // console.log("Success!", response.data);

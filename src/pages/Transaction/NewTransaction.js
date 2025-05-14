@@ -16,7 +16,7 @@ const NewTransaction = () => {
 
   const onFinish = (values) => {
     values = { ...values, date: dayjs(values.date).format("YYYY-MM-DD"), userId };
-    console.log("Form values:", values);
+    // console.log("Form values:", values);
 
     dispatch(newTransaction(values));
     navigate("/transactions/overview");
