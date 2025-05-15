@@ -1,70 +1,46 @@
-# Getting Started with Create React App
+# Personal Finance App - Front End
+## Introduction
+This project is a simple yet functional personal finance application that allows users to track their income and expenses using account books and transactions.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Account Book Page
+<img width="600" alt="1bc84159fa2f53b973fe35119ff3bce" src="https://github.com/user-attachments/assets/2732fabb-257f-4f7a-80e3-77016648e80e" />
 
-## Available Scripts
+### Transaction Page
+<img width="600" alt="522a5e8ecc66eaae5ddd5dec637bd44" src="https://github.com/user-attachments/assets/7aeb1b86-bbc5-4582-90ae-6be5f016496c" />
 
-In the project directory, you can run:
+### Dashboard
+<img width="600" alt="4a9220e92a99e30cfc6622298c0e6d3" src="https://github.com/user-attachments/assets/cd87a0bb-f155-4079-81e7-5b700d6cf0fb" />
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Deployment
+This project is now live: [Personal Finance App](http://16.26.46.247/)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Database
+The backend uses a `MySQL` database hosted on `Amazon RDS`.
 
-### `npm test`
+### Frontend & Backend
+Both the frontend and backend are deployed on a single `Amazon EC2` instance.
+- `Nginx` is used to serve the frontend and proxy API requests to the backend.
+- `PM2` is used to run and monitor the backend `Express` server.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## How to use
+You can register a new account and log in to start using the app.
 
-### `npm run build`
+- For simplicity and demonstration purposes, there is no email or password validation during registration.
+- If you'd like to test the `forgot password` and `reset password` functionalities, please use a ***real email address***.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Tech Stack
+- Frontend: React, React Redux, Ant Design, Axios, ECharts
+- Backend: Node.js (Express.js), MySQL, Nodemailer (Gmail)
+- DevOps & Hosting: AWS (EC2, RDS), Nginx, PM2
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Commands
+- Connect to the RDS MySQL DB: `mysql -h <Endpoint of DB> -P 3306 -u <username> -p` and then enter password
+- `MySQL scripts` are also available in the Backend Repo.
+- Connect to the EC2 Instance: `ssh -i <key-pair.pem> <username>@<Public DNS of Instance>`
+- Install necessary modules: `sudo yum install -y nodejs git nginx`, `sudo npm install -g pm2`
+- Transfer files: `scp -i <key-pair.pem> -r <folder> <username>@<Public DNS of Instance>`, or `git clone <URL of your repo>`
+- Strat Backend: `pm2 start <backend file> --name <name>`, `pm2 save`, `pm2 restart <name>`, `pm2 logs <name>`
+- Modify Nginx configuration: `sudo nano /etc/nginx/nginx.conf`
+- Use Nginx: `sudo systemctl start nginx`, `sudo systemctl enable nginx`, `sudo systemctl restart nginx`
