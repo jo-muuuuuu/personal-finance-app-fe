@@ -1,0 +1,141 @@
+.land-header {
+  margin: 0;
+  padding: 0;
+
+  height: 80px;
+  color: #ffffff;
+  font-weight: bold;
+
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.land-header-item {
+  font-size: 1rem;
+
+  line-height: 80px;
+  width: 300px;
+}
+
+.land-header-item span {
+  cursor: pointer;
+  font-size: 1.125rem;
+}
+
+.land-banner {
+  background-color: #d2dde6;
+}
+
+.land-banner h1 {
+  color: navy;
+  margin-top: 3.5rem;
+}
+
+.land-banner p {
+  font-size: 1.25rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.land-banner-arc-top {
+  background-color: #d2dde6;
+  height: 96px;
+
+  clip-path: ellipse(60% 200% at 50% -105%);
+  margin-bottom: -8rem;
+}
+.land-banner-arc-bot {
+  height: 128px;
+}
+
+.land-features {
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.land-features .ant-row {
+  margin-bottom: 4rem;
+}
+
+.land-features h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: navy;
+
+  margin-bottom: 0.5rem;
+}
+
+.land-features p {
+  font-size: 1.125rem;
+  /* color: #1677ff; */
+}
+
+.land-footer {
+  padding: 0;
+}
+
+.land-footer-arc-top {
+  background-color: #1677ff;
+  height: 96px;
+
+  clip-path: ellipse(55% 105% at 50% 105%);
+}
+
+.land-footer-arc-bot {
+  background-color: #1677ff;
+  color: #ffffff;
+
+  position: relative;
+  margin-top: -2rem;
+  z-index: 1234;
+}
+
+.land-footer-arc-bot h2 {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-top: 0;
+}
+
+.land-footer-arc-bot .anticon {
+  font-size: 2rem;
+}
+
+.land-footer-contact {
+  display: flex;
+  justify-content: space-between;
+
+  text-align: center;
+}
+
+.land-footer-contact-item {
+  width: 50%;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.land-footer-contact-item p {
+  display: inline-block;
+  margin-left: 0.5rem;
+}
+
+.land-footer-contact-item a {
+  color: #ffffff;
+  display: inline-block;
+  margin-left: 0.5rem;
+}
+
+.land-footer-divider {
+  border: 0;
+  height: 0.25px;
+  background: #f5f5f5;
+  margin: 0 3rem;
+  margin-top: 1rem;
+}
+
+.land-footer-copy {
+  text-align: center;
+  height: 60px;
+}

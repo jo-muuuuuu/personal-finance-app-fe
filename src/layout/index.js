@@ -36,7 +36,7 @@ const App = () => {
           </Content>
 
           <Footer style={{ textAlign: "center" }}>
-            Personal Finance App ©{new Date().getFullYear()} | Created by Zicheng Mu
+            Johnny's Bookkeeping App ©{new Date().getFullYear()} | Created by Zicheng Mu
           </Footer>
         </Layout>
       </Layout>

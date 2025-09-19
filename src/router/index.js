@@ -13,6 +13,7 @@ import NewTransaction from "../pages/Transaction/NewTransaction";
 import EditTransaction from "../pages/Transaction/EditTransaction";
 import ViewTransaction from "../pages/Transaction/ViewTransaction";
 import ViewAccountBook from "../pages/AccountBook/ViewAccountBook";
+import Landing from "../pages/Landing";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,7 @@ const router = createBrowserRouter([
       },
     ],
   },
+  { path: "/landing", element: <Landing /> },
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
   { path: "/forgot-password", element: <ForgotPassword /> },
