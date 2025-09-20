@@ -72,6 +72,16 @@
   /* color: #1677ff; */
 }
 
+.land-card {
+  text-align: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-bottom: 4rem;
+
+  box-shadow: 5px 5px #f0f0f0;
+}
+
 .land-footer {
   padding: 0;
 }

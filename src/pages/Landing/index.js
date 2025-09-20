@@ -1,5 +1,5 @@
 import React, { use } from "react";
-import { Layout, Button, Row, Col } from "antd";
+import { Layout, Button, Row, Col, Card } from "antd";
 import { LinkedinFilled, GithubFilled, MailFilled } from "@ant-design/icons";
 
 import categoriesImg from "../../assets/imgs/categories.png";
@@ -124,6 +124,24 @@ const Landing = () => {
           </Col>
         </Row>
       </div>
+
+      <Card className="land-card">
+        <h1 style={{ color: "navy" }}>Elevate Your Financial Journey</h1>
+        <p style={{ fontSize: "1.25rem", marginBottom: "2rem" }}>
+          Our app simplifies expense tracking and empowers you to make better financial
+          decisions.
+        </p>
+        <Button
+          type="primary"
+          size="large"
+          style={{ backgroundColor: "navy", marginTop: "1rem", fontWeight: "bold" }}
+          onClick={() => {
+            navigate("/login");
+          }}
+        >
+          GET STARTED
+        </Button>
+      </Card>
 
       <Footer className="land-footer">
         <div className="land-footer-arc-top"></div>
