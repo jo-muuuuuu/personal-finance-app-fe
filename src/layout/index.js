@@ -8,7 +8,7 @@ import AuthRoute from "../components/AuthRoute/index";
 
 const { Content, Footer } = Layout;
 
-const App = () => {
+const AppLayout = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -43,4 +43,4 @@ const App = () => {
     </AuthRoute>
   );
 };
-export default App;
+export default AppLayout;

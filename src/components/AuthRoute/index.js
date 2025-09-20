@@ -5,7 +5,7 @@ const AuthRoute = ({ children }) => {
   const token = getToken();
 
   if (!token) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/landing" replace />;
   }
 
   return children;
