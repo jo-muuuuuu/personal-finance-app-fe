@@ -13,7 +13,7 @@ const userInfoSlice = createSlice({
     setUserInfo: (state, action) => {
       // console.log("action.payload", action.payload);
       state.userId = action.payload.id;
-      state.userEmail = action.payload.email;
+      state.userEmail = action.payload.username;
       state.userNickname = action.payload.nickname;
     },
     // setUserNickname: (state, action) => {

@@ -32,12 +32,12 @@ const Login = () => {
         if (response.status === 200) {
           // console.log("Success!", response.data);
 
-          const { id, nickname, email, token } = response.data;
+          const { id, nickname, username, token } = response.data;
           // setId(id);
           // setNickname(nickname);
           // setEmail(email);
           setToken(token, 60);
-          dispatch(setUserInfo({ id, email, nickname }));
+          dispatch(setUserInfo({ id, username, nickname }));
 
           antdSuccess("Login successful!");
           navigate("/");
@@ -62,7 +62,7 @@ const Login = () => {
     <div className="login-container">
       <Card
         className="login-card"
-        title="Personal Finance App"
+        title="Johnny's Bookkeeping App"
         variant="borderless"
         style={{ width: 500 }}
       >

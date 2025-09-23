@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Layout, Dropdown, Breadcrumb, theme } from "antd";
-import { LogoutOutlined, DownOutlined } from "@ant-design/icons";
+import { Layout, Dropdown, Breadcrumb, Avatar, theme } from "antd";
+import { LogoutOutlined, DownOutlined, UserOutlined } from "@ant-design/icons";
 
 import { useSelector } from "react-redux";
 
@@ -10,6 +10,8 @@ import "./index.css";
 const { Header } = Layout;
 
 const CustomHeader = () => {
+  const avatar = require("../../assets/imgs/kira.jpeg");
+
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -31,6 +33,7 @@ const CustomHeader = () => {
     "/transactions/new": "Add a new Transaction",
     "/transactions/view": "View a transaction",
     "/transactions/edit": "Edit a transaction",
+    "/profile": "Profile",
   };
 
   //   console.log("pathname", location.pathname);
@@ -77,14 +80,14 @@ const CustomHeader = () => {
   };
 
   const headerItems = [
-    // {
-    //   label: (
-    //     <p>
-    //       <UserOutlined /> Profile
-    //     </p>
-    //   ),
-    //   key: "/profile",
-    // },
+    {
+      label: (
+        <p>
+          <UserOutlined /> Profile
+        </p>
+      ),
+      key: "/profile",
+    },
     {
       label: (
         <p onClick={logOutNavigate}>
@@ -102,13 +105,17 @@ const CustomHeader = () => {
     >
       <Breadcrumb items={breadcrumbItems} />
 
-      <Dropdown menu={{ items: headerItems }} trigger={["click"]}>
-        <p className="nickname">
-          {/* {nickname} &nbsp; */}
-          {nickname ? nickname.toUpperCase() : ""} &nbsp;
-          <DownOutlined />
-        </p>
-      </Dropdown>
+      <div style={{ display: "flex", alignItems: "center", float: "right" }}>
+        <Avatar src={avatar} style={{ marginRight: "1rem" }} />
+
+        <Dropdown menu={{ items: headerItems }} trigger={["click"]}>
+          <span className="nickname">
+            {/* {nickname} &nbsp; */}
+            {nickname ? nickname.toUpperCase() : ""} &nbsp;
+            <DownOutlined />
+          </span>
+        </Dropdown>
+      </div>
     </Header>
   );
 };

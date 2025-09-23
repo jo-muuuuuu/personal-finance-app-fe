@@ -4,6 +4,7 @@ import {
   DashboardOutlined,
   AccountBookOutlined,
   TransactionOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 
@@ -33,11 +34,11 @@ const siderItems = [
   //   icon: <PigSaving style={{ width: "1em", hight: "1em" }} />,
   //   label: "Saving Plans",
   // },
-  // {
-  //   key: "/profile",
-  //   icon: React.createElement(UserOutlined),
-  //   label: "Profile",
-  // },
+  {
+    key: "/profile",
+    icon: React.createElement(UserOutlined),
+    label: "Profile",
+  },
 ];
 
 const CustomSider = () => {
@@ -49,9 +50,10 @@ const CustomSider = () => {
 
     if (currentPath.startsWith("/account-book")) {
       return "/account-book/overview";
-    }
-    if (currentPath.startsWith("/transactions")) {
+    } else if (currentPath.startsWith("/transactions")) {
       return "/transactions/overview";
+    } else if (currentPath === "/profile") {
+      return "/profile";
     }
 
     return "/";
@@ -65,7 +67,7 @@ const CustomSider = () => {
     <Sider breakpoint="lg">
       <div className="demo-logo-vertical">
         <AppLogo className="sider-logo" />
-        <div className="sider-title">Personal Finance App</div>
+        <div className="sider-title">Johnny's Bookkeeping App</div>
       </div>
 
       <Menu
