@@ -6,6 +6,7 @@ import { LogoutOutlined, DownOutlined, UserOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 
 import "./index.css";
+import { removeToken } from "../../utils";
 
 const { Header } = Layout;
 
@@ -76,6 +77,7 @@ const CustomHeader = () => {
     // removeEmail();
     // removeToken();
 
+    removeToken();
     navigate("/login");
   };
 

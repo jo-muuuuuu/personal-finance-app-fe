@@ -7,15 +7,25 @@ import { useSelector } from "react-redux";
 import "./index.css";
 import axiosInstance from "../../api";
 import { antdSuccess, antdError } from "../../utils/antdMessage";
+import { removeToken } from "../../utils";
 
 const Profile = () => {
   const avatar = require("../../assets/imgs/kira.jpeg");
+
   const email = useSelector((state) => state.userInfo.userEmail);
   const nickname = useSelector((state) => state.userInfo.userNickname);
+
+  const accountBookCount = useSelector(
+    (state) => state.accountBook.accountBookList.length
+  );
+  const transactionCount = useSelector(
+    (state) => state.transaction.transactionList.length
+  );
 
   const navigate = useNavigate();
 
   const onFinish = (values) => {
+    removeToken();
     navigate("/login");
 
     // axiosInstance
@@ -71,12 +81,12 @@ const Profile = () => {
 
               <p>
                 <span className="profile-log-info-title"># of account books</span>
-                <span className="profile-log-info-detail">123</span>
+                <span className="profile-log-info-detail">{accountBookCount}</span>
               </p>
 
               <p>
                 <span className="profile-log-info-title"># of transactions</span>
-                <span className="profile-log-info-detail">321</span>
+                <span className="profile-log-info-detail">{transactionCount}</span>
               </p>
             </div>
           </Card>

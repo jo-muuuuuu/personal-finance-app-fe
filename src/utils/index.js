@@ -18,4 +18,8 @@ const getToken = () => {
   return tokenData.token;
 };
 
-export { setToken, getToken };
+const removeToken = () => {
+  localStorage.removeItem("token");
+};
+
+export { setToken, getToken, removeToken };
