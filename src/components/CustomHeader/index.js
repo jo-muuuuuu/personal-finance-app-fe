@@ -34,6 +34,8 @@ const CustomHeader = () => {
     "/transactions/new": "Add a new Transaction",
     "/transactions/view": "View a transaction",
     "/transactions/edit": "Edit a transaction",
+    "/saving-plan": "Saving Plans",
+    "/saving-plan/overview": "Overview",
     "/profile": "Profile",
   };
 
@@ -72,11 +74,6 @@ const CustomHeader = () => {
   ];
 
   const logOutNavigate = () => {
-    // removeId();
-    // removeNickname();
-    // removeEmail();
-    // removeToken();
-
     removeToken();
     navigate("/login");
   };

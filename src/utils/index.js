@@ -11,7 +11,7 @@ const getToken = () => {
 
   const currentTime = new Date().getTime();
   if (currentTime > tokenData.expireTime) {
-    localStorage.removeItem("token");
+    removeToken();
     return null;
   }
 

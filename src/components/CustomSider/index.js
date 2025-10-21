@@ -4,6 +4,7 @@ import {
   DashboardOutlined,
   AccountBookOutlined,
   TransactionOutlined,
+  MoneyCollectOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
@@ -30,8 +31,8 @@ const siderItems = [
     label: "Transactions",
   },
   // {
-  //   key: "/saving",
-  //   icon: <PigSaving style={{ width: "1em", hight: "1em" }} />,
+  //   key: "/saving-plan/overview",
+  //   icon: React.createElement(MoneyCollectOutlined),
   //   label: "Saving Plans",
   // },
   {
@@ -52,6 +53,8 @@ const CustomSider = () => {
       return "/account-book/overview";
     } else if (currentPath.startsWith("/transactions")) {
       return "/transactions/overview";
+    } else if (currentPath.startsWith("/saving-plan")) {
+      return "/saving-plan/overview";
     } else if (currentPath === "/profile") {
       return "/profile";
     }

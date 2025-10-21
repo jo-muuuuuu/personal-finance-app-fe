@@ -8,7 +8,7 @@ import {
   deleteAccountBook,
 } from "../../store/reducers/accountBookThunk";
 
-import { Button, Divider, Space, Table } from "antd";
+import { Button, Space, Table } from "antd";
 import {
   PlusCircleOutlined,
   EyeOutlined,
@@ -66,10 +66,9 @@ const AccountBookOverview = () => {
       <div className="header">
         <h2>Your Account Books</h2>
         <Button type="primary" className="green-button" onClick={newAccBookNav}>
-          <PlusCircleOutlined /> New Account Books
+          <PlusCircleOutlined /> New Account Book
         </Button>
       </div>
-      <Divider style={{ margin: 0 }} />
 
       <Table dataSource={accountBookList}>
         <Column

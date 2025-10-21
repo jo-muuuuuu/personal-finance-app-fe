@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import "./index.css";
 import axiosInstance from "../../api";
 import { antdSuccess, antdError } from "../../utils/antdMessage";
-import { removeToken } from "../../utils";
+import { getToken, removeToken } from "../../utils";
 
 const Profile = () => {
   const avatar = require("../../assets/imgs/kira.jpeg");
@@ -28,31 +28,32 @@ const Profile = () => {
     removeToken();
     navigate("/login");
 
-    // axiosInstance
-    //   .post(`/profile-reset-password`, {
-    //     oldPassword: values.oldPassword,
-    //     newPassword: values.newPassword,
-    //   })
-    //   .then((response) => {
-    //     if (response.status === 200) {
-    //       antdSuccess("Password reset successful!");
+    axiosInstance
+      .post(`/profile-reset-password`, {
+        token: getToken(),
+        oldPassword: values.oldPassword,
+        newPassword: values.newPassword,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          antdSuccess("Password reset successful!");
 
-    //       navigate("/login");
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     if (error.response) {
-    //       console.error("Error response:", error.response.data);
+          navigate("/login");
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.error("Error response:", error.response.data);
 
-    //       if (error.response.status === 401) {
-    //         antdError("Invalid email or password");
-    //       } else if (error.response.status === 500) {
-    //         antdError("Server error, please try again later");
-    //       }
-    //     } else {
-    //       antdError("An error occurred: " + error.message);
-    //     }
-    //   });
+          if (error.response.status === 401) {
+            antdError("Invalid email or password");
+          } else if (error.response.status === 500) {
+            antdError("Server error, please try again later");
+          }
+        } else {
+          antdError("An error occurred: " + error.message);
+        }
+      });
   };
 
   return (
@@ -65,9 +66,9 @@ const Profile = () => {
 
               <div className="profile-user-name">
                 <p>{nickname}</p>
-                <Button type="primary" className="blue-button">
+                {/* <Button type="primary" className="blue-button">
                   Upload Avatar
-                </Button>
+                </Button> */}
               </div>
             </div>
 

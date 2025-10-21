@@ -15,6 +15,7 @@ import ViewTransaction from "../pages/Transaction/ViewTransaction";
 import ViewAccountBook from "../pages/AccountBook/ViewAccountBook";
 import Landing from "../pages/Landing";
 import Profile from "../pages/Profile";
+import SavingPlanOverview from "../pages/SavingPlan/SavingPlanOverview";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,13 @@ const router = createBrowserRouter([
           { path: "new", element: <NewTransaction /> },
           { path: "edit/:id", element: <EditTransaction /> },
           { path: "view/:id", element: <ViewTransaction /> },
+        ],
+      },
+      {
+        path: "saving-plan",
+        children: [
+          { index: true, element: <Navigate to="overview" replace /> },
+          { path: "overview", element: <SavingPlanOverview /> },
         ],
       },
       { path: "/profile", element: <Profile /> },
