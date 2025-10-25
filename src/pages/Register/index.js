@@ -84,7 +84,7 @@ const Register = () => {
 
   return (
     <div className="login-container">
-      <Card title="New Account" variant="borderless" style={{ width: 600 }}>
+      <Card title="Create A New Account" variant="borderless" style={{ width: 600 }}>
         <div className="login-link" style={{ marginBottom: "1rem" }}>
           <a onClick={loginNavigate}>
             <LeftOutlined /> Back to Log In

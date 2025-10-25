@@ -25,9 +25,6 @@ const Profile = () => {
   const navigate = useNavigate();
 
   const onFinish = (values) => {
-    removeToken();
-    navigate("/login");
-
     axiosInstance
       .post(`/profile-reset-password`, {
         token: getToken(),
@@ -38,6 +35,7 @@ const Profile = () => {
         if (response.status === 200) {
           antdSuccess("Password reset successful!");
 
+          removeToken();
           navigate("/login");
         }
       })
