@@ -32,12 +32,10 @@ const Login = () => {
         if (response.status === 200) {
           // console.log("Success!", response.data);
 
-          const { id, nickname, username, token } = response.data;
-          // setId(id);
-          // setNickname(nickname);
-          // setEmail(email);
+          const { id, nickname, username, avatarURL, token } = response.data;
+
           setToken(token, 60);
-          dispatch(setUserInfo({ id, username, nickname }));
+          dispatch(setUserInfo({ id, username, nickname, avatarURL }));
 
           antdSuccess("Login successful!");
           navigate("/");

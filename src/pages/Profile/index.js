@@ -1,19 +1,29 @@
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { Button, Form, Input, Row, Col, Card, Divider } from "antd";
 import { CheckOutlined, EyeTwoTone, EyeInvisibleOutlined } from "@ant-design/icons";
 
-import { useSelector } from "react-redux";
-import "./index.css";
-import axiosInstance from "../../api";
+import { useSelector, useDispatch } from "react-redux";
+import { updateUserAvatar } from "../../store/reducers/userInfoSlice";
 import { antdSuccess, antdError } from "../../utils/antdMessage";
 import { getToken, removeToken } from "../../utils";
+import axiosInstance from "../../api";
+import "./index.css";
 
 const Profile = () => {
-  const avatar = require("../../assets/imgs/kira.jpeg");
-
+  const dispatch = useDispatch();
   const email = useSelector((state) => state.userInfo.userEmail);
   const nickname = useSelector((state) => state.userInfo.userNickname);
+  const avatarURL = useSelector((state) => state.userInfo.userAvatarURL);
+
+  // default avatar url
+  const defaultAvatar = require("../../assets/imgs/kira.jpeg");
+
+  const fileInputRef = useRef(null);
+  const [preview, setPreview] = useState(
+    avatarURL ? `${process.env.REACT_APP_API_URL}${avatarURL}` : defaultAvatar
+  );
+  const [objectUrl, setObjectUrl] = useState(null);
 
   const accountBookCount = useSelector(
     (state) => state.accountBook.accountBookList.length
@@ -33,7 +43,7 @@ const Profile = () => {
       })
       .then((response) => {
         if (response.status === 200) {
-          antdSuccess("Password reset successful!");
+          antdSuccess("Password successfully reset!");
 
           removeToken();
           navigate("/login");
@@ -54,19 +64,72 @@ const Profile = () => {
       });
   };
 
+  const uploadAvatarClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleFileChange = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const localUrl = URL.createObjectURL(file);
+    setPreview(localUrl);
+    setObjectUrl(localUrl);
+
+    const formData = new FormData();
+    formData.append("image", file);
+
+    try {
+      const res = await axiosInstance.post("/upload-avatar", formData, {
+        headers: { email },
+      });
+
+      const { avatarURL } = res.data;
+      setPreview(`${process.env.REACT_APP_API_URL}${avatarURL}`);
+
+      dispatch(updateUserAvatar(avatarURL));
+      antdSuccess("Avatar uploaded successfully!");
+    } catch (error) {
+      console.error("Error uploading avatar:", error);
+      antdError("Failed to upload avatar. Please try again.");
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (objectUrl) {
+        URL.revokeObjectURL(objectUrl);
+      }
+    };
+  }, [objectUrl]);
+
   return (
     <div>
       <Row>
         <Col span={12} style={{ paddingRight: "1rem" }}>
           <Card className="profile-card" variant="borderless">
             <div className="profile-user-info">
-              <img src={avatar} />
+              <img src={preview} alt="user avatar" />
 
               <div className="profile-user-name">
                 <p>{nickname}</p>
-                {/* <Button type="primary" className="blue-button">
+                <Button
+                  type="primary"
+                  className="blue-button"
+                  onClick={uploadAvatarClick}
+                >
                   Upload Avatar
-                </Button> */}
+                </Button>
+
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  style={{ display: "none" }}
+                  onChange={handleFileChange}
+                />
               </div>
             </div>
 

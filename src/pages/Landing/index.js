@@ -1,4 +1,4 @@
-import React, { use } from "react";
+import React from "react";
 import { Layout, Button, Row, Col, Card } from "antd";
 import { LinkedinFilled, GithubFilled, MailFilled } from "@ant-design/icons";
 
@@ -67,9 +67,9 @@ const Landing = () => {
         </div>
       </div>
 
-      <div class="land-banner-arc">
-        <div class="land-banner-arc-top"></div>
-        <div class="land-banner-arc-bot"></div>
+      <div className="land-banner-arc">
+        <div className="land-banner-arc-top"></div>
+        <div className="land-banner-arc-bot"></div>
       </div>
 
       <div className="land-features">
@@ -156,14 +156,18 @@ const Landing = () => {
 
             <div className="land-footer-contact-item">
               <LinkedinFilled />
-              <a href="https://www.linkedin.com/in/zicheng-mu/" target="_blank">
+              <a
+                href="https://www.linkedin.com/in/zicheng-mu/"
+                target="_blank"
+                rel="noreferrer"
+              >
                 https://www.linkedin.com/in/zicheng-mu/
               </a>
             </div>
 
             <div className="land-footer-contact-item">
               <GithubFilled />
-              <a href="https://github.com/jo-muuuuuu/" target="_blank">
+              <a href="https://github.com/jo-muuuuuu/" target="_blank" rel="noreferrer">
                 https://github.com/jo-muuuuuu/
               </a>
             </div>

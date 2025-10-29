@@ -11,8 +11,6 @@ import { removeToken } from "../../utils";
 const { Header } = Layout;
 
 const CustomHeader = () => {
-  const avatar = require("../../assets/imgs/kira.jpeg");
-
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -21,6 +19,12 @@ const CustomHeader = () => {
   const location = useLocation();
 
   const nickname = useSelector((state) => state.userInfo.userNickname);
+  const avatarURL = useSelector((state) => state.userInfo.userAvatarURL);
+
+  const defaultAvatar = require("../../assets/imgs/kira.jpeg");
+  const avatarSrc = avatarURL
+    ? `${process.env.REACT_APP_API_URL}${avatarURL}`
+    : defaultAvatar;
 
   const breadcrumbNameMap = {
     "/dashboard": "Dashboard",
@@ -105,7 +109,7 @@ const CustomHeader = () => {
       <Breadcrumb items={breadcrumbItems} />
 
       <div style={{ display: "flex", alignItems: "center", float: "right" }}>
-        <Avatar src={avatar} style={{ marginRight: "1rem" }} />
+        <Avatar src={avatarSrc} style={{ marginRight: "1rem" }} />
 
         <Dropdown menu={{ items: headerItems }} trigger={["click"]}>
           <span className="nickname">
