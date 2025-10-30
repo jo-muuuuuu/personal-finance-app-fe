@@ -2,7 +2,7 @@ import React from "react";
 
 import { Row, Col } from "antd";
 
-import ResetPasswordCard from "./resetPasswordCard";
+import ResetPasswordCard from "./ResetPasswordCard";
 import UserInfoCard from "./userInfoCard";
 import "./index.css";
 
