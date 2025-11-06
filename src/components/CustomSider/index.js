@@ -30,11 +30,11 @@ const siderItems = [
     icon: React.createElement(TransactionOutlined),
     label: "Transactions",
   },
-  // {
-  //   key: "/saving-plan/overview",
-  //   icon: React.createElement(MoneyCollectOutlined),
-  //   label: "Saving Plans",
-  // },
+  {
+    key: "/saving-plan/overview",
+    icon: React.createElement(MoneyCollectOutlined),
+    label: "Saving Plans",
+  },
   {
     key: "/profile",
     icon: React.createElement(UserOutlined),

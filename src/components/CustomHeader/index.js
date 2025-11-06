@@ -40,6 +40,7 @@ const CustomHeader = () => {
     "/transactions/edit": "Edit a transaction",
     "/saving-plan": "Saving Plans",
     "/saving-plan/overview": "Overview",
+    "/saving-plan/new": "New Saving Plan",
     "/profile": "Profile",
   };
 

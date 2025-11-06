@@ -3,7 +3,7 @@ import React from "react";
 import { Row, Col } from "antd";
 
 import ResetPasswordCard from "./ResetPasswordCard";
-import UserInfoCard from "./userInfoCard";
+import UserInfoCard from "./UserInfoCard";
 import "./index.css";
 
 const Profile = () => {

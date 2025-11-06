@@ -16,6 +16,7 @@ import ViewAccountBook from "../pages/AccountBook/ViewAccountBook";
 import Landing from "../pages/Landing";
 import Profile from "../pages/Profile";
 import SavingPlanOverview from "../pages/SavingPlan/SavingPlanOverview";
+import NewSavingPlan from "../pages/SavingPlan/NewSavingPlan";
 
 const router = createBrowserRouter([
   {
@@ -51,6 +52,7 @@ const router = createBrowserRouter([
         children: [
           { index: true, element: <Navigate to="overview" replace /> },
           { path: "overview", element: <SavingPlanOverview /> },
+          { path: "new", element: <NewSavingPlan /> },
         ],
       },
       { path: "/profile", element: <Profile /> },

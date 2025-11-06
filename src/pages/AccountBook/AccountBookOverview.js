@@ -9,12 +9,7 @@ import {
 } from "../../store/reducers/accountBookThunk";
 
 import { Button, Space, Table } from "antd";
-import {
-  PlusCircleOutlined,
-  EyeOutlined,
-  EditOutlined,
-  DeleteOutlined,
-} from "@ant-design/icons";
+import { PlusCircleOutlined, EyeOutlined, EditOutlined } from "@ant-design/icons";
 
 import "./index.css";
 import DeleteButton from "../../components/DeleteButton";
