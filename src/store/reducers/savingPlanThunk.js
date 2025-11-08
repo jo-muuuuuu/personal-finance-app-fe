@@ -32,3 +32,35 @@ export const newSavingPlan = (values) => async (dispatch) => {
     console.error("Error adding saving plan:", error);
   }
 };
+
+export const editSavingPlan = (values, savingPlanId) => async (dispatch) => {
+  try {
+    const response = await axiosInstance.put(`/saving-plans/${savingPlanId}`, values);
+
+    if (response.status === 200) {
+      // console.log("Success!", response.data);
+      antdSuccess("Success!");
+
+      // dispatch(setAccountBookSelected(null));
+    }
+  } catch (error) {
+    antdError("Failed to edit saving plan!");
+    console.error("Error editing saving plan:", error);
+  }
+};
+
+export const deleteSavingPlan =
+  (savingPlanId, savingPlanName, userId) => async (dispatch) => {
+    try {
+      const response = await axiosInstance.delete(`/saving-plans/${savingPlanId}`);
+
+      if (response.status === 200) {
+        antdSuccess(`Successfully deleted "${savingPlanName}"!`);
+
+        dispatch(fetchSavingPlans(userId));
+      }
+    } catch (error) {
+      antdError("Failed to delete saving plan. Please try again later.");
+      console.error("Error deleting saving plan:", error);
+    }
+  };

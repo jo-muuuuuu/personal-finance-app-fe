@@ -17,6 +17,8 @@ import Landing from "../pages/Landing";
 import Profile from "../pages/Profile";
 import SavingPlanOverview from "../pages/SavingPlan/SavingPlanOverview";
 import NewSavingPlan from "../pages/SavingPlan/NewSavingPlan";
+import EditSavingPlan from "../pages/SavingPlan/EditSavingPlan";
+import ViewSavingPlan from "../pages/SavingPlan/ViewSavingPlan";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +55,8 @@ const router = createBrowserRouter([
           { index: true, element: <Navigate to="overview" replace /> },
           { path: "overview", element: <SavingPlanOverview /> },
           { path: "new", element: <NewSavingPlan /> },
+          { path: "edit/:name", element: <EditSavingPlan /> },
+          { path: "view/:id", element: <ViewSavingPlan /> },
         ],
       },
       { path: "/profile", element: <Profile /> },

@@ -20,7 +20,7 @@ const NewSavingPlan = () => {
     console.log("Received values of form: ", values);
 
     dispatch(newSavingPlan(values));
-    // navigate("/saving-plan/overview");
+    navigate("/saving-plan/overview");
   };
 
   return (
