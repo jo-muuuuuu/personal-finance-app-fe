@@ -19,6 +19,7 @@ import SavingPlanOverview from "../pages/SavingPlan/SavingPlanOverview";
 import NewSavingPlan from "../pages/SavingPlan/NewSavingPlan";
 import EditSavingPlan from "../pages/SavingPlan/EditSavingPlan";
 import ViewSavingPlan from "../pages/SavingPlan/ViewSavingPlan";
+import DepositList from "../components/DepositList";
 
 const router = createBrowserRouter([
   {
@@ -57,6 +58,7 @@ const router = createBrowserRouter([
           { path: "new", element: <NewSavingPlan /> },
           { path: "edit/:name", element: <EditSavingPlan /> },
           { path: "view/:id", element: <ViewSavingPlan /> },
+          { path: "deposit/:id", element: <DepositList /> },
         ],
       },
       { path: "/profile", element: <Profile /> },

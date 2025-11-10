@@ -4,9 +4,10 @@ import { Col, Row, Button, Divider } from "antd";
 import { useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 
-import { LeftOutlined } from "@ant-design/icons";
+import { LeftOutlined, CalculatorOutlined } from "@ant-design/icons";
 import { setSavingPlanSelected } from "../../store/reducers/savingPlanSlice";
-import { editSavingPlan, deleteSavingPlan } from "../../store/reducers/savingPlanThunk";
+import { deleteSavingPlan } from "../../store/reducers/savingPlanThunk";
+import DepositList from "../../components/DepositList";
 import DeleteButton from "../../components/DeleteButton";
 
 const ViewSavingPlan = () => {
@@ -103,6 +104,12 @@ const ViewSavingPlan = () => {
             <span>{savingPlanSelected.status}</span>
           </Col>
         </Row>
+
+        <Divider style={{ color: "#1677ff" }}>
+          <CalculatorOutlined /> Deposit Records
+        </Divider>
+
+        <DepositList title={false} deposit={false} />
       </div>
     </>
   );

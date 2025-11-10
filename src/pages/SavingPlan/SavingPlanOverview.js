@@ -33,6 +33,13 @@ const SavingPlanOverview = () => {
     dispatch(fetchSavingPlans(userId));
   }, [dispatch, userId]);
 
+  const depositNav = (item) => {
+    return () => {
+      dispatch(setSavingPlanSelected(item));
+      navigate(`/saving-plan/deposit/${item.id}`);
+    };
+  };
+
   const viewSavingPlanNav = (item) => {
     return () => {
       dispatch(setSavingPlanSelected(item));
@@ -96,6 +103,14 @@ const SavingPlanOverview = () => {
           render={(item) => {
             return (
               <Space>
+                <Button
+                  type="primary"
+                  className="green-button"
+                  onClick={depositNav(item)}
+                >
+                  <PlusCircleOutlined />
+                  Deposit
+                </Button>
                 <Button type="primary" onClick={viewSavingPlanNav(item)}>
                   <EyeOutlined />
                   View
