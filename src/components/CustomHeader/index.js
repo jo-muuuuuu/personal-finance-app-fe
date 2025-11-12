@@ -3,7 +3,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Layout, Dropdown, Breadcrumb, Avatar, theme } from "antd";
 import { LogoutOutlined, DownOutlined, UserOutlined } from "@ant-design/icons";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { persistor } from "../../store";
 
 import "./index.css";
 import { removeToken } from "../../utils";
@@ -15,6 +16,7 @@ const CustomHeader = () => {
     token: { colorBgContainer },
   } = theme.useToken();
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -81,6 +83,9 @@ const CustomHeader = () => {
   const logOutNavigate = () => {
     removeToken();
     navigate("/login");
+
+    dispatch({ type: "LOGOUT" });
+    persistor.purge();
   };
 
   const headerItems = [

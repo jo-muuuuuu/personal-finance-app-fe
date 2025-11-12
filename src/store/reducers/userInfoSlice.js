@@ -2,13 +2,15 @@ import { createSlice } from "@reduxjs/toolkit";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
+const initialState = {
+  userId: null,
+  userEmail: null,
+  userNickname: null,
+};
+
 const userInfoSlice = createSlice({
   name: "userInfo",
-  initialState: {
-    userId: null,
-    userEmail: null,
-    userNickname: null,
-  },
+  initialState,
   reducers: {
     setUserInfo: (state, action) => {
       // console.log("action.payload", action.payload);
@@ -20,6 +22,9 @@ const userInfoSlice = createSlice({
     updateUserAvatar: (state, action) => {
       state.userAvatarURL = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase("LOGOUT", () => initialState);
   },
 });
 

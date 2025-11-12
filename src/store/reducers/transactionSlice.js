@@ -2,12 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
+const initialState = {
+  transactionList: [],
+  transactionSelected: null,
+};
+
 const transactionSlice = createSlice({
   name: "transaction",
-  initialState: {
-    transactionList: [],
-    transactionSelected: null,
-  },
+  initialState,
   reducers: {
     setTransactionList: (state, action) => {
       // console.log("action.payload", action.payload);
@@ -17,6 +19,9 @@ const transactionSlice = createSlice({
       // console.log("action.payload", action.payload);
       state.transactionSelected = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase("LOGOUT", () => initialState);
   },
 });
 

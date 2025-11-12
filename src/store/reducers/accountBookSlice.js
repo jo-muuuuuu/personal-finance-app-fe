@@ -2,12 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
+const initialState = {
+  accountBookList: [],
+  accountBookSelected: null,
+};
+
 const accountBookSlice = createSlice({
   name: "accountBook",
-  initialState: {
-    accountBookList: [],
-    accountBookSelected: null,
-  },
+  initialState,
   reducers: {
     setAccountBookList: (state, action) => {
       // console.log("action.payload", action.payload);
@@ -18,6 +20,9 @@ const accountBookSlice = createSlice({
       // console.log("action.payload", action.payload);
       state.accountBookSelected = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase("LOGOUT", () => initialState);
   },
 });
 

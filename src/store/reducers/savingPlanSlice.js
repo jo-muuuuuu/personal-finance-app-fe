@@ -2,12 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
+const initialState = {
+  savingPlanList: [],
+  savingPlanSelected: null,
+};
+
 const savingPlanSlice = createSlice({
   name: "savingPlan",
-  initialState: {
-    savingPlanList: [],
-    savingPlanSelected: null,
-  },
+  initialState,
   reducers: {
     setSavingPlanList: (state, action) => {
       // console.log("action.payload", action.payload);
@@ -18,6 +20,9 @@ const savingPlanSlice = createSlice({
       // console.log("action.payload", action.payload);
       state.savingPlanSelected = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase("LOGOUT", () => initialState);
   },
 });
 
