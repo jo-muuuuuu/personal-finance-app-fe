@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Col, Row, Button, Table, Tag, Input } from "antd";
+import { Col, Row, Button, Table, Tag, Input, Popconfirm } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { PlusOutlined, LeftOutlined, CheckOutlined } from "@ant-design/icons";
@@ -97,7 +97,7 @@ const DepositList = ({ title = true, deposit = true }) => {
             return <Tag color={statusColors[status]}>{status}</Tag>;
           }}
         />
-        {deposit && (
+        {/* {deposit && (
           <Column
             title="Action"
             render={(item, record, index) => {
@@ -116,6 +116,51 @@ const DepositList = ({ title = true, deposit = true }) => {
               return (
                 <Button {...buttonProps}>
                   {isFirstPending ? <PlusOutlined /> : <CheckOutlined />}
+                  {buttonText}
+                </Button>
+              );
+            }}
+          />
+        )} */}
+        {deposit && (
+          <Column
+            title="Action"
+            render={(item, record, index) => {
+              const isFirstPending = index === firstPendingIndex;
+              const isCompleted = record.status === "completed";
+
+              const buttonText = isCompleted ? "Confirmed" : "Confirm Deposit";
+
+              if (isCompleted) {
+                return (
+                  <Button type="default" disabled icon={<CheckOutlined />}>
+                    {buttonText}
+                  </Button>
+                );
+              }
+
+              if (isFirstPending) {
+                return (
+                  <Popconfirm
+                    title="Confirm Deposit"
+                    description="Are you sure you want to confirm this deposit?"
+                    okText="Yes"
+                    cancelText="No"
+                    onConfirm={() => onConfirmDeposit(item, index)}
+                  >
+                    <Button
+                      type="primary"
+                      className="green-button"
+                      icon={<PlusOutlined />}
+                    >
+                      {buttonText}
+                    </Button>
+                  </Popconfirm>
+                );
+              }
+
+              return (
+                <Button type="default" disabled>
                   {buttonText}
                 </Button>
               );

@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router";
-import { Button, Form, Input, Card, Divider } from "antd";
+import { Button, Form, Input, Card, Alert } from "antd";
 import { CheckOutlined, EyeTwoTone, EyeInvisibleOutlined } from "@ant-design/icons";
 
 import { antdSuccess, antdError } from "../../utils/antdMessage";
@@ -137,11 +137,18 @@ const ResetPasswordCard = () => {
         </Form.Item>
       </Form>
 
-      <Divider />
-      <p style={{ color: "red" }}>
-        Note: After changing your password, you will be logged out and need to log in
-        again with the new password.
-      </p>
+      {/* <Divider /> */}
+      <Alert
+        message="Note"
+        description="        Note: After changing your password, you will be logged out and need to log in
+        again with the new password."
+        type="info"
+        showIcon
+        style={{ margin: "1rem auto" }}
+      />
+      {/* <p style={{ color: "red" }}>
+
+      </p> */}
     </Card>
   );
 };
