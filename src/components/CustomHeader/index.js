@@ -43,6 +43,9 @@ const CustomHeader = () => {
     "/saving-plan": "Saving Plans",
     "/saving-plan/overview": "Overview",
     "/saving-plan/new": "New Saving Plan",
+    "/saving-plan/view": "View a Saving Plan",
+    "/saving-plan/edit": "Edit a Saving Plan",
+    "/saving-plan/deposit": "Deposit to a Saving Plan",
     "/profile": "Profile",
   };
 

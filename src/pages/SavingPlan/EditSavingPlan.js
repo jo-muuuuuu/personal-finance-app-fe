@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Divider, Alert } from "antd";
 import { CalculatorOutlined } from "@ant-design/icons";
 
-import SavingPlanForm from "../../components/SavingPlanForm";
+import EditSavingPlanForm from "../../components/SavingPlanForm/EditSavingPlanForm";
 import { setSavingPlanSelected } from "../../store/reducers/savingPlanSlice";
 import { editSavingPlan, deleteSavingPlan } from "../../store/reducers/savingPlanThunk";
 import DepositList from "../../components/DepositList";
@@ -42,7 +42,7 @@ const EditSavingPlan = () => {
 
   return (
     <>
-      <SavingPlanForm
+      <EditSavingPlanForm
         title={`Editing Saving Plan: [${savingPlanSelected.name.toUpperCase()}]`}
         onFinish={onFinish}
         onCancel={onCancel}
@@ -51,6 +51,10 @@ const EditSavingPlan = () => {
           ...savingPlanSelected,
           start_date: dayjs(savingPlanSelected.start_date),
           end_date: dayjs(savingPlanSelected.end_date),
+          remaining_amount:
+            savingPlanSelected.amount - savingPlanSelected.deposited_amount,
+          remaining_periods:
+            savingPlanSelected.total_periods - savingPlanSelected.completed_periods,
         }}
       />
 

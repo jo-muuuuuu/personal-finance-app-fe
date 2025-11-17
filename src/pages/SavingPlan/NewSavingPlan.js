@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
-import SavingPlanForm from "../../components/SavingPlanForm";
+import NewSavingPlanForm from "../../components/SavingPlanForm/NewSavingPlanForm";
 import { newSavingPlan } from "../../store/reducers/savingPlanThunk";
 import dayjs from "dayjs";
 
@@ -30,7 +30,7 @@ const NewSavingPlan = () => {
   };
 
   return (
-    <SavingPlanForm title="New Saving Plan" onCancel={onCancel} onFinish={onFinish} />
+    <NewSavingPlanForm title="New Saving Plan" onCancel={onCancel} onFinish={onFinish} />
   );
 };
 

@@ -146,7 +146,7 @@ const DepositList = ({ title = true, deposit = true }) => {
                     description="Are you sure you want to confirm this deposit?"
                     okText="Yes"
                     cancelText="No"
-                    onConfirm={() => onConfirmDeposit(item, index)}
+                    onConfirm={onConfirmDeposit(item)}
                   >
                     <Button
                       type="primary"

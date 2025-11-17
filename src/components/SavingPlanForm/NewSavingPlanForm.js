@@ -13,7 +13,7 @@ import {
   Statistic,
 } from "antd";
 import { CheckOutlined, LeftOutlined, CalculatorOutlined } from "@ant-design/icons";
-import DeleteButton from "../DeleteButton";
+
 import dayjs from "dayjs";
 import { antdError } from "../../utils/antdMessage";
 
@@ -29,7 +29,7 @@ const periodOptions = [
   { label: "Year", value: "year" },
 ];
 
-const SavingPlanForm = ({ title, onFinish, onCancel, onDelete, initialValues = {} }) => {
+const NewSavingPlanForm = ({ title, onFinish, onCancel }) => {
   const [form] = Form.useForm();
 
   const [calculation, setCalculation] = useState({
@@ -82,15 +82,7 @@ const SavingPlanForm = ({ title, onFinish, onCancel, onDelete, initialValues = {
           <h2>{title}</h2>
         </Col>
 
-        <Col span={8}>
-          {onDelete && (
-            <DeleteButton
-              type={"Saving Plan"}
-              name={initialValues.id}
-              onDelete={onDelete}
-            />
-          )}
-        </Col>
+        <Col span={8}></Col>
       </Row>
 
       <Divider />
@@ -108,7 +100,6 @@ const SavingPlanForm = ({ title, onFinish, onCancel, onDelete, initialValues = {
             amountPerPeriod: calculation.amountPerPeriod,
           });
         }}
-        initialValues={initialValues}
         onValuesChange={handleValuesChange}
       >
         <Form.Item
@@ -148,7 +139,7 @@ const SavingPlanForm = ({ title, onFinish, onCancel, onDelete, initialValues = {
             { required: true, message: "Please enter the saving amount per period!" },
           ]}
         >
-          <InputNumber style={{ width: "100%" }} prefix="$" min={0} step={0.01} />
+          <InputNumber style={{ width: "100%" }} prefix="$" min={0} />
         </Form.Item>
 
         <Form.Item
@@ -210,4 +201,4 @@ const SavingPlanForm = ({ title, onFinish, onCancel, onDelete, initialValues = {
   );
 };
 
-export default SavingPlanForm;
+export default NewSavingPlanForm;
