@@ -13,6 +13,7 @@ import {
 import { CheckOutlined, LeftOutlined, CalculatorOutlined } from "@ant-design/icons";
 import DeleteButton from "../DeleteButton";
 import dayjs from "dayjs";
+import { antdError } from "../../utils/antdMessage";
 
 // import "./index.css";
 
@@ -40,8 +41,8 @@ const EditSavingPlanForm = ({
   }, [initialValues]);
 
   const handleValuesChange = (changedValues, allValues) => {
-    console.log(changedValues);
-    console.log(allValues);
+    // console.log(changedValues);
+    // console.log(allValues);
     const { remaining_amount, remaining_periods } = allValues;
 
     const newTotalAmount =
@@ -87,7 +88,7 @@ const EditSavingPlanForm = ({
         newEndDate = start;
     }
 
-    console.log("Calculated new end date:", newEndDate.format("YYYY-MM-DD"));
+    // console.log("Calculated new end date:", newEndDate.format("YYYY-MM-DD"));
     return newEndDate;
   };
 
@@ -96,8 +97,8 @@ const EditSavingPlanForm = ({
       ...values,
     };
 
-    submitData.newTotalAmount = editCalculation.newTotalAmount;
-    submitData.newEndDate = editCalculation.newEndDate;
+    submitData.new_total_amount = editCalculation.newTotalAmount;
+    submitData.new_end_date = editCalculation.newEndDate;
 
     onFinish(submitData);
   };
@@ -203,6 +204,74 @@ const EditSavingPlanForm = ({
         <Form.Item
           label="Remaining Amount"
           name="remaining_amount"
+          dependencies={["remaining_periods"]}
+          rules={[
+            { required: true, message: "Please enter remaining amount!" },
+            ({ getFieldValue }) => ({
+              validator(_, value) {
+                const remainingPeriods = getFieldValue("remaining_periods");
+                const currentAmount = Number(value) || 0;
+                const currentPeriods = Number(remainingPeriods) || 0;
+
+                if (currentAmount > 0 && currentPeriods === 0) {
+                  return Promise.reject(
+                    new Error("Cannot have remaining amount with 0 periods!")
+                  );
+                }
+                if (currentAmount === 0 && currentPeriods > 0) {
+                  return Promise.reject(
+                    new Error("Cannot have 0 remaining amount with remaining periods!")
+                  );
+                }
+                return Promise.resolve();
+              },
+            }),
+          ]}
+        >
+          <InputNumber
+            style={{ width: "100%" }}
+            prefix="$"
+            min={0}
+            placeholder="Enter remaining amount to save"
+          />
+        </Form.Item>
+
+        <Form.Item
+          label="Remaining Periods"
+          name="remaining_periods"
+          dependencies={["remaining_amount"]}
+          rules={[
+            { required: true, message: "Please enter remaining periods!" },
+            ({ getFieldValue }) => ({
+              validator(_, value) {
+                const remainingAmount = getFieldValue("remaining_amount");
+                const currentPeriods = Number(value) || 0;
+                const currentAmount = Number(remainingAmount) || 0;
+
+                if (currentPeriods === 0 && currentAmount > 0) {
+                  return Promise.reject(
+                    new Error("Cannot have 0 periods with remaining amount!")
+                  );
+                }
+                if (currentPeriods > 0 && currentAmount === 0) {
+                  return Promise.reject(
+                    new Error("Cannot have remaining periods with 0 remaining amount!")
+                  );
+                }
+                return Promise.resolve();
+              },
+            }),
+          ]}
+        >
+          <InputNumber
+            style={{ width: "100%" }}
+            min={0}
+            placeholder="Enter remaining number of periods"
+          />
+        </Form.Item>
+        {/* <Form.Item
+          label="Remaining Amount"
+          name="remaining_amount"
           rules={[{ required: true, message: "Please enter remaining amount!" }]}
         >
           <InputNumber
@@ -223,7 +292,7 @@ const EditSavingPlanForm = ({
             min={0}
             placeholder="Enter remaining number of periods"
           />
-        </Form.Item>
+        </Form.Item> */}
 
         <Row gutter={16} style={{ marginBottom: 16 }}>
           <Col span={12}>
