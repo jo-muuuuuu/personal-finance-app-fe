@@ -5,8 +5,11 @@ import { PlusCircleOutlined, EyeOutlined, EditOutlined } from "@ant-design/icons
 
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setSavingPlanSelected } from "../../store/reducers/savingPlanSlice";
-import { fetchSavingPlans, deleteSavingPlan } from "../../store/reducers/savingPlanThunk";
+import { setSavingsPlanSelected } from "../../store/reducers/savingsPlanSlice";
+import {
+  fetchSavingsPlans,
+  deleteSavingsPlan,
+} from "../../store/reducers/savingsPlanThunk";
 import DeleteButton from "../../components/DeleteButton";
 // import dayjs from "dayjs";
 
@@ -18,52 +21,52 @@ const statusColors = {
   cancelled: "grey",
 };
 
-const SavingPlanOverview = () => {
+const SavingsPlanOverview = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const userId = useSelector((state) => state.userInfo.userId);
-  const savingPlanList = useSelector((state) => state.savingPlan.savingPlanList);
+  const savingsPlanList = useSelector((state) => state.savingsPlan.savingsPlanList);
 
-  const newSavingPlanNav = () => {
-    navigate("/saving-plan/new");
+  const newSavingsPlanNav = () => {
+    navigate("/savings-plan/new");
   };
 
   useEffect(() => {
-    dispatch(fetchSavingPlans(userId));
+    dispatch(fetchSavingsPlans(userId));
   }, [dispatch, userId]);
 
   const depositNav = (item) => {
     return () => {
-      dispatch(setSavingPlanSelected(item));
-      navigate(`/saving-plan/deposit/${item.id}`);
+      dispatch(setSavingsPlanSelected(item));
+      navigate(`/savings-plan/deposit/${item.id}`);
     };
   };
 
-  const viewSavingPlanNav = (item) => {
+  const viewSavingsPlanNav = (item) => {
     return () => {
-      dispatch(setSavingPlanSelected(item));
-      navigate(`/saving-plan/view/${item.id}`);
+      dispatch(setSavingsPlanSelected(item));
+      navigate(`/savings-plan/view/${item.id}`);
     };
   };
 
-  const editSavingPlanNav = (item) => {
+  const editSavingsPlanNav = (item) => {
     return () => {
-      dispatch(setSavingPlanSelected(item));
-      navigate(`/saving-plan/edit/${item.name}`);
+      dispatch(setSavingsPlanSelected(item));
+      navigate(`/savings-plan/edit/${item.name}`);
     };
   };
 
   return (
     <div>
       <div className="header">
-        <h2>Your Saving Plans</h2>
-        <Button type="primary" className="green-button" onClick={newSavingPlanNav}>
-          <PlusCircleOutlined /> New Saving Plan
+        <h2>Your Savings Plans</h2>
+        <Button type="primary" className="green-button" onClick={newSavingsPlanNav}>
+          <PlusCircleOutlined /> New Savings Plan
         </Button>
       </div>
 
-      <Table dataSource={savingPlanList}>
+      <Table dataSource={savingsPlanList}>
         <Column
           title="Name"
           dataIndex="name"
@@ -78,7 +81,11 @@ const SavingPlanOverview = () => {
           }}
         ></Column>
         <Column title="Total Amount" dataIndex="amount"></Column>
-        <Column title="Period" dataIndex="period"></Column>
+        <Column
+          title="Period"
+          dataIndex="period"
+          render={(period) => period.toUpperCase()}
+        ></Column>
 
         {/* <Column title="Amount per Period" dataIndex="amount_per_period"></Column> */}
         {/* <Column
@@ -111,23 +118,23 @@ const SavingPlanOverview = () => {
                   <PlusCircleOutlined />
                   Deposit
                 </Button>
-                <Button type="primary" onClick={viewSavingPlanNav(item)}>
+                <Button type="primary" onClick={viewSavingsPlanNav(item)}>
                   <EyeOutlined />
                   View
                 </Button>
                 <Button
                   type="primary"
                   className="yellow-button"
-                  onClick={editSavingPlanNav(item)}
+                  onClick={editSavingsPlanNav(item)}
                 >
                   <EditOutlined />
                   Edit
                 </Button>
                 <DeleteButton
-                  type={"Saving Plan"}
+                  type={"Savings Plan"}
                   name={item.name}
                   onDelete={() => {
-                    dispatch(deleteSavingPlan(item.id, item.name, userId));
+                    dispatch(deleteSavingsPlan(item.id, item.name, userId));
                   }}
                 />
               </Space>
@@ -139,4 +146,4 @@ const SavingPlanOverview = () => {
   );
 };
 
-export default SavingPlanOverview;
+export default SavingsPlanOverview;

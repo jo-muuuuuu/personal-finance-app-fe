@@ -1,10 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Col, Row, Button, Table, Tag, Input, Popconfirm } from "antd";
+import { Col, Row, Button, Table, Tag, Input, Popconfirm, Card, Statistic } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { PlusOutlined, LeftOutlined, CheckOutlined } from "@ant-design/icons";
-import { confirmDeposit, fetchDeposits } from "../../store/reducers/depositThunk";
-import { setDepositList } from "../../store/reducers/depositSlicer";
+import {
+  PlusOutlined,
+  LeftOutlined,
+  CheckOutlined,
+  StopOutlined,
+} from "@ant-design/icons";
+import {
+  confirmDeposit,
+  fetchDeposits,
+  resetDeposit,
+} from "../../store/reducers/depositThunk";
+// import { fetchSavingsPlans } from "../../store/reducers/savingsPlanThunk";
 import "./index.css";
 import dayjs from "dayjs";
 
@@ -19,19 +28,21 @@ const DepositList = ({ title = true, deposit = true }) => {
   const navigate = useNavigate();
 
   const deposits = useSelector((state) => state.deposit.depositList);
-  const savingPlanSelected = useSelector((state) => state.savingPlan.savingPlanSelected);
+  const savingsPlanSelected = useSelector(
+    (state) => state.savingsPlan.savingsPlanSelected
+  );
   const [editableAmount, setEditableAmount] = useState(null);
 
   useEffect(() => {
-    if (savingPlanSelected) {
-      dispatch(fetchDeposits(savingPlanSelected.id));
+    if (savingsPlanSelected) {
+      dispatch(fetchDeposits(savingsPlanSelected.id));
     }
-  }, [savingPlanSelected, dispatch]);
+  }, [savingsPlanSelected, dispatch]);
 
   const firstPendingIndex = deposits.findIndex((d) => d.status === "pending");
 
   const onCancel = () => {
-    navigate("/saving-plan/overview");
+    navigate("/savings-plan/overview");
   };
 
   const onConfirmDeposit = (item) => {
@@ -39,25 +50,70 @@ const DepositList = ({ title = true, deposit = true }) => {
       dispatch(confirmDeposit({ ...item, editableAmount }));
 
       setEditableAmount(null);
-      dispatch(fetchDeposits(savingPlanSelected.id));
+
+      // dispatch(fetchDeposits(savingsPlanSelected.id));
+    };
+  };
+
+  const onResetDeposit = (item) => {
+    return () => {
+      dispatch(resetDeposit(item));
+
+      // dispatch(fetchDeposits(savingsPlanSelected.id));
     };
   };
 
   return (
     <>
       {title && (
-        <Row className="view-transaction-header">
-          <Col span={8}>
-            <Button type="primary" onClick={onCancel}>
-              <LeftOutlined />
-              Cancel
-            </Button>
-          </Col>
-          <Col span={8}>
-            <h2>Deposit Records of [{savingPlanSelected.name.toUpperCase()}]</h2>
-          </Col>
-          <Col span={8}></Col>
-        </Row>
+        <>
+          <Row className="view-transaction-header">
+            <Col span={8}>
+              <Button type="primary" onClick={onCancel}>
+                <LeftOutlined />
+                Cancel
+              </Button>
+            </Col>
+            <Col span={8}>
+              <h2>Deposit Records of [{savingsPlanSelected.name.toUpperCase()}]</h2>
+            </Col>
+            <Col span={8}></Col>
+          </Row>
+
+          {/* <Row gutter={16} style={{ marginBottom: "2rem", marginTop: "1rem" }}>
+            <Col span={8}>
+              <Card size="small">
+                <Statistic
+                  title="Periods"
+                  value={`${savingsPlanSelected.completed_periods} / ${savingsPlanSelected.total_periods}`}
+                  valueStyle={{ color: "#3f8600" }}
+                  style={{ textAlign: "center" }}
+                />
+              </Card>
+            </Col>
+            <Col span={8}>
+              <Card size="small">
+                <Statistic
+                  title="Amount"
+                  prefix={"$"}
+                  value={`${savingsPlanSelected.deposited_amount} / ${savingsPlanSelected.amount}`}
+                  valueStyle={{ color: "#3f8600" }}
+                  style={{ textAlign: "center" }}
+                />
+              </Card>
+            </Col>
+            <Col span={8}>
+              <Card size="small">
+                <Statistic
+                  title="Current Amount per Period"
+                  value={savingsPlanSelected.amount_per_period}
+                  valueStyle={{ color: "#1677ff" }}
+                  style={{ textAlign: "center" }}
+                />
+              </Card>
+            </Col>
+          </Row> */}
+        </>
       )}
 
       <Table
@@ -68,19 +124,24 @@ const DepositList = ({ title = true, deposit = true }) => {
       >
         <Column title="Number" key="index" render={(_, __, index) => index + 1} />
         <Column
-          title="Amount"
-          dataIndex="amount"
-          key="amount"
-          render={(amount, record, index) => {
+          title="Scheduled Amount"
+          dataIndex="scheduled_amount"
+          key="scheduled_amount"
+        />
+        <Column
+          title="Deposited Amount"
+          dataIndex="deposited_amount"
+          key="deposited_amount"
+          render={(deposited_amount, record, index) => {
             if (deposit && index === firstPendingIndex) {
               return (
                 <Input
-                  value={editableAmount ?? amount}
+                  value={editableAmount ?? deposited_amount}
                   onChange={(e) => setEditableAmount(e.target.value)}
                 />
               );
             }
-            return amount;
+            return deposited_amount;
           }}
         />
         <Column
@@ -97,31 +158,7 @@ const DepositList = ({ title = true, deposit = true }) => {
             return <Tag color={statusColors[status]}>{status}</Tag>;
           }}
         />
-        {/* {deposit && (
-          <Column
-            title="Action"
-            render={(item, record, index) => {
-              const isFirstPending = index === firstPendingIndex;
-              const isCompleted = record.status === "completed";
 
-              const buttonProps = {
-                type: "primary",
-                className: isFirstPending ? "green-button" : undefined,
-                disabled: !isFirstPending,
-                onClick: isFirstPending ? onConfirmDeposit(item, index) : undefined,
-              };
-
-              const buttonText = isCompleted ? "Confirmed" : "Confirm Deposit";
-
-              return (
-                <Button {...buttonProps}>
-                  {isFirstPending ? <PlusOutlined /> : <CheckOutlined />}
-                  {buttonText}
-                </Button>
-              );
-            }}
-          />
-        )} */}
         {deposit && (
           <Column
             title="Action"
@@ -133,36 +170,71 @@ const DepositList = ({ title = true, deposit = true }) => {
 
               if (isCompleted) {
                 return (
-                  <Button type="default" disabled icon={<CheckOutlined />}>
-                    {buttonText}
-                  </Button>
+                  <>
+                    <Button type="default" disabled icon={<CheckOutlined />}>
+                      {buttonText}
+                    </Button>
+                    <Button
+                      type="primary"
+                      danger
+                      icon={<StopOutlined />}
+                      style={{ marginLeft: "1rem" }}
+                      onClick={onResetDeposit(item)}
+                    >
+                      Reset
+                    </Button>
+                  </>
                 );
               }
 
               if (isFirstPending) {
                 return (
-                  <Popconfirm
-                    title="Confirm Deposit"
-                    description="Are you sure you want to confirm this deposit?"
-                    okText="Yes"
-                    cancelText="No"
-                    onConfirm={onConfirmDeposit(item)}
-                  >
+                  <>
+                    <Popconfirm
+                      title="Confirm Deposit"
+                      description="Are you sure you want to confirm this deposit?"
+                      okText="Yes"
+                      cancelText="No"
+                      onConfirm={onConfirmDeposit(item)}
+                    >
+                      <Button
+                        type="primary"
+                        className="green-button"
+                        icon={<PlusOutlined />}
+                      >
+                        {buttonText}
+                      </Button>
+                    </Popconfirm>
                     <Button
                       type="primary"
-                      className="green-button"
-                      icon={<PlusOutlined />}
+                      danger
+                      disabled
+                      icon={<StopOutlined />}
+                      style={{ marginLeft: "1rem" }}
+                      onClick={onResetDeposit(item)}
                     >
-                      {buttonText}
+                      Reset
                     </Button>
-                  </Popconfirm>
+                  </>
                 );
               }
 
               return (
-                <Button type="default" disabled>
-                  {buttonText}
-                </Button>
+                <>
+                  <Button type="default" disabled>
+                    {buttonText}
+                  </Button>
+                  <Button
+                    type="primary"
+                    danger
+                    disabled
+                    icon={<StopOutlined />}
+                    style={{ marginLeft: "1rem" }}
+                    onClick={onResetDeposit(item)}
+                  >
+                    Reset
+                  </Button>
+                </>
               );
             }}
           />

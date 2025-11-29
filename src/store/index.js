@@ -4,7 +4,7 @@ import { persistStore } from "redux-persist";
 import persistedUserInfoReducer from "./reducers/userInfoSlice";
 import persistedAccountBookReducer from "./reducers/accountBookSlice";
 import persistedTransactionReducer from "./reducers/transactionSlice";
-import persistedSavingPlanReducer from "./reducers/savingPlanSlice";
+import persistedSavingsPlanReducer from "./reducers/savingsPlanSlice";
 import persustedDepositReducer from "./reducers/depositSlicer";
 
 export const store = configureStore({
@@ -12,7 +12,7 @@ export const store = configureStore({
     userInfo: persistedUserInfoReducer,
     accountBook: persistedAccountBookReducer,
     transaction: persistedTransactionReducer,
-    savingPlan: persistedSavingPlanReducer,
+    savingsPlan: persistedSavingsPlanReducer,
     deposit: persustedDepositReducer,
   },
 

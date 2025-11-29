@@ -13,12 +13,12 @@ const DeleteButton = ({ type, name, onDelete }) => {
             All transactions in this account book will also be deleted.
           </p>
         );
-      case "Saving Plan":
+      case "Savings Plan":
         return (
           <p>
-            Are you sure to delete Saving Plan: [{name}]?
+            Are you sure to delete Savings Plan: [{name}]?
             <br />
-            All related savings records and goals will be permanently removed.
+            All related deposit records and goals will be permanently removed.
           </p>
         );
       default:

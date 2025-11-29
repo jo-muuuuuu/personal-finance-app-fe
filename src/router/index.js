@@ -15,10 +15,10 @@ import ViewTransaction from "../pages/Transaction/ViewTransaction";
 import ViewAccountBook from "../pages/AccountBook/ViewAccountBook";
 import Landing from "../pages/Landing";
 import Profile from "../pages/Profile";
-import SavingPlanOverview from "../pages/SavingPlan/SavingPlanOverview";
-import NewSavingPlan from "../pages/SavingPlan/NewSavingPlan";
-import EditSavingPlan from "../pages/SavingPlan/EditSavingPlan";
-import ViewSavingPlan from "../pages/SavingPlan/ViewSavingPlan";
+import SavingsPlanOverview from "../pages/SavingsPlan/SavingsPlanOverview";
+import NewSavingsPlan from "../pages/SavingsPlan/NewSavingsPlan";
+import EditSavingsPlan from "../pages/SavingsPlan/EditSavingsPlan";
+import ViewSavingsPlan from "../pages/SavingsPlan/ViewSavingsPlan";
 import DepositList from "../components/DepositList";
 
 const router = createBrowserRouter([
@@ -51,13 +51,13 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "saving-plan",
+        path: "savings-plan",
         children: [
           { index: true, element: <Navigate to="overview" replace /> },
-          { path: "overview", element: <SavingPlanOverview /> },
-          { path: "new", element: <NewSavingPlan /> },
-          { path: "edit/:name", element: <EditSavingPlan /> },
-          { path: "view/:id", element: <ViewSavingPlan /> },
+          { path: "overview", element: <SavingsPlanOverview /> },
+          { path: "new", element: <NewSavingsPlan /> },
+          { path: "edit/:name", element: <EditSavingsPlan /> },
+          { path: "view/:id", element: <ViewSavingsPlan /> },
           { path: "deposit/:id", element: <DepositList /> },
         ],
       },

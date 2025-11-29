@@ -17,7 +17,7 @@ import { antdError } from "../../utils/antdMessage";
 
 // import "./index.css";
 
-const EditSavingPlanForm = ({
+const EditSavingsPlanForm = ({
   title,
   onFinish,
   onCancel,
@@ -120,7 +120,7 @@ const EditSavingPlanForm = ({
         <Col span={8}>
           {onDelete && (
             <DeleteButton
-              type={"Saving Plan"}
+              type={"Savings Plan"}
               name={initialValues.id}
               onDelete={onDelete}
             />
@@ -135,7 +135,7 @@ const EditSavingPlanForm = ({
         labelCol={{ span: 6 }}
         wrapperCol={{ span: 18 }}
         className="new-form"
-        name="saving-plan-form"
+        name="savings-plan-form"
         onFinish={handleSubmit}
         initialValues={initialValues}
         onValuesChange={handleValuesChange}
@@ -144,7 +144,7 @@ const EditSavingPlanForm = ({
           label="Name"
           name="name"
           rules={[
-            { required: true, message: "Please enter the name of your saving plan!" },
+            { required: true, message: "Please enter the name of your savings plan!" },
           ]}
         >
           <Input />
@@ -335,4 +335,4 @@ const EditSavingPlanForm = ({
   );
 };
 
-export default EditSavingPlanForm;
+export default EditSavingsPlanForm;

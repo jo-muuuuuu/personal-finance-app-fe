@@ -29,7 +29,7 @@ const periodOptions = [
   { label: "Year", value: "year" },
 ];
 
-const NewSavingPlanForm = ({ title, onFinish, onCancel }) => {
+const NewSavingsPlanForm = ({ title, onFinish, onCancel }) => {
   const [form] = Form.useForm();
 
   const [calculation, setCalculation] = useState({
@@ -92,7 +92,7 @@ const NewSavingPlanForm = ({ title, onFinish, onCancel }) => {
         labelCol={{ span: 6 }}
         wrapperCol={{ span: 18 }}
         className="new-form"
-        name="saving-plan-form"
+        name="savings-plan-form"
         onFinish={(values) => {
           onFinish({
             ...values,
@@ -106,7 +106,7 @@ const NewSavingPlanForm = ({ title, onFinish, onCancel }) => {
           label="Name"
           name="name"
           rules={[
-            { required: true, message: "Please enter the name of your saving plan!" },
+            { required: true, message: "Please enter the name of your savings plan!" },
           ]}
         >
           <Input />
@@ -136,7 +136,7 @@ const NewSavingPlanForm = ({ title, onFinish, onCancel }) => {
           label="Amount"
           name="amount"
           rules={[
-            { required: true, message: "Please enter the saving amount per period!" },
+            { required: true, message: "Please enter the savings amount per period!" },
           ]}
         >
           <InputNumber style={{ width: "100%" }} prefix="$" min={0} />
@@ -148,7 +148,7 @@ const NewSavingPlanForm = ({ title, onFinish, onCancel }) => {
           rules={[{ required: true, message: "Please select a period!" }]}
           tooltip="Choose how often you will save"
         >
-          <Select placeholder="Select saving period">
+          <Select placeholder="Select savings period">
             {periodOptions.map((option) => (
               <Option key={option.value} value={option.value}>
                 {option.label}
@@ -201,4 +201,4 @@ const NewSavingPlanForm = ({ title, onFinish, onCancel }) => {
   );
 };
 
-export default NewSavingPlanForm;
+export default NewSavingsPlanForm;

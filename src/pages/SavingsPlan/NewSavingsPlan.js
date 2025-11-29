@@ -2,18 +2,18 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
-import NewSavingPlanForm from "../../components/SavingPlanForm/NewSavingPlanForm";
-import { newSavingPlan } from "../../store/reducers/savingPlanThunk";
+import NewSavingsPlanForm from "../../components/SavingsPlanForm/NewSavingsPlanForm";
+import { newSavingsPlan } from "../../store/reducers/savingsPlanThunk";
 import dayjs from "dayjs";
 
-const NewSavingPlan = () => {
+const NewSavingsPlan = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const userId = useSelector((state) => state.userInfo.userId);
 
   const onCancel = () => {
-    navigate("/saving-plan/overview");
+    navigate("/savings-plan/overview");
   };
 
   const onFinish = (values) => {
@@ -25,13 +25,17 @@ const NewSavingPlan = () => {
     };
     // console.log("Received values of form: ", values);
 
-    dispatch(newSavingPlan(values));
-    navigate("/saving-plan/overview");
+    dispatch(newSavingsPlan(values));
+    navigate("/savings-plan/overview");
   };
 
   return (
-    <NewSavingPlanForm title="New Saving Plan" onCancel={onCancel} onFinish={onFinish} />
+    <NewSavingsPlanForm
+      title="New Savings Plan"
+      onCancel={onCancel}
+      onFinish={onFinish}
+    />
   );
 };
 
-export default NewSavingPlan;
+export default NewSavingsPlan;

@@ -40,12 +40,12 @@ const CustomHeader = () => {
     "/transactions/new": "Add a new Transaction",
     "/transactions/view": "View a transaction",
     "/transactions/edit": "Edit a transaction",
-    "/saving-plan": "Saving Plans",
-    "/saving-plan/overview": "Overview",
-    "/saving-plan/new": "New Saving Plan",
-    "/saving-plan/view": "View a Saving Plan",
-    "/saving-plan/edit": "Edit a Saving Plan",
-    "/saving-plan/deposit": "Deposit to a Saving Plan",
+    "/savings-plan": "Savings Plans",
+    "/savings-plan/overview": "Overview",
+    "/savings-plan/new": "New Savings Plan",
+    "/savings-plan/view": "View a Savings Plan",
+    "/savings-plan/edit": "Edit a Savings Plan",
+    "/savings-plan/deposit": "Deposit to a Savings Plan",
     "/profile": "Profile",
   };
 
