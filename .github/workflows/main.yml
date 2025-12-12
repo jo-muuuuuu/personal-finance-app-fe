@@ -34,7 +34,8 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
           source: "build/*"
-          target: "/home/ec2-user/build"  
+          target: "/home/ec2-user/build"
+          strip_components: 1
 
       - name: Restart Nginx
         uses: appleboy/ssh-action@v1.2.0
