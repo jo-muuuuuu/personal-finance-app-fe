@@ -13,7 +13,6 @@ const EditAccountBook = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const userId = useSelector((state) => state.userInfo.userId);
   const accountBookSelected = useSelector(
     (state) => state.accountBook.accountBookSelected
   );
@@ -23,14 +22,12 @@ const EditAccountBook = () => {
   };
 
   const onDelete = () => {
-    dispatch(deleteAccountBook(accountBookSelected.id, accountBookSelected.name, userId));
+    dispatch(deleteAccountBook(accountBookSelected.id, accountBookSelected.name));
 
     navigate("/account-book/overview");
   };
 
   const onFinish = (values) => {
-    values = { ...values, userId };
-
     dispatch(editAccountBook(values, accountBookSelected.id));
     navigate("/account-book/overview");
   };

@@ -2,13 +2,9 @@ import axiosInstance from "../../api/index";
 import { antdSuccess, antdError } from "../../utils/antdMessage";
 import { setTransactionList } from "./transactionSlice";
 
-export const fetchTransactions = (userId) => async (dispatch) => {
+export const fetchTransactions = () => async (dispatch) => {
   try {
-    const response = await axiosInstance.get(`/transactions`, {
-      headers: {
-        id: userId,
-      },
-    });
+    const response = await axiosInstance.get(`/transactions`);
 
     if (response.status === 200) {
       //   console.log("Success!", response.data.transactionList);
@@ -22,7 +18,7 @@ export const fetchTransactions = (userId) => async (dispatch) => {
   }
 };
 
-export const newTransaction = (values) => async (dispatch) => {
+export const newTransaction = (values) => async () => {
   try {
     const response = await axiosInstance.post(`/transactions`, values);
 
@@ -36,7 +32,7 @@ export const newTransaction = (values) => async (dispatch) => {
   }
 };
 
-export const editTransaction = (values, transactionId) => async (dispatch) => {
+export const editTransaction = (values, transactionId) => async () => {
   try {
     const response = await axiosInstance.put(`/transactions/${transactionId}`, values);
 
@@ -50,7 +46,7 @@ export const editTransaction = (values, transactionId) => async (dispatch) => {
   }
 };
 
-export const deleteTransaction = (transactionId, userId) => async (dispatch) => {
+export const deleteTransaction = (transactionId) => async (dispatch) => {
   try {
     const response = await axiosInstance.delete(`/transactions/${transactionId}`);
 
@@ -58,7 +54,7 @@ export const deleteTransaction = (transactionId, userId) => async (dispatch) => 
       // console.log("Success!", response.data);
       antdSuccess(`Transaction deleted successfully!`);
 
-      dispatch(fetchTransactions(userId));
+      dispatch(fetchTransactions());
     }
   } catch (error) {
     console.error("Error!", error);

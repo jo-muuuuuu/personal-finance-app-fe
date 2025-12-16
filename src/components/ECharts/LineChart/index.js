@@ -1,26 +1,20 @@
 import React, { useEffect, useState } from "react";
 import ReactECharts from "echarts-for-react";
 import axiosInstance from "../../../api/index";
-import { useSelector } from "react-redux";
 
 import { Card } from "antd";
 
 const LineChart = () => {
-  const userId = useSelector((state) => state.userInfo.userId);
   const [data, setData] = useState([]);
 
   useEffect(() => {
     axiosInstance
-      .get(`/monthly-summary/${userId}`)
+      .get(`/monthly-summary`)
       .then((res) => setData(res.data))
       .catch((err) => console.error(err));
-  }, [userId]);
+  }, []);
 
   const option = {
-    // title: {
-    //   text: "Monthly Income and Expense Trend",
-    //   left: "center",
-    // },
     tooltip: {
       trigger: "axis",
     },

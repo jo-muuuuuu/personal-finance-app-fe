@@ -18,14 +18,12 @@ const ViewTransaction = () => {
     (state) => state.transaction.transactionSelected
   );
 
-  const userId = useSelector((state) => state.userInfo.userId);
-
   const onCancel = () => {
     navigate("/transactions/overview");
   };
 
   const onDelete = () => {
-    dispatch(deleteTransaction(transactionSelected.id, userId));
+    dispatch(deleteTransaction(transactionSelected.id));
     navigate("/transactions/overview");
   };
 

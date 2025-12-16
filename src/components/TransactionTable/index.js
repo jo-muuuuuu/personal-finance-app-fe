@@ -16,8 +16,6 @@ import { deleteTransaction } from "../../store/reducers/transactionThunk";
 
 import DeleteButton from "../DeleteButton";
 import dayjs from "dayjs";
-// import utc from "dayjs/plugin/utc";
-// dayjs.extend(utc);
 
 const { Column } = Table;
 
@@ -25,7 +23,6 @@ const TransactionTable = ({ title, onCancel, onDelete, transactionList }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const userId = useSelector((state) => state.userInfo.userId);
   const accountBookSelected = useSelector(
     (state) => state.accountBook.accountBookSelected
   );
@@ -150,7 +147,7 @@ const TransactionTable = ({ title, onCancel, onDelete, transactionList }) => {
               <DeleteButton
                 type="Transaction"
                 onDelete={() => {
-                  dispatch(deleteTransaction(item.id, userId));
+                  dispatch(deleteTransaction(item.id));
                 }}
               />
             </Space>

@@ -70,9 +70,11 @@ const UserInfoCard = () => {
       const formData = new FormData();
       formData.append("image", croppedImageBlob);
 
-      const res = await axiosInstance.post("/upload-avatar", formData, {
-        headers: { email },
-      });
+      const res = await axiosInstance.post(
+        "/upload-avatar",
+        formData
+        // {        headers: { email },      }
+      );
 
       const { avatarURL } = res.data;
       setPreview(`${process.env.REACT_APP_API_URL}${avatarURL}`);

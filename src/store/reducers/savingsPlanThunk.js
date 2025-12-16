@@ -1,14 +1,10 @@
 import axiosInstance from "../../api/index";
 import { antdSuccess, antdError } from "../../utils/antdMessage";
-import { setSavingsPlanList, setSavingsPlanSelected } from "./savingsPlanSlice";
+import { setSavingsPlanList } from "./savingsPlanSlice";
 
-export const fetchSavingsPlans = (userId) => async (dispatch) => {
+export const fetchSavingsPlans = () => async (dispatch) => {
   try {
-    const response = await axiosInstance.get(`/savings-plans`, {
-      headers: {
-        id: userId,
-      },
-    });
+    const response = await axiosInstance.get(`/savings-plans`);
 
     if (response.status === 200) {
       // console.log("response.data.savingsPlanList", response.data.savingsPlanList);
@@ -31,7 +27,7 @@ export const fetchSavingsPlans = (userId) => async (dispatch) => {
 //   }
 // };
 
-export const newSavingsPlan = (values) => async (dispatch) => {
+export const newSavingsPlan = (values) => async () => {
   try {
     const response = await axiosInstance.post(`/savings-plans`, values);
 
@@ -44,7 +40,7 @@ export const newSavingsPlan = (values) => async (dispatch) => {
   }
 };
 
-export const editSavingsPlan = (values, savingsPlanId) => async (dispatch) => {
+export const editSavingsPlan = (values, savingsPlanId) => async () => {
   try {
     const response = await axiosInstance.put(`/savings-plans/${savingsPlanId}`, values);
 
@@ -60,18 +56,17 @@ export const editSavingsPlan = (values, savingsPlanId) => async (dispatch) => {
   }
 };
 
-export const deleteSavingsPlan =
-  (savingsPlanId, savingsPlanName, userId) => async (dispatch) => {
-    try {
-      const response = await axiosInstance.delete(`/savings-plans/${savingsPlanId}`);
+export const deleteSavingsPlan = (savingsPlanId, savingsPlanName) => async (dispatch) => {
+  try {
+    const response = await axiosInstance.delete(`/savings-plans/${savingsPlanId}`);
 
-      if (response.status === 200) {
-        antdSuccess(`Successfully deleted "${savingsPlanName}"!`);
+    if (response.status === 200) {
+      antdSuccess(`Successfully deleted "${savingsPlanName}"!`);
 
-        dispatch(fetchSavingsPlans(userId));
-      }
-    } catch (error) {
-      antdError("Failed to delete savings plan. Please try again later.");
-      console.error("Error deleting savings plan:", error);
+      dispatch(fetchSavingsPlans());
     }
-  };
+  } catch (error) {
+    antdError("Failed to delete savings plan. Please try again later.");
+    console.error("Error deleting savings plan:", error);
+  }
+};

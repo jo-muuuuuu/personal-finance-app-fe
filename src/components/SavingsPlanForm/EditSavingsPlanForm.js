@@ -269,30 +269,6 @@ const EditSavingsPlanForm = ({
             placeholder="Enter remaining number of periods"
           />
         </Form.Item>
-        {/* <Form.Item
-          label="Remaining Amount"
-          name="remaining_amount"
-          rules={[{ required: true, message: "Please enter remaining amount!" }]}
-        >
-          <InputNumber
-            style={{ width: "100%" }}
-            prefix="$"
-            min={0}
-            placeholder="Enter remaining amount to save"
-          />
-        </Form.Item>
-
-        <Form.Item
-          label="Remaining Periods"
-          name="remaining_periods"
-          rules={[{ required: true, message: "Please enter remaining periods!" }]}
-        >
-          <InputNumber
-            style={{ width: "100%" }}
-            min={0}
-            placeholder="Enter remaining number of periods"
-          />
-        </Form.Item> */}
 
         <Row gutter={16} style={{ marginBottom: 16 }}>
           <Col span={12}>

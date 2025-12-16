@@ -2,20 +2,18 @@ import React, { useEffect, useState } from "react";
 import ReactECharts from "echarts-for-react";
 
 import axiosInstance from "../../../api/index";
-import { useSelector } from "react-redux";
 
 import { Card } from "antd";
 
 const BarChart = () => {
-  const userId = useSelector((state) => state.userInfo.userId);
   const [data, setData] = useState([]);
 
   useEffect(() => {
     axiosInstance
-      .get(`/account-books-summary/${userId}`)
+      .get(`/account-books-summary`)
       .then((res) => setData(res.data))
       .catch((err) => console.error(err));
-  }, [userId]);
+  }, []);
 
   const option = {
     // title: {

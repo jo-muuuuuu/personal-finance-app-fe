@@ -32,10 +32,10 @@ const Login = () => {
         if (response.status === 200) {
           // console.log("Success!", response.data);
 
-          const { id, nickname, username, avatarURL, token } = response.data;
+          const { userId, nickname, email, avatarURL, token } = response.data;
 
           setToken(token, 60);
-          dispatch(setUserInfo({ id, username, nickname, avatarURL }));
+          dispatch(setUserInfo({ userId, nickname, email, avatarURL }));
 
           antdSuccess("Login successful!");
           navigate("/");
@@ -60,7 +60,7 @@ const Login = () => {
     <div className="login-container">
       <Card
         className="login-card"
-        title="Johnny's Bookkeeping App"
+        title="Penny Wave"
         variant="borderless"
         style={{ width: 500 }}
       >
@@ -72,10 +72,10 @@ const Login = () => {
           onFinish={onFinish}
         >
           <Form.Item
-            name="username"
-            rules={[{ required: true, message: "Please input your Username!" }]}
+            name="email"
+            rules={[{ required: true, message: "Please input your E-mail!" }]}
           >
-            <Input prefix={<UserOutlined />} placeholder="Username" />
+            <Input prefix={<UserOutlined />} placeholder="E-mail" />
           </Form.Item>
           <Form.Item
             name="password"
