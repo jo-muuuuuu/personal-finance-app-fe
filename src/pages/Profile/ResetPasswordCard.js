@@ -14,7 +14,7 @@ const ResetPasswordCard = () => {
   const onFinish = (values) => {
     axiosInstance
       .post(`/profile-reset-password`, {
-        token: getToken(),
+        // token: getToken(),
         oldPassword: values.oldPassword,
         newPassword: values.newPassword,
       })
