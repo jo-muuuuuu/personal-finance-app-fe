@@ -1,14 +1,12 @@
 import axiosInstance from "../../api/index";
 import { antdSuccess, antdError } from "../../utils/antdMessage";
 import { setDepositList } from "./depositSlicer";
-import { setSavingsPlanSelected } from "./savingsPlanSlice";
-import { fetchSavingsPlans } from "./savingsPlanThunk";
 
-export const fetchDeposits = (planId) => async (dispatch) => {
+export const fetchDeposits = (savingsPlanId) => async (dispatch) => {
   try {
     const response = await axiosInstance.get(`/deposits`, {
       headers: {
-        id: planId,
+        savingsPlanId,
       },
     });
 

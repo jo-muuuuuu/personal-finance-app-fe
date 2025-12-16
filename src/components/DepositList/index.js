@@ -50,16 +50,12 @@ const DepositList = ({ title = true, deposit = true }) => {
       dispatch(confirmDeposit({ ...item, editableAmount }));
 
       setEditableAmount(null);
-
-      // dispatch(fetchDeposits(savingsPlanSelected.id));
     };
   };
 
   const onResetDeposit = (item) => {
     return () => {
       dispatch(resetDeposit(item));
-
-      // dispatch(fetchDeposits(savingsPlanSelected.id));
     };
   };
 
@@ -79,40 +75,6 @@ const DepositList = ({ title = true, deposit = true }) => {
             </Col>
             <Col span={8}></Col>
           </Row>
-
-          {/* <Row gutter={16} style={{ marginBottom: "2rem", marginTop: "1rem" }}>
-            <Col span={8}>
-              <Card size="small">
-                <Statistic
-                  title="Periods"
-                  value={`${savingsPlanSelected.completed_periods} / ${savingsPlanSelected.total_periods}`}
-                  valueStyle={{ color: "#3f8600" }}
-                  style={{ textAlign: "center" }}
-                />
-              </Card>
-            </Col>
-            <Col span={8}>
-              <Card size="small">
-                <Statistic
-                  title="Amount"
-                  prefix={"$"}
-                  value={`${savingsPlanSelected.deposited_amount} / ${savingsPlanSelected.amount}`}
-                  valueStyle={{ color: "#3f8600" }}
-                  style={{ textAlign: "center" }}
-                />
-              </Card>
-            </Col>
-            <Col span={8}>
-              <Card size="small">
-                <Statistic
-                  title="Current Amount per Period"
-                  value={savingsPlanSelected.amount_per_period}
-                  valueStyle={{ color: "#1677ff" }}
-                  style={{ textAlign: "center" }}
-                />
-              </Card>
-            </Col>
-          </Row> */}
         </>
       )}
 
