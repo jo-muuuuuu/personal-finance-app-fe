@@ -31,6 +31,12 @@ const tailFormItemLayout = {
   },
 };
 
+const buttonLayout = {
+  wrapperCol: {
+    sm: { span: 16, offset: 10 },
+  },
+};
+
 const Register = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
@@ -84,7 +90,7 @@ const Register = () => {
 
   return (
     <div className="login-container">
-      <Card title="Create A New Account" variant="borderless" style={{ width: 600 }}>
+      <Card title="Create A New Account" variant="borderless" style={{ width: "600px" }}>
         <div className="login-link" style={{ marginBottom: "1rem" }}>
           <a onClick={loginNavigate}>
             <LeftOutlined /> Back to Log In
@@ -187,7 +193,7 @@ const Register = () => {
             </Checkbox>
           </Form.Item>
 
-          <Form.Item {...tailFormItemLayout}>
+          <Form.Item {...buttonLayout}>
             <Button type="primary" htmlType="submit">
               Register
             </Button>
