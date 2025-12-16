@@ -2,13 +2,9 @@ import axiosInstance from "../../api/index";
 import { antdSuccess, antdError } from "../../utils/antdMessage";
 import { setAccountBookList } from "./accountBookSlice";
 
-export const fetchAccountBooks = (userId) => async (dispatch) => {
+export const fetchAccountBooks = () => async (dispatch) => {
   try {
-    const response = await axiosInstance.get(`/account-books`, {
-      headers: {
-        id: userId,
-      },
-    });
+    const response = await axiosInstance.get("/account-books");
 
     if (response.status === 200) {
       dispatch(setAccountBookList(response.data.accountBookList));
@@ -48,18 +44,17 @@ export const editAccountBook = (values, accountBookId) => async (dispatch) => {
   }
 };
 
-export const deleteAccountBook =
-  (accountBookId, accountBookName, userId) => async (dispatch) => {
-    try {
-      const response = await axiosInstance.delete(`/account-books/${accountBookId}`);
+export const deleteAccountBook = (accountBookId, accountBookName) => async (dispatch) => {
+  try {
+    const response = await axiosInstance.delete(`/account-books/${accountBookId}`);
 
-      if (response.status === 200) {
-        antdSuccess(`Successfully deleted "${accountBookName}"!`);
+    if (response.status === 200) {
+      antdSuccess(`Successfully deleted "${accountBookName}"!`);
 
-        dispatch(fetchAccountBooks(userId));
-      }
-    } catch (error) {
-      antdError("Failed to delete account book. Please try again later.");
-      console.error("Error deleting account book:", error);
+      dispatch(fetchAccountBooks());
     }
-  };
+  } catch (error) {
+    antdError("Failed to delete account book. Please try again later.");
+    console.error("Error deleting account book:", error);
+  }
+};
