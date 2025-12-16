@@ -12,7 +12,6 @@ const ViewAccountBook = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const userId = useSelector((state) => state.userInfo.userId);
   const accountBookSelected = useSelector(
     (state) => state.accountBook.accountBookSelected
   );
@@ -24,15 +23,15 @@ const ViewAccountBook = () => {
   });
 
   useEffect(() => {
-    dispatch(fetchTransactions(userId));
-  }, [dispatch, userId]);
+    dispatch(fetchTransactions());
+  }, [dispatch]);
 
   const onCancel = () => {
     navigate("/account-book/overview");
   };
 
   const onDelete = () => {
-    dispatch(deleteAccountBook(accountBookSelected.id, accountBookSelected.name, userId));
+    dispatch(deleteAccountBook(accountBookSelected.id, accountBookSelected.name));
     navigate("/account-book/overview");
   };
 

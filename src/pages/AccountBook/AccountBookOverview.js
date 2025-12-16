@@ -20,11 +20,7 @@ const AccountBookOverview = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const userId = useSelector((state) => state.userInfo.userId);
   const accountBookList = useSelector((state) => state.accountBook.accountBookList);
-  // const accountBookSelected = useSelector(
-  //   (state) => state.accountBook.accountBookSelected
-  // );
 
   const newAccBookNav = () => {
     navigate("/account-book/new");
@@ -46,8 +42,8 @@ const AccountBookOverview = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchAccountBooks(userId));
-  }, [dispatch, userId]);
+    dispatch(fetchAccountBooks());
+  }, [dispatch]);
 
   const newTransactionNav = (item) => {
     return () => {
@@ -109,7 +105,7 @@ const AccountBookOverview = () => {
                 type={"Account Book"}
                 name={item.name}
                 onDelete={() => {
-                  dispatch(deleteAccountBook(item.id, item.name, userId));
+                  dispatch(deleteAccountBook(item.id, item.name));
                 }}
               />
             </Space>

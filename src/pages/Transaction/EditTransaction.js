@@ -16,7 +16,6 @@ const EditTransaction = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const userId = useSelector((state) => state.userInfo.userId);
   const transactionSelected = useSelector(
     (state) => state.transaction.transactionSelected
   );
@@ -28,7 +27,7 @@ const EditTransaction = () => {
   };
 
   const onFinish = (values) => {
-    values = { ...values, date: dayjs(values.date).format("YYYY-MM-DD"), userId };
+    values = { ...values, date: dayjs(values.date).format("YYYY-MM-DD") };
     // console.log("Received values of form: ", values);
 
     dispatch(editTransaction(values, transactionSelected.id));
@@ -36,7 +35,7 @@ const EditTransaction = () => {
   };
 
   const onDelete = () => {
-    dispatch(deleteTransaction(transactionSelected.id, userId));
+    dispatch(deleteTransaction(transactionSelected.id));
 
     navigate("/transactions/overview");
   };
