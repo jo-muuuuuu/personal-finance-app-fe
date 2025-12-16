@@ -14,7 +14,6 @@ const ViewSavingsPlan = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const userId = useSelector((state) => state.userInfo.userId);
   const savingsPlanSelected = useSelector(
     (state) => state.savingsPlan.savingsPlanSelected
   );
@@ -24,7 +23,7 @@ const ViewSavingsPlan = () => {
   };
 
   const onDelete = () => {
-    dispatch(deleteSavingsPlan(savingsPlanSelected.id, savingsPlanSelected.name, userId));
+    dispatch(deleteSavingsPlan(savingsPlanSelected.id, savingsPlanSelected.name));
     navigate("/savings-plan/overview");
   };
 

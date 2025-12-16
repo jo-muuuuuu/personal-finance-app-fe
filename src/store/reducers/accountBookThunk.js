@@ -15,7 +15,7 @@ export const fetchAccountBooks = () => async (dispatch) => {
   }
 };
 
-export const newAccountBook = (values) => async (dispatch) => {
+export const newAccountBook = (values) => async () => {
   try {
     const response = await axiosInstance.post(`/account-books`, values);
 
@@ -28,7 +28,7 @@ export const newAccountBook = (values) => async (dispatch) => {
   }
 };
 
-export const editAccountBook = (values, accountBookId) => async (dispatch) => {
+export const editAccountBook = (values, accountBookId) => async () => {
   try {
     const response = await axiosInstance.put(`/account-books/${accountBookId}`, values);
 

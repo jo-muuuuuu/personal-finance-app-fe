@@ -11,7 +11,6 @@ import {
   deleteSavingsPlan,
 } from "../../store/reducers/savingsPlanThunk";
 import DeleteButton from "../../components/DeleteButton";
-// import dayjs from "dayjs";
 
 const { Column } = Table;
 const statusColors = {
@@ -25,7 +24,6 @@ const SavingsPlanOverview = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const userId = useSelector((state) => state.userInfo.userId);
   const savingsPlanList = useSelector((state) => state.savingsPlan.savingsPlanList);
 
   const newSavingsPlanNav = () => {
@@ -33,8 +31,8 @@ const SavingsPlanOverview = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchSavingsPlans(userId));
-  }, [dispatch, userId]);
+    dispatch(fetchSavingsPlans());
+  }, [dispatch]);
 
   const depositNav = (item) => {
     return () => {
@@ -73,8 +71,6 @@ const SavingsPlanOverview = () => {
           render={(name) => {
             return (
               <>
-                {/* <DownCircleOutlined />
-                &nbsp; */}
                 <b>{name.toUpperCase()}</b>
               </>
             );
@@ -87,12 +83,6 @@ const SavingsPlanOverview = () => {
           render={(period) => period.toUpperCase()}
         ></Column>
 
-        {/* <Column title="Amount per Period" dataIndex="amount_per_period"></Column> */}
-        {/* <Column
-          title="Next Deposit Date"
-          dataIndex="start_date"
-          render={(date) => dayjs(date).format("YYYY-MM-DD") || "N/A"}
-        ></Column> */}
         <Column
           title="Progress"
           render={(_, record) => `${record.completed_periods} / ${record.total_periods}`}
@@ -134,7 +124,7 @@ const SavingsPlanOverview = () => {
                   type={"Savings Plan"}
                   name={item.name}
                   onDelete={() => {
-                    dispatch(deleteSavingsPlan(item.id, item.name, userId));
+                    dispatch(deleteSavingsPlan(item.id, item.name));
                   }}
                 />
               </Space>

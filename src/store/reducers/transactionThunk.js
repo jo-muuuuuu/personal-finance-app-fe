@@ -18,7 +18,7 @@ export const fetchTransactions = () => async (dispatch) => {
   }
 };
 
-export const newTransaction = (values) => async (dispatch) => {
+export const newTransaction = (values) => async () => {
   try {
     const response = await axiosInstance.post(`/transactions`, values);
 
@@ -32,7 +32,7 @@ export const newTransaction = (values) => async (dispatch) => {
   }
 };
 
-export const editTransaction = (values, transactionId) => async (dispatch) => {
+export const editTransaction = (values, transactionId) => async () => {
   try {
     const response = await axiosInstance.put(`/transactions/${transactionId}`, values);
 
