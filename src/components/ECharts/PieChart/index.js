@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from "react";
 import ReactECharts from "echarts-for-react";
 import axiosInstance from "../../../api";
-import { useSelector } from "react-redux";
 
 import { Card } from "antd";
 
 const PieChart = () => {
-  const userId = useSelector((state) => state.userInfo.userId);
   const [data, setData] = useState([]);
 
   useEffect(() => {
     axiosInstance
-      .get(`/category-ratio/${userId}`)
+      .get(`/category-ratio`)
       .then((res) => setData(res.data))
       .catch((err) => console.error(err));
-  }, [userId]);
+  }, []);
 
   const option = {
     // title: {

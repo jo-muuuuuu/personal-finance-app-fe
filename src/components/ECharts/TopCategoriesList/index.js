@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { List, Card } from "antd";
 import axiosInstance from "../../../api";
-import { useSelector } from "react-redux";
 
 const TopCategoriesList = () => {
-  const userId = useSelector((state) => state.userInfo.userId);
   const [data, setData] = useState([]);
 
   useEffect(() => {
     axiosInstance
-      .get(`/top-categories/${userId}`)
+      .get(`/top-categories`)
       .then((res) => setData(res.data))
       .catch((err) => console.error(err));
-  }, [userId]);
+  }, []);
 
   return (
     <Card className="list-card" title="Top 5 Expense Categories">
