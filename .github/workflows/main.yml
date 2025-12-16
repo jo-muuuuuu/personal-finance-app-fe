@@ -3,7 +3,8 @@ name: Deploy Frontend to EC2
 on:
   push:
     branches:
-      - master  
+      - master
+  workflow_dispatch:
 
 jobs:
   deploy:
