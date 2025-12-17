@@ -63,7 +63,7 @@ const Register = () => {
     // console.log("Received values of form: ", values);
 
     axiosInstance
-      .post(`/register`, values)
+      .post("/register", values)
       .then((response) => {
         if (response.status === 200) {
           // console.log("Success!", response.data);

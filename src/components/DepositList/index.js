@@ -1,5 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Col, Row, Button, Table, Tag, Input, Popconfirm, Card, Statistic } from "antd";
+import {
+  Col,
+  Row,
+  Button,
+  Table,
+  Tag,
+  Input,
+  Popconfirm,
+  Tooltip,
+  Divider,
+  Card,
+  Statistic,
+} from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import {
@@ -7,13 +19,14 @@ import {
   LeftOutlined,
   CheckOutlined,
   StopOutlined,
+  InfoCircleOutlined,
 } from "@ant-design/icons";
 import {
   confirmDeposit,
   fetchDeposits,
   resetDeposit,
 } from "../../store/reducers/depositThunk";
-// import { fetchSavingsPlans } from "../../store/reducers/savingsPlanThunk";
+import { fetchSavingsPlanById } from "../../store/reducers/savingsPlanThunk";
 import "./index.css";
 import dayjs from "dayjs";
 
@@ -47,21 +60,36 @@ const DepositList = ({ title = true, deposit = true }) => {
 
   const onConfirmDeposit = (item) => {
     return () => {
-      dispatch(confirmDeposit({ ...item, editableAmount }));
-
-      setEditableAmount(null);
+      dispatch(confirmDeposit({ ...item, editableAmount }))
+        .then(() => {
+          if (savingsPlanSelected) {
+            dispatch(fetchSavingsPlanById(savingsPlanSelected.id));
+          }
+          setEditableAmount(null);
+        })
+        .catch((error) => {
+          console.error("Error confirming deposit:", error);
+        });
     };
   };
 
   const onResetDeposit = (item) => {
     return () => {
-      dispatch(resetDeposit(item));
+      dispatch(resetDeposit(item))
+        .then(() => {
+          if (savingsPlanSelected) {
+            dispatch(fetchSavingsPlanById(savingsPlanSelected.id));
+          }
+        })
+        .catch((error) => {
+          console.error("Error resetting deposit:", error);
+        });
     };
   };
 
   return (
     <>
-      {title && (
+      {title && savingsPlanSelected && (
         <>
           <Row className="view-transaction-header">
             <Col span={8}>
@@ -75,6 +103,32 @@ const DepositList = ({ title = true, deposit = true }) => {
             </Col>
             <Col span={8}></Col>
           </Row>
+
+          <Divider />
+
+          <Row gutter={16} style={{ marginBottom: "2rem", marginTop: "1rem" }}>
+            <Col span={12}>
+              <Card size="small">
+                <Statistic
+                  title="Periods"
+                  value={`${savingsPlanSelected.completed_periods} / ${savingsPlanSelected.total_periods}`}
+                  valueStyle={{ color: "#3f8600" }}
+                  style={{ textAlign: "center" }}
+                />
+              </Card>
+            </Col>
+            <Col span={12}>
+              <Card size="small">
+                <Statistic
+                  title="Amount"
+                  prefix={"$"}
+                  value={`${savingsPlanSelected.deposited_amount} / ${savingsPlanSelected.amount}`}
+                  valueStyle={{ color: "#3f8600" }}
+                  style={{ textAlign: "center" }}
+                />
+              </Card>
+            </Col>
+          </Row>
         </>
       )}
 
@@ -85,11 +139,20 @@ const DepositList = ({ title = true, deposit = true }) => {
         }
       >
         <Column title="Number" key="index" render={(_, __, index) => index + 1} />
+
         <Column
-          title="Scheduled Amount"
+          title={
+            <span>
+              Scheduled Amount&nbsp;
+              <Tooltip title="This value is set when the deposit record is created and will not be updated.">
+                <InfoCircleOutlined style={{ color: "#8c8c8c" }} />
+              </Tooltip>
+            </span>
+          }
           dataIndex="scheduled_amount"
           key="scheduled_amount"
         />
+
         <Column
           title="Deposited Amount"
           dataIndex="deposited_amount"

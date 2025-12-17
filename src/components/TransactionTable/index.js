@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { useNavigate } from "react-router";
 
-import { Button, Space, Table, Row, Col } from "antd";
+import { Button, Space, Table, Row, Col, Divider } from "antd";
 import {
   PlusCircleOutlined,
   EyeOutlined,
@@ -48,38 +48,42 @@ const TransactionTable = ({ title, onCancel, onDelete, transactionList }) => {
   return (
     <div>
       {onDelete ? (
-        <Row className="view-transaction-header">
-          <Col span={8}>
-            <Button type="primary" onClick={onCancel}>
-              <LeftOutlined />
-              Cancel
-            </Button>
-          </Col>
-          <Col span={8}>
-            <h2>{title}</h2>
-          </Col>
+        <>
+          <Row className="view-transaction-header">
+            <Col span={8}>
+              <Button type="primary" onClick={onCancel}>
+                <LeftOutlined />
+                Cancel
+              </Button>
+            </Col>
+            <Col span={8}>
+              <h2>{title}</h2>
+            </Col>
 
-          <Col span={8}>
-            {onDelete && (
-              <>
-                <Button
-                  className="green-button"
-                  type="primary"
-                  onClick={newTransactionNav}
-                  style={{ marginRight: "1rem" }}
-                >
-                  <PlusCircleOutlined /> New Transaction
-                </Button>
+            <Col span={8}>
+              {onDelete && (
+                <>
+                  <Button
+                    className="green-button"
+                    type="primary"
+                    onClick={newTransactionNav}
+                    style={{ marginRight: "1rem" }}
+                  >
+                    <PlusCircleOutlined /> New Transaction
+                  </Button>
 
-                <DeleteButton
-                  type={"Account Book"}
-                  name={accountBookSelected.name}
-                  onDelete={onDelete}
-                />
-              </>
-            )}
-          </Col>
-        </Row>
+                  <DeleteButton
+                    type={"Account Book"}
+                    name={accountBookSelected.name}
+                    onDelete={onDelete}
+                  />
+                </>
+              )}
+            </Col>
+          </Row>
+
+          <Divider />
+        </>
       ) : (
         <div className="header">
           <h2>Latest Transactions</h2>

@@ -1,6 +1,6 @@
 import axiosInstance from "../../api/index";
 import { antdSuccess, antdError } from "../../utils/antdMessage";
-import { setSavingsPlanList } from "./savingsPlanSlice";
+import { setSavingsPlanList, setSavingsPlanSelected } from "./savingsPlanSlice";
 
 export const fetchSavingsPlans = () => async (dispatch) => {
   try {
@@ -16,16 +16,21 @@ export const fetchSavingsPlans = () => async (dispatch) => {
   }
 };
 
-// export const fetchSavingsPlanById = (savingsPlanId) => async (dispatch) => {
-//   try {
-//     const response = await axiosInstance.get(`/savings-plans/${savingsPlanId}`);
-//     console.log(response);
-//     // dispatch(setSavingsPlanSelected())
-//   } catch (error) {
-//     antdError("Failed to fetch savings plan. Please try again later.");
-//     console.error("Error fetching savings plan:", error);
-//   }
-// };
+export const fetchSavingsPlanById = (savingsPlanId) => async (dispatch) => {
+  try {
+    const response = await axiosInstance.get(`/savings-plans/${savingsPlanId}`);
+    // console.log(response);
+
+    if (response.status === 200) {
+      dispatch(setSavingsPlanSelected(response.data.savingsPlan));
+    }
+
+    return response;
+  } catch (error) {
+    antdError("Failed to fetch savings plan. Please try again later.");
+    console.error("Error fetching savings plan:", error);
+  }
+};
 
 export const newSavingsPlan = (values) => async () => {
   try {
