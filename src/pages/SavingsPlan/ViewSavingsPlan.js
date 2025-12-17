@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import { Col, Row, Button, Divider } from "antd";
+import { Col, Row, Button, Divider, Tooltip } from "antd";
 
 import { useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 
-import { LeftOutlined, CalculatorOutlined } from "@ant-design/icons";
+import { LeftOutlined, CalculatorOutlined, InfoCircleOutlined } from "@ant-design/icons";
 import { setSavingsPlanSelected } from "../../store/reducers/savingsPlanSlice";
 import { deleteSavingsPlan } from "../../store/reducers/savingsPlanThunk";
 import DepositList from "../../components/DepositList";
@@ -77,16 +77,28 @@ const ViewSavingsPlan = () => {
         </Row>
 
         <Row className="transaction-detail-row" gutter={16}>
-          <Col className="transaction-detail-col" span={8}>
-            <span className="transaction-label">Amount</span>
+          <Col className="transaction-detail-col" span={12}>
+            <span className="transaction-label">Target Amount</span>
             <span>{savingsPlanSelected.amount}</span>
           </Col>
-          <Col className="transaction-detail-col" span={8}>
-            <span className="transaction-label">Period</span>
-            <span>{savingsPlanSelected.period}</span>
+          <Col className="transaction-detail-col" span={12}>
+            <span className="transaction-label">Deposited Amount</span>
+            <span>{savingsPlanSelected.deposited_amount}</span>
           </Col>
-          <Col className="transaction-detail-col" span={8}>
-            <span className="transaction-label">Amount per Period</span>
+        </Row>
+
+        <Row className="transaction-detail-row" gutter={16}>
+          <Col className="transaction-detail-col" span={12}>
+            <span className="transaction-label">Period</span>
+            <span>{savingsPlanSelected.period.toUpperCase()}</span>
+          </Col>
+          <Col className="transaction-detail-col" span={12}>
+            <span className="transaction-label">
+              Amount per Period&nbsp;
+              <Tooltip title="This value is calculated based on the current plan status and may change when the savings plan is modified.">
+                <InfoCircleOutlined style={{ color: "#8c8c8c" }} />
+              </Tooltip>
+            </span>
             <span>{savingsPlanSelected.amount_per_period}</span>
           </Col>
         </Row>

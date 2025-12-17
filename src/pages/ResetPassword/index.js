@@ -65,6 +65,7 @@ const ResetPassword = () => {
 
     axiosInstance
       .post(`/reset-password`, {
+        token,
         newPassword: values.password,
       })
       .then((response) => {
