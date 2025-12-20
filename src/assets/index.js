@@ -1,4 +1,3 @@
-import { ReactComponent as AppLogo } from "./icons/AppLogo.svg";
 import { ReactComponent as Grocery } from "./icons/grocery.svg";
 import { ReactComponent as PublicTransport } from "./icons/public-transport.svg";
 import { ReactComponent as Health } from "./icons/health.svg";
@@ -25,7 +24,6 @@ import { ReactComponent as Financial } from "./icons/financial.svg";
 import { ReactComponent as Overtime } from "./icons/overtime.svg";
 
 export {
-  AppLogo,
   Hotel,
   Grocery,
   PublicTransport,

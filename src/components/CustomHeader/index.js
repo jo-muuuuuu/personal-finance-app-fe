@@ -23,7 +23,7 @@ const CustomHeader = () => {
   const nickname = useSelector((state) => state.userInfo.userNickname);
   const avatarURL = useSelector((state) => state.userInfo.userAvatarURL);
 
-  const defaultAvatar = require("../../assets/imgs/kira.jpeg");
+  const defaultAvatar = require("../../assets/imgs/penny-wave-logo.png");
   const avatarSrc = avatarURL
     ? `${process.env.REACT_APP_API_URL}${avatarURL}`
     : defaultAvatar;

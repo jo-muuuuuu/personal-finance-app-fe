@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { LeftOutlined } from "@ant-design/icons";
-import { Modal, Card, Button, Checkbox, Form, Input } from "antd";
+import { Modal, Card, Button, Checkbox, Form, Input, Divider } from "antd";
 
 import { antdSuccess, antdError } from "../../utils/antdMessage";
 import axiosInstance from "../../api";
+
+import PennyWaveFontBlue from "../../assets/imgs/penny-wave-font-blue.png";
 
 const formItemLayout = {
   labelCol: {
@@ -90,12 +92,19 @@ const Register = () => {
 
   return (
     <div className="login-container">
-      <Card title="Create A New Account" variant="borderless" style={{ width: "600px" }}>
-        <div className="login-link" style={{ marginBottom: "1rem" }}>
+      <Card variant="borderless" style={{ width: "600px" }}>
+        <div style={{ textAlign: "center" }}>
+          <img src={PennyWaveFontBlue} style={{ height: "4rem" }} />
+        </div>
+        <Divider />
+        <div style={{ textAlign: "center", color: "#1677ff", marginBottom: "1.5rem" }}>
+          <h2>Create A New Account</h2>
+        </div>
+        {/* <div className="login-link" style={{ marginBottom: "1rem" }}>
           <a onClick={loginNavigate}>
             <LeftOutlined /> Back to Log In
           </a>
-        </div>
+        </div> */}
         <Form
           {...formItemLayout}
           form={form}

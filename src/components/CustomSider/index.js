@@ -9,7 +9,7 @@ import {
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 
-import { AppLogo } from "../../assets";
+import PennyWaveFontWhite from "../../assets/imgs/penny-wave-font-white.png";
 import "./index.css";
 
 const { Sider } = Layout;
@@ -69,8 +69,9 @@ const CustomSider = () => {
   return (
     <Sider breakpoint="lg">
       <div className="demo-logo-vertical">
-        <AppLogo className="sider-logo" />
-        <div className="sider-title">Johnny's Bookkeeping App</div>
+        {/* <img src={PennyWaveLogo} className="sider-logo" /> */}
+        <img src={PennyWaveFontWhite} className="sider-font" />
+        {/* <div className="sider-title">Penny Wave</div> */}
       </div>
 
       <Menu
