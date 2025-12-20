@@ -10,6 +10,7 @@ import { setUserInfo } from "../../store/reducers/userInfoSlice";
 
 import { antdSuccess, antdError } from "../../utils/antdMessage";
 import { setToken } from "../../utils/index";
+import PennyWaveFontBlue from "../../assets/imgs/penny-wave-font-blue.png";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -58,12 +59,14 @@ const Login = () => {
 
   return (
     <div className="login-container">
-      <Card
-        className="login-card"
-        title="Penny Wave"
-        variant="borderless"
-        style={{ width: 500 }}
-      >
+      <Card className="login-card" variant="borderless" style={{ width: 500 }}>
+        <div style={{ textAlign: "center" }}>
+          <img
+            src={PennyWaveFontBlue}
+            style={{ marginBottom: "1.5rem", height: "4rem" }}
+          />
+        </div>
+
         <Form
           className="login-form"
           name="login"

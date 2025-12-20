@@ -16,7 +16,7 @@ const UserInfoCard = () => {
   const avatarURL = useSelector((state) => state.userInfo.userAvatarURL);
 
   // default avatar url
-  const defaultAvatar = require("../../assets/imgs/kira.jpeg");
+  const defaultAvatar = require("../../assets/imgs/penny-wave-logo.png");
 
   const fileInputRef = useRef(null);
   const [preview, setPreview] = useState(

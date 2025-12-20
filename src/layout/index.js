@@ -36,7 +36,7 @@ const AppLayout = () => {
           </Content>
 
           <Footer style={{ textAlign: "center" }}>
-            Johnny's Bookkeeping App ©{new Date().getFullYear()} | Created by Zicheng Mu
+            Penny Wave ©2025 | Created by Johnny Mu
           </Footer>
         </Layout>
       </Layout>

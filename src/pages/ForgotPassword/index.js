@@ -2,11 +2,12 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import { LeftOutlined } from "@ant-design/icons";
-import { Card, Button, Form, Input } from "antd";
+import { Card, Button, Form, Input, Divider } from "antd";
 
 import axiosInstance from "../../api";
 import "./index.css";
 import { antdSuccess, antdError } from "../../utils/antdMessage";
+import PennyWaveFontBlue from "../../assets/imgs/penny-wave-font-blue.png";
 
 const ForgotPassword = () => {
   const naviage = useNavigate();
@@ -42,17 +43,19 @@ const ForgotPassword = () => {
 
   return (
     <div className="login-container">
-      <Card
-        className="login-card"
-        title="Password Reset"
-        variant="borderless"
-        style={{ width: 500 }}
-      >
-        <div className="login-link">
+      <Card className="login-card" variant="borderless" style={{ width: 500 }}>
+        <div style={{ textAlign: "center" }}>
+          <img src={PennyWaveFontBlue} style={{ height: "4rem" }} />
+        </div>
+        <Divider />
+        <div style={{ textAlign: "center", color: "#1677ff", marginBottom: "1.5rem" }}>
+          <h2>Forgot Password</h2>
+        </div>
+        {/* <div className="login-link">
           <a onClick={loginNavigate}>
             <LeftOutlined /> Back to Log In
           </a>
-        </div>
+        </div> */}
         <div className="reset-hint">
           <p>
             Enter your e-mail address below, and we'll send you an e-mail allowing you to
