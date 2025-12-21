@@ -18,6 +18,21 @@ export const fetchTransactions = () => async (dispatch) => {
   }
 };
 
+export const fetchTransactionsCount = () => async () => {
+  try {
+    const response = await axiosInstance.get("/transactions", {
+      params: { count: true },
+    });
+
+    if (response.status === 200) {
+      return response.data.count;
+    }
+  } catch (error) {
+    antdError("Failed to fetch transactions count. Please try again later.");
+    console.error("Error fetching transactions count:", error);
+  }
+};
+
 export const newTransaction = (values) => async () => {
   try {
     const response = await axiosInstance.post(`/transactions`, values);

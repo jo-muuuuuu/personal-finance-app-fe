@@ -8,6 +8,8 @@ import dashboardImg from "../../assets/imgs/dashboard.png";
 import "./index.css";
 import { useNavigate } from "react-router";
 
+import PennyWaveFontWhite from "../../assets/imgs/penny-wave-font-white.png";
+
 const { Header, Footer } = Layout;
 
 const Landing = () => {
@@ -18,8 +20,12 @@ const Landing = () => {
       <Header className="land-header" style={{ backgroundColor: "#1677ff" }}>
         <div className="land-header-item"></div>
 
-        <div className="land-header-item" style={{ fontSize: "1.25rem" }}>
-          Johnny's Bookkeeping App
+        <div className="land-header-item">
+          <img
+            src={PennyWaveFontWhite}
+            style={{ marginTop: "1rem", height: "3rem" }}
+            alt="Penny Wave"
+          />
         </div>
 
         <div className="land-header-item">
