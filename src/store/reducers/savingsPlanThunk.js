@@ -16,6 +16,21 @@ export const fetchSavingsPlans = () => async (dispatch) => {
   }
 };
 
+export const fetchSavingsPlansCount = () => async () => {
+  try {
+    const response = await axiosInstance.get("/savings-plans", {
+      params: { count: true },
+    });
+
+    if (response.status === 200) {
+      return response.data.count;
+    }
+  } catch (error) {
+    antdError("Failed to fetch savings plans count. Please try again later.");
+    console.error("Error fetching savings plans count:", error);
+  }
+};
+
 export const fetchSavingsPlanById = (savingsPlanId) => async (dispatch) => {
   try {
     const response = await axiosInstance.get(`/savings-plans/${savingsPlanId}`);

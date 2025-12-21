@@ -15,6 +15,21 @@ export const fetchAccountBooks = () => async (dispatch) => {
   }
 };
 
+export const fetchAccountBooksCount = () => async () => {
+  try {
+    const response = await axiosInstance.get("/account-books", {
+      params: { count: true },
+    });
+
+    if (response.status === 200) {
+      return response.data.count;
+    }
+  } catch (error) {
+    antdError("Failed to fetch account books count. Please try again later.");
+    console.error("Error fetching account books count:", error);
+  }
+};
+
 export const newAccountBook = (values) => async () => {
   try {
     const response = await axiosInstance.post(`/account-books`, values);

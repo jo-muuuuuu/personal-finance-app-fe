@@ -20,6 +20,21 @@ export const fetchDeposits = (savingsPlanId) => async (dispatch) => {
   }
 };
 
+export const fetchDepositsCount = () => async () => {
+  try {
+    const response = await axiosInstance.get("/deposits", {
+      params: { count: true },
+    });
+
+    if (response.status === 200) {
+      return response.data.count;
+    }
+  } catch (error) {
+    antdError("Failed to fetch deposits count. Please try again later.");
+    console.error("Error fetching deposits count:", error);
+  }
+};
+
 export const confirmDeposit = (values) => async (dispatch) => {
   try {
     const response = await axiosInstance.put("/deposits/:id", values);

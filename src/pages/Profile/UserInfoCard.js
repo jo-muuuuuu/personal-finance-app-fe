@@ -4,6 +4,10 @@ import { Button, Card, Divider } from "antd";
 import CropAvatar from "./CropAvatar";
 
 import { useSelector, useDispatch } from "react-redux";
+import { fetchAccountBooksCount } from "../../store/reducers/accountBookThunk";
+import { fetchTransactionsCount } from "../../store/reducers/transactionThunk";
+import { fetchSavingsPlansCount } from "../../store/reducers/savingsPlanThunk";
+import { fetchDepositsCount } from "../../store/reducers/depositThunk";
 import { updateUserAvatar } from "../../store/reducers/userInfoSlice";
 import { antdSuccess, antdError } from "../../utils/antdMessage";
 import axiosInstance from "../../api";
@@ -27,12 +31,17 @@ const UserInfoCard = () => {
   const [cropModalVisible, setCropModalVisible] = useState(false);
   const [originalImage, setOriginalImage] = useState(null);
 
-  const accountBookCount = useSelector(
-    (state) => state.accountBook.accountBookList.length
-  );
-  const transactionCount = useSelector(
-    (state) => state.transaction.transactionList.length
-  );
+  const [accountBookCount, setAccountBookCount] = useState(0);
+  const [transactionCount, setTransactionCount] = useState(0);
+  const [savingsPlanCount, setSavingsPlanCount] = useState(0);
+  const [depositCount, setDepositCount] = useState(0);
+
+  useEffect(() => {
+    setAccountBookCount(dispatch(fetchAccountBooksCount()));
+    setTransactionCount(dispatch(fetchTransactionsCount()));
+    setSavingsPlanCount(dispatch(fetchSavingsPlansCount()));
+    setDepositCount(dispatch(fetchDepositsCount()));
+  }, [dispatch]);
 
   const uploadAvatarClick = () => {
     if (fileInputRef.current) {
@@ -150,6 +159,16 @@ const UserInfoCard = () => {
           <p>
             <span className="profile-log-info-title"># of transactions</span>
             <span className="profile-log-info-detail">{transactionCount}</span>
+          </p>
+
+          <p>
+            <span className="profile-log-info-title"># of savings plans</span>
+            <span className="profile-log-info-detail">{savingsPlanCount}</span>
+          </p>
+
+          <p>
+            <span className="profile-log-info-title"># of deposits</span>
+            <span className="profile-log-info-detail">{depositCount}</span>
           </p>
         </div>
       </Card>
