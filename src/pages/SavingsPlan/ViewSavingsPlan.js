@@ -4,11 +4,20 @@ import { Col, Row, Button, Divider, Tooltip } from "antd";
 import { useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 
-import { LeftOutlined, CalculatorOutlined, InfoCircleOutlined } from "@ant-design/icons";
+import {
+  LeftOutlined,
+  BarsOutlined,
+  InfoCircleOutlined,
+  CalculatorOutlined,
+} from "@ant-design/icons";
 import { setSavingsPlanSelected } from "../../store/reducers/savingsPlanSlice";
-import { deleteSavingsPlan } from "../../store/reducers/savingsPlanThunk";
+import {
+  deleteSavingsPlan,
+  editSavingPlansStatus,
+} from "../../store/reducers/savingsPlanThunk";
 import DepositList from "../../components/DepositList";
 import DeleteButton from "../../components/DeleteButton";
+import "./index.css";
 
 const ViewSavingsPlan = () => {
   const dispatch = useDispatch();
@@ -25,6 +34,14 @@ const ViewSavingsPlan = () => {
   const onDelete = () => {
     dispatch(deleteSavingsPlan(savingsPlanSelected.id, savingsPlanSelected.name));
     navigate("/savings-plan/overview");
+  };
+
+  const handleSavingsPlanActions = (action) => {
+    return () => {
+      // console.log(action);
+      dispatch(editSavingPlansStatus(savingsPlanSelected.id, action));
+      navigate("/savings-plan/overview");
+    };
   };
 
   useEffect(() => {
@@ -119,7 +136,46 @@ const ViewSavingsPlan = () => {
         </Row>
 
         <Divider style={{ color: "#1677ff" }}>
-          <CalculatorOutlined /> Deposit Records
+          <CalculatorOutlined /> Actions
+        </Divider>
+        <Row gutter={16}>
+          <Col style={{ display: "flex", justifyContent: "center" }} span={8}>
+            <Button
+              type="primary"
+              className="green-button savings-plan-actions-btn"
+              disabled={savingsPlanSelected.status !== "paused"}
+              onClick={handleSavingsPlanActions("resume")}
+            >
+              Resume
+            </Button>
+          </Col>
+
+          <Col style={{ display: "flex", justifyContent: "center" }} span={8}>
+            <Button
+              type="primary"
+              className="yellow-button savings-plan-actions-btn"
+              disabled={savingsPlanSelected.status !== "active"}
+              onClick={handleSavingsPlanActions("pause")}
+            >
+              Pause
+            </Button>
+          </Col>
+
+          <Col style={{ display: "flex", justifyContent: "center" }} span={8}>
+            <Button
+              type="primary"
+              className="savings-plan-actions-btn"
+              danger
+              disabled={savingsPlanSelected.status === "cancelled"}
+              onClick={handleSavingsPlanActions("terminate")}
+            >
+              Terminate
+            </Button>
+          </Col>
+        </Row>
+
+        <Divider style={{ color: "#1677ff" }}>
+          <BarsOutlined /> Deposit Records
         </Divider>
 
         <DepositList title={false} deposit={false} />
