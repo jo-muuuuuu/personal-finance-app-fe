@@ -14,10 +14,10 @@ import DeleteButton from "../../components/DeleteButton";
 
 const { Column } = Table;
 const statusColors = {
-  active: "red",
-  completed: "green",
-  paused: "yellow",
-  cancelled: "grey",
+  active: "#008000",
+  completed: "#1677ff",
+  paused: "#ffff00",
+  cancelled: "#ff0000",
 };
 
 const SavingsPlanOverview = () => {
@@ -64,7 +64,17 @@ const SavingsPlanOverview = () => {
         </Button>
       </div>
 
-      <Table dataSource={savingsPlanList}>
+      <Table
+        dataSource={savingsPlanList}
+        rowKey="id"
+        rowClassName={(record) => {
+          if (record.status === "active") return "row-active";
+          if (record.status === "completed") return "row-completed";
+          if (record.status === "paused") return "row-paused";
+          if (record.status === "cancelled") return "row-cancelled";
+          return "";
+        }}
+      >
         <Column
           title="Name"
           dataIndex="name"
@@ -91,7 +101,19 @@ const SavingsPlanOverview = () => {
           title="Status"
           dataIndex="status"
           render={(status) => {
-            return <Tag color={statusColors[status]}>{status}</Tag>;
+            return (
+              <Tag className="status-tag" color={statusColors[status]}>
+                <p
+                  style={{
+                    margin: "0",
+                    border: "0",
+                    color: status === "paused" ? "#000000" : "#ffffff",
+                  }}
+                >
+                  {status}
+                </p>
+              </Tag>
+            );
           }}
         ></Column>
         <Column
@@ -104,6 +126,7 @@ const SavingsPlanOverview = () => {
                   type="primary"
                   className="green-button"
                   onClick={depositNav(item)}
+                  disabled={item.status !== "active"}
                 >
                   <PlusCircleOutlined />
                   Deposit
@@ -116,6 +139,7 @@ const SavingsPlanOverview = () => {
                   type="primary"
                   className="yellow-button"
                   onClick={editSavingsPlanNav(item)}
+                  disabled={item.status !== "active"}
                 >
                   <EditOutlined />
                   Edit

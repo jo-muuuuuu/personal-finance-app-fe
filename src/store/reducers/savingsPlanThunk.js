@@ -76,6 +76,21 @@ export const editSavingsPlan = (values, savingsPlanId) => async () => {
   }
 };
 
+export const editSavingPlansStatus = (savingsPlanId, status) => async () => {
+  try {
+    const response = await axiosInstance.patch(`/savings-plans/${savingsPlanId}`, {
+      status,
+    });
+
+    if (response.status === 200) {
+      antdSuccess("Successfully updated savings plan status!");
+    }
+  } catch (error) {
+    antdError("Failed to update savings plan status!");
+    console.error("Error updating savings plan status:", error);
+  }
+};
+
 export const deleteSavingsPlan = (savingsPlanId, savingsPlanName) => async (dispatch) => {
   try {
     const response = await axiosInstance.delete(`/savings-plans/${savingsPlanId}`);

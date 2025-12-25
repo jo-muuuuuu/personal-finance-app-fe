@@ -1,0 +1,27 @@
+.savings-plan-actions-btn {
+  width: 10rem;
+}
+
+.status-tag {
+  text-transform: capitalize;
+  width: 5rem;
+  text-align: center;
+}
+
+.row-active > td {
+  background-color: rgba(0, 255, 0, 0.1) !important;
+}
+
+.row-completed > td {
+  background-color: rgba(22, 119, 255, 0.1) !important;
+}
+
+.row-paused > td {
+  background-color: rgba(255, 255, 0, 0.1) !important;
+}
+
+.row-cancelled > td {
+  background-color: rgba(255, 0, 0, 0.1) !important;
+
+  text-decoration: line-through rgba(255, 0, 0, 0.75) !important;
+}

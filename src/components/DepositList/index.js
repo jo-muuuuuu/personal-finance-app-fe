@@ -53,6 +53,7 @@ const DepositList = ({ title = true, deposit = true }) => {
   }, [savingsPlanSelected, dispatch]);
 
   const firstPendingIndex = deposits.findIndex((d) => d.status === "pending");
+  const firstPendingDeposit = deposits.find((d) => d.status === "pending");
 
   const onCancel = () => {
     navigate("/savings-plan/overview");
@@ -188,7 +189,9 @@ const DepositList = ({ title = true, deposit = true }) => {
           <Column
             title="Action"
             render={(item, record, index) => {
-              const isFirstPending = index === firstPendingIndex;
+              // const isFirstPending = index === firstPendingIndex;
+              const isFirstPending = record.id === firstPendingDeposit?.id;
+
               const isCompleted = record.status === "completed";
 
               const buttonText = isCompleted ? "Confirmed" : "Confirm Deposit";
