@@ -139,7 +139,7 @@ const SavingsPlanOverview = () => {
                   type="primary"
                   className="yellow-button"
                   onClick={editSavingsPlanNav(item)}
-                  disabled={item.status === "paused" || item.status === "cancelled"}
+                  disabled={item.status !== "active"}
                 >
                   <EditOutlined />
                   Edit

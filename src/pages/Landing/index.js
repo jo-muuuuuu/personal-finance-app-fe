@@ -5,6 +5,7 @@ import { LinkedinFilled, GithubFilled, MailFilled } from "@ant-design/icons";
 import categoriesImg from "../../assets/imgs/categories.png";
 import transactionsImg from "../../assets/imgs/transactions.png";
 import dashboardImg from "../../assets/imgs/dashboard.png";
+import savingsPlansImg from "../../assets/imgs/savings-plans.png";
 import "./index.css";
 import { useNavigate } from "react-router";
 
@@ -115,18 +116,35 @@ const Landing = () => {
 
         <Row gutter={64} align="middle">
           <Col span={12} align="right">
-            <h3>Data Visualization</h3>
+            <h3>Savings Plans</h3>
             <p>
-              Understand your finances at a glance with intuitive charts that show income,
-              expenses, and budget trends.
+              Set clear saving goals and build healthy habits with structured, flexible
+              savings plans.
             </p>
           </Col>
           <Col span={12}>
+            <img
+              src={savingsPlansImg}
+              alt="savings plans"
+              style={{ width: "100%", borderRadius: 8 }}
+            />
+          </Col>
+        </Row>
+
+        <Row gutter={64} align="middle">
+          <Col span={12} align="right">
             <img
               src={dashboardImg}
               alt="dashboard"
               style={{ width: "100%", borderRadius: 8 }}
             />
+          </Col>
+          <Col span={12}>
+            <h3>Data Visualization</h3>
+            <p>
+              Understand your finances at a glance with intuitive charts that show income,
+              expenses, and budget trends.
+            </p>
           </Col>
         </Row>
       </div>
@@ -183,7 +201,7 @@ const Landing = () => {
 
           <div className="land-footer-copy">
             <div style={{ lineHeight: "60px" }}>
-              Johnny's Bookkeeping App ©{new Date().getFullYear()} | Created by Zicheng Mu
+              Penny Wave ©2025 | Created by Johnny Mu
             </div>
           </div>
         </div>
