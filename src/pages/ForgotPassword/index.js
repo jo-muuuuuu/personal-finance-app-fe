@@ -1,44 +1,46 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import { LeftOutlined } from "@ant-design/icons";
 import { Card, Button, Form, Input, Divider } from "antd";
 
-import axiosInstance from "../../api";
 import "./index.css";
-import { antdSuccess, antdError } from "../../utils/antdMessage";
+import { userForgotPassword } from "../../store/reducers/userInfoThunk";
 import PennyWaveFontBlue from "../../assets/imgs/penny-wave-font-blue.png";
 
 const ForgotPassword = () => {
-  const naviage = useNavigate();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const loginNavigate = () => {
-    naviage("/login");
+    navigate("/login");
   };
 
   const onFinish = (values) => {
     // console.log("Received values of form: ", values);
+    dispatch(userForgotPassword(values, navigate));
 
-    axiosInstance
-      .post(`/forgot-password`, values)
-      .then((response) => {
-        if (response.status === 200) {
-          antdSuccess("Please check your email for password reset link!");
-        }
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.error("Error response:", error.response.data);
+    // axiosInstance
+    //   .post(`/forgot-password`, values)
+    //   .then((response) => {
+    //     if (response.status === 200) {
+    //       antdSuccess("Please check your email for password reset link!");
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     if (error.response) {
+    //       console.error("Error response:", error.response.data);
 
-          if (error.response.status === 401) {
-            antdError("Invalid email or password");
-          } else if (error.response.status === 500) {
-            antdError("Server error, please try again later");
-          }
-        } else {
-          antdError("An error occurred: " + error.message);
-        }
-      });
+    //       if (error.response.status === 401) {
+    //         antdError("Invalid email or password");
+    //       } else if (error.response.status === 500) {
+    //         antdError("Server error, please try again later");
+    //       }
+    //     } else {
+    //       antdError("An error occurred: " + error.message);
+    //     }
+    //   });
   };
 
   return (

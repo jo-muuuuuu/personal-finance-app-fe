@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import { Card, Button, Form, Input } from "antd";
 
-import axiosInstance from "../../api";
-
-import { antdSuccess, antdError } from "../../utils/antdMessage";
+import { useDispatch } from "react-redux";
+import {
+  userResetPassword,
+  userValidateResetToken,
+} from "../../store/reducers/userInfoThunk";
 
 const formItemLayout = {
   labelCol: {
@@ -32,62 +34,21 @@ const tailFormItemLayout = {
 
 const ResetPassword = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [validToken, setValidToken] = useState(false);
   const { token } = useParams();
 
   useEffect(() => {
-    const validateToken = async () => {
-      try {
-        const res = await axiosInstance.get(`/validate-token`, {
-          params: { token },
-        });
-
-        setValidToken(true);
-      } catch (error) {
-        console.error("Error validating token:", error);
-
-        if (error.response && error.response.status === 500) {
-          antdError("Server error, please try again later");
-        } else {
-          antdError("An error occurred: " + error.message);
-        }
-      }
-    };
-
-    validateToken();
-  }, [token]);
+    const res = dispatch(userValidateResetToken(token));
+    setValidToken(res);
+  }, [dispatch, token]);
 
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
     // console.log("Received values of form: ", values);
-
-    axiosInstance
-      .post(`/reset-password`, {
-        token,
-        newPassword: values.password,
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          antdSuccess("Password reset successful!");
-
-          navigate("/login");
-        }
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.error("Error response:", error.response.data);
-
-          if (error.response.status === 401) {
-            antdError("Invalid email or password");
-          } else if (error.response.status === 500) {
-            antdError("Server error, please try again later");
-          }
-        } else {
-          antdError("An error occurred: " + error.message);
-        }
-      });
+    dispatch(userResetPassword(token, values, navigate));
   };
 
   return validToken ? (

@@ -1,15 +1,18 @@
 import React from "react";
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Card, Button, Checkbox, Form, Input, Flex } from "antd";
-
-import axiosInstance from "../../api";
+import {
+  LockOutlined,
+  UserOutlined,
+  GoogleOutlined,
+  GithubOutlined,
+  LinkedinOutlined,
+} from "@ant-design/icons";
+import { Card, Button, Checkbox, Form, Input, Flex, Divider } from "antd";
 
 import { useDispatch } from "react-redux";
-import { setUserInfo } from "../../store/reducers/userInfoSlice";
+import { userLogin } from "../../store/reducers/userInfoThunk";
 
-import { antdSuccess, antdError } from "../../utils/antdMessage";
-import { setToken } from "../../utils/index";
 import PennyWaveFontBlue from "../../assets/imgs/penny-wave-font-blue.png";
 
 const Login = () => {
@@ -26,35 +29,7 @@ const Login = () => {
 
   const onFinish = (values) => {
     // console.log("Received values of form: ", values);
-
-    axiosInstance
-      .post(`/login`, values)
-      .then((response) => {
-        if (response.status === 200) {
-          // console.log("Success!", response.data);
-
-          const { userId, nickname, email, avatarURL, token } = response.data;
-
-          setToken(token, 60);
-          dispatch(setUserInfo({ userId, nickname, email, avatarURL }));
-
-          antdSuccess("Login successful!");
-          navigate("/");
-        }
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.error("Error response:", error.response.data);
-
-          if (error.response.status === 401) {
-            antdError("Invalid email or password");
-          } else if (error.response.status === 500) {
-            antdError("Server error, please try again later");
-          }
-        } else {
-          antdError("An error occurred: " + error.message);
-        }
-      });
+    dispatch(userLogin(values, navigate));
   };
 
   return (
@@ -101,6 +76,21 @@ const Login = () => {
             </Button>
             or <a onClick={registerNavigate}>Register now!</a>
           </Form.Item>
+
+          <Divider style={{ color: "#1677ff" }}>OTHER OPTIONS</Divider>
+          <GoogleOAuthProvider clientId="951045283158-8nao82g2pc3fqjru8eucmk8nvvkp77u2.apps.googleusercontent.com">
+            <GoogleLogin
+              onSuccess={(credentialResponse) => {
+                console.log(credentialResponse);
+              }}
+              onError={() => {
+                console.log("Login Failed");
+              }}
+            />
+          </GoogleOAuthProvider>
+          {/* <GoogleOutlined style={{ color: "#1677ff" }} />
+          <GithubOutlined style={{ color: "#1677ff" }} />
+          <LinkedinOutlined style={{ color: "#1677ff" }} /> */}
         </Form>
       </Card>
     </div>
