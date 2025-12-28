@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { LeftOutlined } from "@ant-design/icons";
 import { Modal, Card, Button, Checkbox, Form, Input, Divider } from "antd";
 
-import { antdSuccess, antdError } from "../../utils/antdMessage";
-import axiosInstance from "../../api";
+import { useDispatch } from "react-redux";
+import { userRegister } from "../../store/reducers/userInfoThunk";
 
 import PennyWaveFontBlue from "../../assets/imgs/penny-wave-font-blue.png";
 
@@ -42,10 +42,10 @@ const buttonLayout = {
 const Register = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
-
-  const loginNavigate = () => {
-    navigate("/login");
-  };
+  const dispatch = useDispatch();
+  // const loginNavigate = () => {
+  //   navigate("/login");
+  // };
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -63,31 +63,7 @@ const Register = () => {
 
   const onFinish = (values) => {
     // console.log("Received values of form: ", values);
-
-    axiosInstance
-      .post("/register", values)
-      .then((response) => {
-        if (response.status === 200) {
-          // console.log("Success!", response.data);
-          antdSuccess("Success!");
-          navigate("/login");
-        }
-      })
-      .catch((error) => {
-        // console.error("Error!", error);
-
-        if (error.response) {
-          if (error.response.status === 409) {
-            antdError("Email already exists!");
-          } else if (error.response.status === 500) {
-            antdError("Server error, please try again later");
-          }
-        } else {
-          antdError("Failed to register!");
-        }
-
-        // console.error("Error!");
-      });
+    dispatch(userRegister(values, navigate));
   };
 
   return (

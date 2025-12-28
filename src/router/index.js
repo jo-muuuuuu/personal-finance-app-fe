@@ -20,6 +20,7 @@ import NewSavingsPlan from "../pages/SavingsPlan/NewSavingsPlan";
 import EditSavingsPlan from "../pages/SavingsPlan/EditSavingsPlan";
 import ViewSavingsPlan from "../pages/SavingsPlan/ViewSavingsPlan";
 import DepositList from "../components/DepositList";
+import GitHubCallback from "../components/ThirdPartyLogin/GitHubCallback";
 
 const router = createBrowserRouter([
   {
@@ -65,6 +66,7 @@ const router = createBrowserRouter([
     ],
   },
   { path: "/landing", element: <Landing /> },
+  { path: "/auth/github/callback", element: <GitHubCallback /> },
 
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },

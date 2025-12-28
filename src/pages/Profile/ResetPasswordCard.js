@@ -137,18 +137,21 @@ const ResetPasswordCard = () => {
         </Form.Item>
       </Form>
 
-      {/* <Divider /> */}
       <Alert
         message="Note"
-        description="        Note: After changing your password, you will be logged out and need to log in
+        description="Note: After changing your password, you will be logged out and need to log in
         again with the new password."
         type="info"
         showIcon
         style={{ margin: "1rem auto" }}
       />
-      {/* <p style={{ color: "red" }}>
-
-      </p> */}
+      <Alert
+        message="Note"
+        description="Note: Third-party login users must reset their password via “Forgot Password” before using password login."
+        type="info"
+        showIcon
+        style={{ margin: "1rem auto" }}
+      />
     </Card>
   );
 };
