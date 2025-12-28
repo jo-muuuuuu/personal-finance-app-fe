@@ -25,6 +25,10 @@ jobs:
       - name: Create production env file
         run: |
           echo "REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}" > .env
+          echo "REACT_APP_GOOGLE_CLIENT_ID=${{ secrets.REACT_APP_GOOGLE_CLIENT_ID }}" >> .env
+          echo "REACT_APP_GITHUB_CLIENT_ID=${{ secrets.REACT_APP_GITHUB_CLIENT_ID }}" >> .env
+          echo "REACT_APP_GITHUB_SECRET=${{ secrets.REACT_APP_GITHUB_SECRET }}" >> .env
+          echo "REACT_APP_GITHUB_REDIRECT_URI=${{ secrets.REACT_APP_GITHUB_REDIRECT_URI }}" >> .env
           
       - name: Build production files
         env:
