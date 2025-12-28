@@ -120,3 +120,63 @@ export const userResetPassword = (token, values, navigate) => async () => {
     }
   }
 };
+
+export const userGoogleLogin = (googleToken, navigate) => async (dispatch) => {
+  try {
+    const response = await axiosInstance.post(`/google-login`, {
+      access_token: googleToken.access_token,
+    });
+
+    if (response.status === 200) {
+      const { userId, nickname, email, avatarURL, token } = response.data;
+      setToken(token, 60);
+      dispatch(setUserInfo({ userId, nickname, email, avatarURL }));
+
+      antdSuccess("Login successful!");
+      navigate("/");
+    }
+  } catch (error) {
+    if (error.response) {
+      console.error("Error response:", error.response.data);
+      antdError("Google login failed, please try again.");
+    }
+  }
+};
+
+export const userGitHubLogin = (accessToken, navigate) => {
+  return async (dispatch) => {
+    // dispatch(userSlice.actions.setLoading(true));
+
+    try {
+      const response = await axiosInstance.post(
+        `/github-login`,
+        { access_token: accessToken },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("GitHub login response:", response.data);
+
+      if (response.status === 200) {
+        const { userId, nickname, email, avatarURL, token } = response.data;
+        setToken(token, 60);
+        dispatch(setUserInfo({ userId, nickname, email, avatarURL }));
+
+        antdSuccess("Success!");
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("GitHub login error:", error);
+
+      let errorMessage = "GitHub login failed, please try again.";
+      if (error.response) {
+        errorMessage = error.response.data?.error || errorMessage;
+      }
+
+      antdError(errorMessage);
+      // dispatch(userSlice.actions.setError(errorMessage));
+    }
+  };
+};
