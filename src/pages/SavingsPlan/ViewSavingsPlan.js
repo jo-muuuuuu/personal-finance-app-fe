@@ -9,6 +9,7 @@ import {
   BarsOutlined,
   InfoCircleOutlined,
   CalculatorOutlined,
+  EyeOutlined,
 } from "@ant-design/icons";
 import { setSavingsPlanSelected } from "../../store/reducers/savingsPlanSlice";
 import {
@@ -60,15 +61,20 @@ const ViewSavingsPlan = () => {
           </Button>
         </Col>
         <Col span={8}>
-          <h2>Savings Plan Details</h2>
+          <h2>
+            <div style={{ textAlign: "center" }}>
+              <p style={{ color: "#1677ff", marginTop: "0" }}>
+                <EyeOutlined /> Viewing Savings Plan
+              </p>
+              <Divider>{savingsPlanSelected.name.toUpperCase()}</Divider>
+            </div>
+          </h2>
         </Col>
 
         <Col span={8}>
           <DeleteButton type={"Savings Plan"} onDelete={onDelete} />
         </Col>
       </Row>
-
-      <Divider />
 
       <div className="transaction-detail-container">
         <Row className="transaction-detail-row" gutter={16}>

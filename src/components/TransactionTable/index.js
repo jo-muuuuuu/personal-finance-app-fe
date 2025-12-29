@@ -9,6 +9,7 @@ import {
   EyeOutlined,
   EditOutlined,
   LeftOutlined,
+  BarsOutlined,
 } from "@ant-design/icons";
 
 import { setTransactionSelected } from "../../store/reducers/transactionSlice";
@@ -16,6 +17,7 @@ import { deleteTransaction } from "../../store/reducers/transactionThunk";
 
 import DeleteButton from "../DeleteButton";
 import dayjs from "dayjs";
+import "./index.css";
 
 const { Column } = Table;
 
@@ -61,39 +63,61 @@ const TransactionTable = ({ title, onCancel, onDelete, transactionList }) => {
             </Col>
 
             <Col span={8}>
-              {onDelete && (
-                <>
-                  <Button
-                    className="green-button"
-                    type="primary"
-                    onClick={newTransactionNav}
-                    style={{ marginRight: "1rem" }}
-                  >
-                    <PlusCircleOutlined /> New Transaction
-                  </Button>
+              <>
+                <Button
+                  className="green-button"
+                  type="primary"
+                  onClick={newTransactionNav}
+                  style={{ marginRight: "1rem" }}
+                >
+                  <PlusCircleOutlined /> New Transaction
+                </Button>
 
-                  <DeleteButton
-                    type={"Account Book"}
-                    name={accountBookSelected.name}
-                    onDelete={onDelete}
-                  />
-                </>
-              )}
+                <DeleteButton
+                  type={"Account Book"}
+                  name={accountBookSelected.name}
+                  onDelete={onDelete}
+                />
+              </>
             </Col>
           </Row>
 
-          <Divider />
+          <Row className="transaction-detail-row" gutter={16}>
+            <Col className="transaction-detail-col" span={24}>
+              <span className="transaction-label">Tag</span>
+              <span>{accountBookSelected.tag || "N/A"}</span>
+            </Col>
+          </Row>
+
+          <Row className="transaction-detail-row" gutter={16}>
+            <Col className="transaction-detail-col" span={24}>
+              <span className="transaction-label">Description</span>
+              <span>{accountBookSelected.description || "N/A"}</span>
+            </Col>
+          </Row>
+
+          <Divider style={{ color: "#1677ff" }}>
+            {" "}
+            <BarsOutlined /> Transaction List
+          </Divider>
         </>
       ) : (
-        <div className="header">
-          <h2>Latest Transactions</h2>
+        <div className="header" style={{ display: "flex", alignContent: "center" }}>
+          <h2 style={{ marginTop: "0" }}>Latest Transactions</h2>
           <Button className="green-button" type="primary" onClick={newTransactionNav}>
             <PlusCircleOutlined /> New Transaction
           </Button>
         </div>
       )}
 
-      <Table dataSource={transactionList}>
+      <Table
+        dataSource={transactionList}
+        rowClassName={(record) => {
+          if (record.type === "expense") return "row-expense";
+          if (record.type === "income") return "row-income";
+          return "";
+        }}
+      >
         <Column
           title="Account Book"
           dataIndex="account_book_name"

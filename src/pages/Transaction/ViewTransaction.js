@@ -5,7 +5,7 @@ import { deleteTransaction } from "../../store/reducers/transactionThunk";
 import { useNavigate } from "react-router";
 
 import { Col, Row, Button, Divider } from "antd";
-import { LeftOutlined } from "@ant-design/icons";
+import { EyeOutlined, LeftOutlined } from "@ant-design/icons";
 
 import "./index.css";
 import DeleteButton from "../../components/DeleteButton";
@@ -43,7 +43,14 @@ const ViewTransaction = () => {
           </Button>
         </Col>
         <Col span={8}>
-          <h2>Transaction Details</h2>
+          <h2>
+            <div style={{ textAlign: "center" }}>
+              <p style={{ color: "#1677ff", marginTop: "0" }}>
+                <EyeOutlined /> Viewing Transaction
+              </p>
+              <Divider>ID - {transactionSelected.id}</Divider>
+            </div>
+          </h2>
         </Col>
 
         <Col span={8}>
@@ -54,8 +61,6 @@ const ViewTransaction = () => {
           />
         </Col>
       </Row>
-
-      <Divider />
 
       <div className="transaction-detail-container">
         <Row className="transaction-detail-row" gutter={16}>

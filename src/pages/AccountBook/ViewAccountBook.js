@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router";
-
+import { Divider } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchTransactions } from "../../store/reducers/transactionThunk";
 import { deleteAccountBook } from "../../store/reducers/accountBookThunk";
 import { setAccountBookSelected } from "../../store/reducers/accountBookSlice";
-
+import { EyeOutlined } from "@ant-design/icons";
 import TransactionTable from "../../components/TransactionTable";
 
 const ViewAccountBook = () => {
@@ -43,7 +43,14 @@ const ViewAccountBook = () => {
 
   return (
     <TransactionTable
-      title={`Transactions in [${accountBookSelected.name}]`}
+      title={
+        <div style={{ textAlign: "center" }}>
+          <p style={{ color: "#1677ff", marginTop: "0" }}>
+            <EyeOutlined /> Viewing Account Book
+          </p>
+          <Divider>{accountBookSelected.name.toUpperCase()}</Divider>
+        </div>
+      }
       onCancel={onCancel}
       onDelete={onDelete}
       transactionList={transactionList}

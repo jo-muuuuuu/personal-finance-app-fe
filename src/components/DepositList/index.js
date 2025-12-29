@@ -19,6 +19,7 @@ import {
   LeftOutlined,
   CheckOutlined,
   StopOutlined,
+  EyeOutlined,
   InfoCircleOutlined,
 } from "@ant-design/icons";
 import {
@@ -100,14 +101,21 @@ const DepositList = ({ title = true, deposit = true }) => {
               </Button>
             </Col>
             <Col span={8}>
-              <h2>Deposit Records of [{savingsPlanSelected.name.toUpperCase()}]</h2>
+              <h2>
+                <div style={{ textAlign: "center" }}>
+                  <p style={{ color: "#1677ff", marginTop: "0" }}>
+                    <EyeOutlined /> Deposit Records
+                  </p>
+                  <Divider>{savingsPlanSelected.name.toUpperCase()}</Divider>
+                </div>
+              </h2>
             </Col>
             <Col span={8}></Col>
           </Row>
 
-          <Divider />
+          {/* <Divider /> */}
 
-          <Row gutter={16} style={{ marginBottom: "2rem", marginTop: "1rem" }}>
+          <Row gutter={16} style={{ marginBottom: "2rem" }}>
             <Col span={12}>
               <Card size="small">
                 <Statistic

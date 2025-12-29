@@ -45,6 +45,7 @@ const TransactionForm = ({
   onFinish,
   onCancel,
   onDelete,
+  divider,
   initialValues = { type: "expense" },
 }) => {
   const [type, setType] = useState("");
@@ -104,7 +105,7 @@ const TransactionForm = ({
         </Col>
       </Row>
 
-      <Divider />
+      {divider && <Divider />}
 
       <Form
         form={form}

@@ -57,8 +57,8 @@ const SavingsPlanOverview = () => {
 
   return (
     <div>
-      <div className="header">
-        <h2>Your Savings Plans</h2>
+      <div className="header" style={{ display: "flex", alignContent: "center" }}>
+        <h2 style={{ marginTop: "0" }}>Your Savings Plans</h2>
         <Button type="primary" className="green-button" onClick={newSavingsPlanNav}>
           <PlusCircleOutlined /> New Savings Plan
         </Button>

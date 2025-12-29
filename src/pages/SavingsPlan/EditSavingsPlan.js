@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Divider, Alert } from "antd";
-import { BarsOutlined } from "@ant-design/icons";
+import { BarsOutlined, EditOutlined } from "@ant-design/icons";
 
 import EditSavingsPlanForm from "../../components/SavingsPlanForm/EditSavingsPlanForm";
 import { setSavingsPlanSelected } from "../../store/reducers/savingsPlanSlice";
@@ -45,7 +45,14 @@ const EditSavingsPlan = () => {
   return (
     <>
       <EditSavingsPlanForm
-        title={`Editing Savings Plan: [${savingsPlanSelected.name.toUpperCase()}]`}
+        title={
+          <div style={{ textAlign: "center" }}>
+            <p style={{ color: "#1677ff", marginTop: "0" }}>
+              <EditOutlined /> Editing Savings Plan
+            </p>
+            <Divider>{savingsPlanSelected.name.toUpperCase()}</Divider>
+          </div>
+        }
         onFinish={onFinish}
         onCancel={onCancel}
         onDelete={onDelete}

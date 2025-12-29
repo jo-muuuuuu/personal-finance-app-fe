@@ -54,8 +54,8 @@ const AccountBookOverview = () => {
 
   return (
     <div>
-      <div className="header">
-        <h2>Your Account Books</h2>
+      <div className="header" style={{ display: "flex", alignContent: "center" }}>
+        <h2 style={{ marginTop: "0" }}>Your Account Books</h2>
         <Button type="primary" className="green-button" onClick={newAccBookNav}>
           <PlusCircleOutlined /> New Account Book
         </Button>
