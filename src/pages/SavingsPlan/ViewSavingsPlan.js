@@ -45,12 +45,6 @@ const ViewSavingsPlan = () => {
     };
   };
 
-  useEffect(() => {
-    return () => {
-      dispatch(setSavingsPlanSelected(null));
-    };
-  }, [dispatch]);
-
   return (
     <>
       <Row className="view-transaction-header">
@@ -140,52 +134,64 @@ const ViewSavingsPlan = () => {
             <span>{savingsPlanSelected.status}</span>
           </Col>
         </Row>
-
-        <Divider style={{ color: "#1677ff" }}>
-          <CalculatorOutlined /> Actions
-        </Divider>
-        <Row gutter={16}>
-          <Col style={{ display: "flex", justifyContent: "center" }} span={8}>
-            <Button
-              type="primary"
-              className="green-button savings-plan-actions-btn"
-              disabled={savingsPlanSelected.status !== "paused"}
-              onClick={handleSavingsPlanActions("resume")}
-            >
-              Resume
-            </Button>
-          </Col>
-
-          <Col style={{ display: "flex", justifyContent: "center" }} span={8}>
-            <Button
-              type="primary"
-              className="yellow-button savings-plan-actions-btn"
-              disabled={savingsPlanSelected.status !== "active"}
-              onClick={handleSavingsPlanActions("pause")}
-            >
-              Pause
-            </Button>
-          </Col>
-
-          <Col style={{ display: "flex", justifyContent: "center" }} span={8}>
-            <Button
-              type="primary"
-              className="savings-plan-actions-btn"
-              danger
-              disabled={savingsPlanSelected.status === "cancelled"}
-              onClick={handleSavingsPlanActions("terminate")}
-            >
-              Terminate
-            </Button>
-          </Col>
-        </Row>
-
-        <Divider style={{ color: "#1677ff" }}>
-          <BarsOutlined /> Deposit Records
-        </Divider>
-
-        <DepositList title={false} deposit={false} />
       </div>
+
+      <Divider style={{ color: "#1677ff" }}>
+        <CalculatorOutlined /> Actions
+      </Divider>
+      <Row gutter={16}>
+        <Col style={{ display: "flex", justifyContent: "center" }} span={6}>
+          <Button
+            type="primary"
+            className="savings-plan-actions-btn"
+            onClick={() => {
+              navigate(`/savings-plan/deposit/${savingsPlanSelected.id}`);
+            }}
+          >
+            Deposit
+          </Button>
+        </Col>
+
+        <Col style={{ display: "flex", justifyContent: "center" }} span={6}>
+          <Button
+            type="primary"
+            className="green-button savings-plan-actions-btn"
+            disabled={savingsPlanSelected.status !== "paused"}
+            onClick={handleSavingsPlanActions("resume")}
+          >
+            Resume
+          </Button>
+        </Col>
+
+        <Col style={{ display: "flex", justifyContent: "center" }} span={6}>
+          <Button
+            type="primary"
+            className="yellow-button savings-plan-actions-btn"
+            disabled={savingsPlanSelected.status !== "active"}
+            onClick={handleSavingsPlanActions("pause")}
+          >
+            Pause
+          </Button>
+        </Col>
+
+        <Col style={{ display: "flex", justifyContent: "center" }} span={6}>
+          <Button
+            type="primary"
+            className="savings-plan-actions-btn"
+            danger
+            disabled={savingsPlanSelected.status === "cancelled"}
+            onClick={handleSavingsPlanActions("terminate")}
+          >
+            Terminate
+          </Button>
+        </Col>
+      </Row>
+
+      <Divider style={{ color: "#1677ff" }}>
+        <BarsOutlined /> Deposit Records
+      </Divider>
+
+      <DepositList title={false} deposit={false} />
     </>
   );
 };

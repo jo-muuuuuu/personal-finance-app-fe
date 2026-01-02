@@ -35,7 +35,7 @@ const LineChart = () => {
         type: "line",
         smooth: true,
         areaStyle: { color: "#a5d6a7" },
-        itemStyle: { color: "#4caf50" },
+        itemStyle: { color: "#3f8600" },
         data: data.map((item) => item.total_income),
       },
       {
@@ -43,7 +43,7 @@ const LineChart = () => {
         type: "line",
         smooth: true,
         areaStyle: { color: "#ef9a9a" },
-        itemStyle: { color: "#f44336" },
+        itemStyle: { color: "#cf1322" },
         data: data.map((item) => item.total_expense),
       },
     ],
@@ -51,11 +51,7 @@ const LineChart = () => {
 
   return (
     <Card className="chart-card" title="Monthly Income and Expense Trend">
-      <ReactECharts
-        className="finance-echarts"
-        option={option}
-        // style={{ width: "40vw" }}
-      />
+      <ReactECharts className="finance-echarts" option={option} />
     </Card>
   );
 };

@@ -32,24 +32,20 @@ const BarChart = () => {
         name: "Income",
         type: "bar",
         data: data.map((item) => item.total_income),
-        itemStyle: { color: "#4caf50" },
+        itemStyle: { color: "#3f8600" },
       },
       {
         name: "Expense",
         type: "bar",
         data: data.map((item) => item.total_expense),
-        itemStyle: { color: "#f44336" },
+        itemStyle: { color: "#cf1322" },
       },
     ],
   };
 
   return (
     <Card className="chart-card" title="Account Book Income vs Expense">
-      <ReactECharts
-        className="finance-echarts"
-        option={option}
-        // style={{ width: "40vw" }}
-      />
+      <ReactECharts className="finance-echarts" option={option} />
     </Card>
   );
 };

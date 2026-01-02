@@ -15,9 +15,9 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import {
-  PlusOutlined,
+  PlusCircleOutlined,
   LeftOutlined,
-  CheckOutlined,
+  CheckCircleOutlined,
   StopOutlined,
   EyeOutlined,
   InfoCircleOutlined,
@@ -37,7 +37,12 @@ const statusColors = {
   completed: "green",
 };
 
-const DepositList = ({ title = true, deposit = true }) => {
+const DepositList = ({
+  title = true,
+  pagination = true,
+  deposit = true,
+  depositList,
+}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -142,12 +147,24 @@ const DepositList = ({ title = true, deposit = true }) => {
       )}
 
       <Table
-        dataSource={deposits}
+        dataSource={depositList ?? deposits}
+        pagination={pagination}
         rowClassName={(record, index) =>
           record.status === "completed" ? "row-completed" : ""
         }
       >
-        <Column title="Number" key="index" render={(_, __, index) => index + 1} />
+        {pagination && (
+          <Column title="Number" key="index" render={(_, __, index) => index + 1} />
+        )}
+
+        {!pagination && (
+          <Column
+            title="Savings Plan"
+            key="plan_name"
+            dataIndex={"plan_name"}
+            render={(plan_name) => plan_name || "N/A"}
+          />
+        )}
 
         <Column
           title={
@@ -162,22 +179,25 @@ const DepositList = ({ title = true, deposit = true }) => {
           key="scheduled_amount"
         />
 
-        <Column
-          title="Deposited Amount"
-          dataIndex="deposited_amount"
-          key="deposited_amount"
-          render={(deposited_amount, record, index) => {
-            if (deposit && index === firstPendingIndex) {
-              return (
-                <Input
-                  value={editableAmount ?? deposited_amount}
-                  onChange={(e) => setEditableAmount(e.target.value)}
-                />
-              );
-            }
-            return deposited_amount;
-          }}
-        />
+        {pagination && (
+          <Column
+            title="Deposited Amount"
+            dataIndex="deposited_amount"
+            key="deposited_amount"
+            render={(deposited_amount, record, index) => {
+              if (deposit && index === firstPendingIndex) {
+                return (
+                  <Input
+                    value={editableAmount ?? deposited_amount}
+                    onChange={(e) => setEditableAmount(e.target.value)}
+                  />
+                );
+              }
+              return deposited_amount;
+            }}
+          />
+        )}
+
         <Column
           title="Due Date"
           dataIndex="date"
@@ -207,7 +227,7 @@ const DepositList = ({ title = true, deposit = true }) => {
               if (isCompleted) {
                 return (
                   <>
-                    <Button type="default" disabled icon={<CheckOutlined />}>
+                    <Button type="default" disabled icon={<CheckCircleOutlined />}>
                       {buttonText}
                     </Button>
                     <Button
@@ -236,7 +256,7 @@ const DepositList = ({ title = true, deposit = true }) => {
                       <Button
                         type="primary"
                         className="green-button"
-                        icon={<PlusOutlined />}
+                        icon={<PlusCircleOutlined />}
                       >
                         {buttonText}
                       </Button>

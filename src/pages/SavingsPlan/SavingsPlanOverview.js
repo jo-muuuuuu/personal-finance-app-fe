@@ -11,6 +11,8 @@ import {
   deleteSavingsPlan,
 } from "../../store/reducers/savingsPlanThunk";
 import DeleteButton from "../../components/DeleteButton";
+import EmptyState from "../EmptyState";
+import LightBulbImg from "../../assets/imgs/lightbulb.png";
 
 const { Column } = Table;
 const statusColors = {
@@ -55,9 +57,9 @@ const SavingsPlanOverview = () => {
     };
   };
 
-  return (
+  return savingsPlanList && savingsPlanList.length !== 0 ? (
     <div>
-      <div className="header" style={{ display: "flex", alignContent: "center" }}>
+      <div className="header">
         <h2 style={{ marginTop: "0" }}>Your Savings Plans</h2>
         <Button type="primary" className="green-button" onClick={newSavingsPlanNav}>
           <PlusCircleOutlined /> New Savings Plan
@@ -156,6 +158,17 @@ const SavingsPlanOverview = () => {
           }}
         ></Column>
       </Table>
+    </div>
+  ) : (
+    <div style={{ marginTop: "100px" }}>
+      <EmptyState
+        img={LightBulbImg}
+        alt="No savings plan"
+        title="Start Saving With A Plan"
+        description="Savings plans help you reach your financial goals step by step."
+        nav={newSavingsPlanNav}
+        btnText="Create Your First Savings Plan"
+      />
     </div>
   );
 };

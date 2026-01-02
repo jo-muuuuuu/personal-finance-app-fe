@@ -21,7 +21,16 @@ import "./index.css";
 
 const { Column } = Table;
 
-const TransactionTable = ({ title, onCancel, onDelete, transactionList }) => {
+const TransactionTable = ({
+  title,
+  header = false,
+  type = true,
+  onCancel,
+  onDelete,
+  transactionList,
+  pagination = true,
+  actions = true,
+}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -49,7 +58,7 @@ const TransactionTable = ({ title, onCancel, onDelete, transactionList }) => {
 
   return (
     <div>
-      {onDelete ? (
+      {onDelete && (
         <>
           <Row className="view-transaction-header">
             <Col span={8}>
@@ -81,33 +90,26 @@ const TransactionTable = ({ title, onCancel, onDelete, transactionList }) => {
               </>
             </Col>
           </Row>
+          <div className="transaction-detail-container">
+            <Row className="transaction-detail-row" gutter={16}>
+              <Col className="transaction-detail-col" span={24}>
+                <span className="transaction-label">Tag</span>
+                <span>{accountBookSelected.tag || "N/A"}</span>
+              </Col>
+            </Row>
 
-          <Row className="transaction-detail-row" gutter={16}>
-            <Col className="transaction-detail-col" span={24}>
-              <span className="transaction-label">Tag</span>
-              <span>{accountBookSelected.tag || "N/A"}</span>
-            </Col>
-          </Row>
-
-          <Row className="transaction-detail-row" gutter={16}>
-            <Col className="transaction-detail-col" span={24}>
-              <span className="transaction-label">Description</span>
-              <span>{accountBookSelected.description || "N/A"}</span>
-            </Col>
-          </Row>
+            <Row className="transaction-detail-row" gutter={16}>
+              <Col className="transaction-detail-col" span={24}>
+                <span className="transaction-label">Description</span>
+                <span>{accountBookSelected.description || "N/A"}</span>
+              </Col>
+            </Row>
+          </div>
 
           <Divider style={{ color: "#1677ff" }}>
-            {" "}
             <BarsOutlined /> Transaction List
           </Divider>
         </>
-      ) : (
-        <div className="header" style={{ display: "flex", alignContent: "center" }}>
-          <h2 style={{ marginTop: "0" }}>Latest Transactions</h2>
-          <Button className="green-button" type="primary" onClick={newTransactionNav}>
-            <PlusCircleOutlined /> New Transaction
-          </Button>
-        </div>
       )}
 
       <Table
@@ -117,6 +119,7 @@ const TransactionTable = ({ title, onCancel, onDelete, transactionList }) => {
           if (record.type === "income") return "row-income";
           return "";
         }}
+        pagination={pagination}
       >
         <Column
           title="Account Book"
@@ -124,18 +127,20 @@ const TransactionTable = ({ title, onCancel, onDelete, transactionList }) => {
           key="account_book_name"
           render={(text) => (text ? text.toUpperCase() : "N/A")}
         />
-        <Column
-          title="Type"
-          dataIndex="type"
-          key="type"
-          render={(text) =>
-            text === "expense" ? (
-              <p style={{ margin: 0, color: "red" }}>{text.toUpperCase()}</p>
-            ) : (
-              <p style={{ margin: 0, color: "green" }}>{text.toUpperCase()}</p>
-            )
-          }
-        />
+        {type && (
+          <Column
+            title="Type"
+            dataIndex="type"
+            key="type"
+            render={(text) =>
+              text === "expense" ? (
+                <p style={{ margin: 0, color: "red" }}>{text.toUpperCase()}</p>
+              ) : (
+                <p style={{ margin: 0, color: "green" }}>{text.toUpperCase()}</p>
+              )
+            }
+          />
+        )}
         <Column
           title="Category"
           dataIndex="category"
@@ -154,33 +159,35 @@ const TransactionTable = ({ title, onCancel, onDelete, transactionList }) => {
           key="date"
           render={(date) => dayjs(date).format("YYYY-MM-DD") || "N/A"}
         />
-        <Column
-          title="Actions"
-          key="action"
-          className="table-actions"
-          render={(item) => (
-            <Space>
-              <Button type="primary" onClick={viewTransactionNav(item)}>
-                <EyeOutlined />
-                View
-              </Button>
-              <Button
-                className="yellow-button"
-                type="primary"
-                onClick={editTransactionNav(item)}
-              >
-                <EditOutlined />
-                Edit
-              </Button>
-              <DeleteButton
-                type="Transaction"
-                onDelete={() => {
-                  dispatch(deleteTransaction(item.id));
-                }}
-              />
-            </Space>
-          )}
-        />
+        {actions && (
+          <Column
+            title="Actions"
+            key="action"
+            className="table-actions"
+            render={(item) => (
+              <Space>
+                <Button type="primary" onClick={viewTransactionNav(item)}>
+                  <EyeOutlined />
+                  View
+                </Button>
+                <Button
+                  className="yellow-button"
+                  type="primary"
+                  onClick={editTransactionNav(item)}
+                >
+                  <EditOutlined />
+                  Edit
+                </Button>
+                <DeleteButton
+                  type="Transaction"
+                  onDelete={() => {
+                    dispatch(deleteTransaction(item.id));
+                  }}
+                />
+              </Space>
+            )}
+          />
+        )}
       </Table>
     </div>
   );
