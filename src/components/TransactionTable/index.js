@@ -23,7 +23,6 @@ const { Column } = Table;
 
 const TransactionTable = ({
   title,
-  header = false,
   type = true,
   onCancel,
   onDelete,
@@ -113,7 +112,9 @@ const TransactionTable = ({
       )}
 
       <Table
-        dataSource={transactionList}
+        dataSource={[...transactionList].sort(
+          (a, b) => new Date(b.date) - new Date(a.date)
+        )}
         rowClassName={(record) => {
           if (record.type === "expense") return "row-expense";
           if (record.type === "income") return "row-income";

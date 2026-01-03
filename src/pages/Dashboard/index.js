@@ -69,11 +69,14 @@ const Dashboard = () => {
   const accountBookList = useSelector((state) => state.accountBook.accountBookList);
 
   const transactionList = useSelector((state) => state.transaction.transactionList);
-  const recentTransactions = transactionList.slice(0, 5);
+  const recentTransactions = [...transactionList]
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .slice(0, 5);
 
   const depositList = useSelector((state) => state.deposit.depositList);
-  const recentDeposits = depositList
+  const recentDeposits = [...depositList]
     .filter((deposit) => deposit.status === "pending")
+    .sort((a, b) => new Date(a.date) - new Date(b.date))
     .slice(0, 5);
 
   const { income, expense } = useMemo(() => {
