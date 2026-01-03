@@ -2,9 +2,9 @@ import React from "react";
 import { useNavigate, useLocation } from "react-router";
 import {
   DashboardOutlined,
-  AccountBookOutlined,
-  TransactionOutlined,
-  MoneyCollectOutlined,
+  BookOutlined,
+  DollarOutlined,
+  BankOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
@@ -22,17 +22,17 @@ const siderItems = [
   },
   {
     key: "/account-book/overview",
-    icon: React.createElement(AccountBookOutlined),
+    icon: React.createElement(BookOutlined),
     label: "Account Books",
   },
   {
     key: "/transactions/overview",
-    icon: React.createElement(TransactionOutlined),
+    icon: React.createElement(DollarOutlined),
     label: "Transactions",
   },
   {
     key: "/savings-plan/overview",
-    icon: React.createElement(MoneyCollectOutlined),
+    icon: React.createElement(BankOutlined),
     label: "Savings Plans",
   },
   {

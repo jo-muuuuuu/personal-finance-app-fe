@@ -1,0 +1,20 @@
+.dashboard-dropdown-item {
+  margin: 0.1rem;
+  color: #1677ff;
+}
+
+.dashboard-stat-title {
+  color: #1677ff;
+  font-weight: bold;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.dashboard-flex-center {
+  display: flex;
+  justify-content: center;
+}
+
+.dashboard-row {
+  margin-top: 1rem;
+}

@@ -17,8 +17,8 @@ const CategoryGrid = ({ expenses, incomes, onSelect, type, selected }) => {
 
   return (
     <>
-      <h3 className="form-header-middle">Select Category</h3>
-      <Divider />
+      {/* <h3 className="form-header-middle"></h3> */}
+      <Divider style={{ color: "#1677ff" }}>Select Category</Divider>
 
       {type === "income" ? (
         <>

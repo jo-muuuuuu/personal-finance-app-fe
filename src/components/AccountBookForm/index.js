@@ -6,7 +6,14 @@ import { CheckOutlined, LeftOutlined } from "@ant-design/icons";
 import "./index.css";
 import DeleteButton from "../DeleteButton";
 
-const AccountBookForm = ({ title, onFinish, onCancel, onDelete, initialValues = {} }) => {
+const AccountBookForm = ({
+  title,
+  onFinish,
+  onCancel,
+  onDelete,
+  divider,
+  initialValues = {},
+}) => {
   // console.log(initialValues);
 
   return (
@@ -33,7 +40,7 @@ const AccountBookForm = ({ title, onFinish, onCancel, onDelete, initialValues = 
         </Col>
       </Row>
 
-      <Divider />
+      {divider && <Divider />}
 
       <Form
         labelCol={{

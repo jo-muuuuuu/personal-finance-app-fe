@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setAccountBookSelected } from "../../store/reducers/accountBookSlice";
-
+import EmptyState from "../EmptyState";
 import {
   fetchAccountBooks,
   deleteAccountBook,
@@ -11,8 +11,10 @@ import {
 import { Button, Space, Table } from "antd";
 import { PlusCircleOutlined, EyeOutlined, EditOutlined } from "@ant-design/icons";
 
-import "./index.css";
 import DeleteButton from "../../components/DeleteButton";
+import EmptyStateImg from "../../assets/imgs/empty-state.png";
+
+import "./index.css";
 
 const { Column } = Table;
 
@@ -52,10 +54,10 @@ const AccountBookOverview = () => {
     };
   };
 
-  return (
+  return accountBookList && accountBookList.length !== 0 ? (
     <div>
       <div className="header">
-        <h2>Your Account Books</h2>
+        <h2 style={{ marginTop: "0" }}>Your Account Books</h2>
         <Button type="primary" className="green-button" onClick={newAccBookNav}>
           <PlusCircleOutlined /> New Account Book
         </Button>
@@ -112,6 +114,17 @@ const AccountBookOverview = () => {
           )}
         />
       </Table>
+    </div>
+  ) : (
+    <div style={{ marginTop: "100px" }}>
+      <EmptyState
+        img={EmptyStateImg}
+        alt="No account books"
+        title="No Account Books Yet"
+        description="Create your first account book to start tracking your income and expenses."
+        nav={newAccBookNav}
+        btnText="Create Your First Account Book"
+      />
     </div>
   );
 };

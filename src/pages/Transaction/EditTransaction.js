@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-
+import { Divider } from "antd";
+import { EditOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 
 import TransactionForm from "../../components/TransactionForm";
@@ -49,7 +50,14 @@ const EditTransaction = () => {
 
   return (
     <TransactionForm
-      title={`Editing Transaction - [ID: ${transactionSelected.id}]`}
+      title={
+        <div style={{ textAlign: "center" }}>
+          <p style={{ color: "#1677ff", marginTop: "0" }}>
+            <EditOutlined /> Editing Transaction
+          </p>
+          <Divider>ID - {transactionSelected.id}</Divider>
+        </div>
+      }
       onFinish={onFinish}
       onCancel={onCancel}
       onDelete={onDelete}

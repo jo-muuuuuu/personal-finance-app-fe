@@ -4,11 +4,12 @@ import { Button, Form, Input, Divider, DatePicker, Radio, Select, Row, Col } fro
 import { CheckOutlined, LeftOutlined } from "@ant-design/icons";
 // import "./index.css";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import * as Icons from "../../assets";
 import CategoryGrid from "../CategoryGrid";
 import DeleteButton from "../DeleteButton";
+import { fetchAccountBooks } from "../../store/reducers/accountBookThunk";
 
 const expenses = [
   { id: 1, name: "Grocery", icon: <Icons.Grocery /> },
@@ -45,12 +46,15 @@ const TransactionForm = ({
   onFinish,
   onCancel,
   onDelete,
+  divider,
   initialValues = { type: "expense" },
 }) => {
   const [type, setType] = useState("");
   const [categorySelected, setCategorySelected] = useState(null);
 
   const [form] = Form.useForm();
+
+  const dispatch = useDispatch();
 
   const accountBookList = useSelector((state) => state.accountBook.accountBookList);
   const accountBookSelected = useSelector(
@@ -81,6 +85,8 @@ const TransactionForm = ({
           label: accountBookSelected.name,
         },
       });
+    } else {
+      dispatch(fetchAccountBooks());
     }
 
     setType(initialValues.type);
@@ -104,7 +110,7 @@ const TransactionForm = ({
         </Col>
       </Row>
 
-      <Divider />
+      {divider && <Divider />}
 
       <Form
         form={form}

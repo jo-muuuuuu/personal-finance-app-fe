@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { Divider } from "antd";
+import { EditOutlined } from "@ant-design/icons";
 
 import AccountBookForm from "../../components/AccountBookForm";
 import { setAccountBookSelected } from "../../store/reducers/accountBookSlice";
@@ -40,7 +42,14 @@ const EditAccountBook = () => {
 
   return (
     <AccountBookForm
-      title={`Editing account book: [${accountBookSelected.name.toUpperCase()}]`}
+      title={
+        <div style={{ textAlign: "center" }}>
+          <p style={{ color: "#1677ff", marginTop: "0" }}>
+            <EditOutlined /> Editing Account Book
+          </p>
+          <Divider>{accountBookSelected.name.toUpperCase()}</Divider>
+        </div>
+      }
       onFinish={onFinish}
       onCancel={onCancel}
       onDelete={onDelete}

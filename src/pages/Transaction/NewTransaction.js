@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import dayjs from "dayjs";
-
+import { PlusCircleOutlined } from "@ant-design/icons";
 import TransactionForm from "../../components/TransactionForm";
 import { setAccountBookSelected } from "../../store/reducers/accountBookSlice";
 import { newTransaction } from "../../store/reducers/transactionThunk";
@@ -32,9 +32,14 @@ const NewTransaction = () => {
 
   return (
     <TransactionForm
-      title="Create a New Transaction"
+      title={
+        <p style={{ color: "#1677ff", margin: "0" }}>
+          <PlusCircleOutlined /> New Transaction
+        </p>
+      }
       onFinish={onFinish}
       onCancel={onCancel}
+      divider={true}
     />
   );
 };

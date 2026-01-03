@@ -94,11 +94,11 @@ const CustomHeader = () => {
   const headerItems = [
     {
       label: (
-        <p>
+        <p onClick={() => navigate("/profile")}>
           <UserOutlined /> Profile
         </p>
       ),
-      key: "/profile",
+      key: "profile",
     },
     {
       label: (

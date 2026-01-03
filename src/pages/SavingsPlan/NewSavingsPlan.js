@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { PlusCircleOutlined } from "@ant-design/icons";
 
 import NewSavingsPlanForm from "../../components/SavingsPlanForm/NewSavingsPlanForm";
 import { newSavingsPlan } from "../../store/reducers/savingsPlanThunk";
@@ -28,7 +29,11 @@ const NewSavingsPlan = () => {
 
   return (
     <NewSavingsPlanForm
-      title="New Savings Plan"
+      title={
+        <p style={{ color: "#1677ff", margin: "0" }}>
+          <PlusCircleOutlined /> New Savings Plan
+        </p>
+      }
       onCancel={onCancel}
       onFinish={onFinish}
     />
