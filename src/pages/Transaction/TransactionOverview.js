@@ -34,15 +34,17 @@ const TransactionOverview = () => {
 
   if (!accountBookList || accountBookList.length === 0) {
     return (
-      <EmptyState
-        img={BannedImg}
-        alt="No account books"
-        title="Nothing To Record Yet"
-        description="Transactions must belong to an account book. Create one to start recording your
+      <div style={{ marginTop: "6rem" }}>
+        <EmptyState
+          img={BannedImg}
+          alt="No account books"
+          title="Nothing To Record Yet"
+          description="Transactions must belong to an account book. Create one to start recording your
           income and expenses."
-        nav={newAccBookNav}
-        btnText="Create Your First Account Book"
-      />
+          nav={newAccBookNav}
+          btnText="Create Your First Account Book"
+        />
+      </div>
     );
   }
 
@@ -57,7 +59,7 @@ const TransactionOverview = () => {
       <TransactionTable transactionList={transactionList} />
     </div>
   ) : (
-    <div style={{ marginTop: "100px" }}>
+    <div style={{ marginTop: "6rem" }}>
       <EmptyState
         img={NoDataImg}
         alt="No transactions"

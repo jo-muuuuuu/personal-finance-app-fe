@@ -160,7 +160,7 @@ const SavingsPlanOverview = () => {
       </Table>
     </div>
   ) : (
-    <div style={{ marginTop: "100px" }}>
+    <div style={{ marginTop: "6rem" }}>
       <EmptyState
         img={LightBulbImg}
         alt="No savings plan"

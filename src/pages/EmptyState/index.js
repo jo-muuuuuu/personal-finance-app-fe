@@ -61,7 +61,11 @@ const EmptyState = ({
 
   return (
     <div className="empty-state">
-      {nickname && <h2>👋 Welcome to Pennywave, {nickname.toUpperCase()}!</h2>}
+      {nickname && (
+        <h1 style={{ margin: "6rem 0" }}>
+          👋 Welcome to Pennywave, {nickname.toUpperCase()}!
+        </h1>
+      )}
 
       <img
         src={img}

@@ -28,8 +28,9 @@
 }
 
 .land-banner h1 {
-  color: navy;
+  color: #191970;
   margin-top: 3.5rem;
+  font-size: 2.5rem;
 }
 
 .land-banner p {
@@ -49,6 +50,11 @@
   height: 128px;
 }
 
+.land-video {
+  margin-top: 2.5rem;
+  border-radius: 0.5rem;
+}
+
 .land-features {
   padding: 4rem 2rem;
   max-width: 1200px;
@@ -62,7 +68,7 @@
 .land-features h3 {
   font-size: 1.5rem;
   font-weight: bold;
-  color: navy;
+  color: #191970;
 
   margin-bottom: 0.5rem;
 }

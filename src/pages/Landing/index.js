@@ -62,7 +62,20 @@ const Landing = () => {
             powerful and easy-to-use Bookkeeping App.
           </p>
 
-          <Button
+          <iframe
+            className="land-video"
+            width="640"
+            height="360"
+            src="https://www.youtube.com/embed/-0Kt80Snxmk?si=EarQk1my27b1SpUo"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+      {/* <Button
             type="primary"
             size="large"
             style={{ backgroundColor: "navy", marginTop: "2.5rem" }}
@@ -70,9 +83,7 @@ const Landing = () => {
             target="_blank"
           >
             INTRODUCTION
-          </Button>
-        </div>
-      </div>
+          </Button> */}
 
       <div className="land-banner-arc">
         <div className="land-banner-arc-top"></div>
@@ -150,7 +161,7 @@ const Landing = () => {
       </div>
 
       <Card className="land-card">
-        <h1 style={{ color: "navy" }}>Elevate Your Financial Journey</h1>
+        <h1 style={{ color: "#191970" }}>Elevate Your Financial Journey</h1>
         <p style={{ fontSize: "1.25rem", marginBottom: "2rem" }}>
           Our app simplifies expense tracking and empowers you to make better financial
           decisions.
@@ -158,7 +169,7 @@ const Landing = () => {
         <Button
           type="primary"
           size="large"
-          style={{ backgroundColor: "navy", marginTop: "1rem", fontWeight: "bold" }}
+          style={{ backgroundColor: "#191970", marginTop: "1rem", fontWeight: "bold" }}
           onClick={() => {
             navigate("/login");
           }}
