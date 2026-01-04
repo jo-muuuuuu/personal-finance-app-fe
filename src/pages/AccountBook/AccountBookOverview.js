@@ -116,7 +116,7 @@ const AccountBookOverview = () => {
       </Table>
     </div>
   ) : (
-    <div style={{ marginTop: "100px" }}>
+    <div style={{ marginTop: "6rem" }}>
       <EmptyState
         img={EmptyStateImg}
         alt="No account books"
