@@ -21,11 +21,13 @@ import EditSavingsPlan from "../pages/SavingsPlan/EditSavingsPlan";
 import ViewSavingsPlan from "../pages/SavingsPlan/ViewSavingsPlan";
 import DepositList from "../components/DepositList";
 import GitHubCallback from "../components/ThirdPartyLogin/GitHubCallback";
+import NotFound from "../pages/NotFound";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <AppLayout />,
+    errorElement: <NotFound />,
     children: [
       {
         index: true,
