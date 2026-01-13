@@ -230,15 +230,22 @@ const DepositList = ({
                     <Button type="default" disabled icon={<CheckCircleOutlined />}>
                       {buttonText}
                     </Button>
-                    <Button
-                      type="primary"
-                      danger
-                      icon={<StopOutlined />}
-                      style={{ marginLeft: "1rem" }}
-                      onClick={onResetDeposit(item)}
+                    <Popconfirm
+                      title="Reset Deposit"
+                      description="Are you sure you want to reset this deposit?"
+                      okText="Yes"
+                      cancelText="No"
+                      onConfirm={onResetDeposit(item)}
                     >
-                      Reset
-                    </Button>
+                      <Button
+                        type="primary"
+                        danger
+                        icon={<StopOutlined />}
+                        style={{ marginLeft: "1rem" }}
+                      >
+                        Reset
+                      </Button>
+                    </Popconfirm>
                   </>
                 );
               }

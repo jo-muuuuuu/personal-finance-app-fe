@@ -183,10 +183,11 @@ const Landing = () => {
 
         <div className="land-footer-arc-bot">
           <h2>Contact Me</h2>
+
           <div className="land-footer-contact">
             <div className="land-footer-contact-item">
               <MailFilled />
-              <p>johnnymu0809@gmail.com</p>
+              <a style={{ cursor: "default" }}>johnnymu0809@gmail.com</a>
             </div>
 
             <div className="land-footer-contact-item">
